@@ -11,13 +11,21 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useLocation } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const ROUTES_WITH_NO_NAV = {
+  '/Register': true,
+  '/':true
+};
+
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  
+  const currentPath = useLocation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +43,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="sticky">
+    !ROUTES_WITH_NO_NAV[currentPath.pathname] && (<AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -134,7 +142,7 @@ const ResponsiveAppBar = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar>)
   );
 };
 export default ResponsiveAppBar;

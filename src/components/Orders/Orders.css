@@ -1,0 +1,28 @@
+.orders_container{
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    margin: auto;
+}
+
+.orders_item{
+    width: 25%;
+    padding: 20px;
+    text-decoration: none !important;
+    min-width: 280px;
+}
+
+.css-ahj2mt-MuiTypography-root{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.css-heg063-MuiTabs-flexContainer{
+    justify-content: center;
+}

@@ -8,13 +8,13 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
-import Stores from "./components/Stores/Stores";
 import Store from "./components/Store/Store";
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <div className="App">
+      <ResponsiveAppBar />
       <CartProvider>
         <Router>
           <Routes>

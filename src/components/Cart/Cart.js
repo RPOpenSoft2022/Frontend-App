@@ -5,19 +5,11 @@ import {
   Card,
   CardMedia,
   CardContent,
-  createChainedFunction,
-  Modal,
   Box,
-  FormControl,
   Typography,
-  TextField,
   Button,
-  Link,
-  InputAdornment,
-  Avatar,
 } from "@mui/material";
-function Cart(props) {
-  const [cart, setCart] = useContext(CartContext);
+function Cart() {
   return (
     <>
       {" "}
@@ -39,6 +31,8 @@ function Cart(props) {
 }
 
 function CardElement() {
+  const [cart] = useContext(CartContext);
+  const { Items } = cart;
   return (
     <>
       <Box
@@ -57,15 +51,14 @@ function CardElement() {
             maxWidth: "1200px",
           }}
         >
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
+          {Items.map((Item) => {
+            const { id } = Item;
+            return (
+              <>
+                <CardComponent key={id} {...Item} />
+              </>
+            );
+          })}
         </Box>
         <Button
           variant="contained"
@@ -80,7 +73,25 @@ function CardElement() {
   );
 }
 
-function CardComponent() {
+function CardComponent(props) {
+  const [cart, setCart] = useContext(CartContext);
+  const updateItemQuantity = (itemId, operation) => {
+    const { Items } = cart;
+    const modifiedItems = Items.map((item) => {
+      if (item.id === itemId) {
+        const quantity = Number(item.quantity) + operation;
+        const modifiedItem = { ...item, quantity: `${quantity}` };
+        return modifiedItem;
+      } else return item;
+    }).filter((item) => item.quantity !== "0");
+    setCart({ ...cart, Items: modifiedItems });
+  };
+  const removeItem = (itemId) => {
+    const { Items } = cart;
+    const modifiedItems = Items.filter((item) => item.id !== itemId);
+    setCart({ ...cart, Items: modifiedItems });
+  };
+  const { id, name, quantity } = props;
   return (
     <Card sx={{ minWidth: 300, margin: "10px" }}>
       <CardMedia
@@ -91,11 +102,11 @@ function CardComponent() {
       />
       <CardContent>
         <Typography variant="h5" component="div" align="center">
-          Lizard
+          {name}
         </Typography>
       </CardContent>
       <Typography color="text.secondary" align="center">
-        Item Subtotal - (4)*(56$)
+        Item Subtotal - ({quantity})*(56$)
       </Typography>
 
       <Box
@@ -106,10 +117,31 @@ function CardComponent() {
         }}
       >
         <Box>
-          <Button size="small">+</Button>
-          <Button size="small">-</Button>
+          <Button
+            size="small"
+            onClick={() => {
+              updateItemQuantity(id, 1);
+            }}
+          >
+            +
+          </Button>
+          <Button
+            size="small"
+            onClick={() => {
+              updateItemQuantity(id, -1);
+            }}
+          >
+            -
+          </Button>
         </Box>
-        <Button size="xs">Remove</Button>
+        <Button
+          size="xs"
+          onClick={() => {
+            removeItem(id);
+          }}
+        >
+          Remove
+        </Button>
       </Box>
     </Card>
   );

@@ -96,8 +96,8 @@ const Store = (props) => {
                             image={store.image}
                             alt={store.name}
                         />
-                        <CardContent sx={{ backgroundColor: "#7bbfed" }}>
-                            <Typography variant="h2" component="div" color="white">
+                        <CardContent sx={{ backgroundImage: "linear-gradient(#000000, #1667a6)" }}>
+                            <Typography variant="h1" component="div" color="white">
                                 {store.name}
                             </Typography>
 
@@ -120,12 +120,12 @@ const Store = (props) => {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-                <Typography variant="h4" align='center' sx={{marginTop: "5px"}}>Menu</Typography>
+                <Typography variant="h3" align='center' sx={{marginTop: "10px"}} color="primary">Menu</Typography>
                 <Box
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        justifyContent:"flex-start",
+                        justifyContent:"center",
                         alignContent: 'center',
                         p: 1,
                         m: 1,
@@ -135,7 +135,7 @@ const Store = (props) => {
                 >
                     {
                         store.menu.map((item) =>
-                            <Card sx={{ minWidth: 320, margin: "10px" }} key={item.id}>
+                            <Card sx={{ minWidth: 320, margin: "15px" }} key={item.id}>
                                 <CardMedia
                                     component="img"
                                     alt={item.name}

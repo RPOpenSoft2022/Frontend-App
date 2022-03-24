@@ -11,13 +11,23 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useLocation, Link} from 'react-router-dom';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const pages = ['Stores', 'Orders', 'Cart'];
+const settings = ['Profile', 'Logout'];
+
+const ROUTES_WITH_NO_NAV = {
+  '/Register': true,
+  '/':true
+};
+
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  
+  const currentPath = useLocation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +45,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="sticky">
+    !ROUTES_WITH_NO_NAV[currentPath.pathname] && (<AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -44,7 +54,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            <LocalDiningIcon fontSize='large'/>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -77,9 +87,9 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                  <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={`/${page}`}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
               ))}
             </Menu>
           </Box>
@@ -89,17 +99,21 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            <LocalDiningIcon fontSize='large'/>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={`/${page}`} style={{textDecoration: 'none'}}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+
+                  sx={{ my: 2, color: 'white', display: 'block'}}
+                >
+                  {page}
+                </Button>
+              </Link>
+              
             ))}
           </Box>
 
@@ -134,7 +148,7 @@ const ResponsiveAppBar = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar>)
   );
 };
 export default ResponsiveAppBar;

@@ -159,8 +159,6 @@ const Store = (props) => {
                         )
                     }
                 </Box>
-
-
             </div>
         </>
     );

@@ -8,12 +8,18 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
+<<<<<<< HEAD
 import Store from "./components/Store/Store";
+=======
+import Store from "./components/Store/Store"
+import Orders from "./components/Orders/Orders"
+>>>>>>> 177e815203cb03f5234e8ecd01aa6caad97194cf
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
       <ResponsiveAppBar />
       <CartProvider>
         <Router>
@@ -26,6 +32,21 @@ function App() {
             <Route path="/Checkout" element={<Checkout />} />
           </Routes>
         </Router>
+=======
+      <CartProvider>
+      <Router>
+        <ResponsiveAppBar/>
+        <Routes>
+          <Route path="/" element={<LogIn />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Stores" element={<Stores />} />
+          <Route path="/Stores/:id" element={<Store />} />
+          <Route path="/Orders" element={<Orders />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/Checkout" element={<Checkout />} />
+        </Routes>
+      </Router>
+>>>>>>> 177e815203cb03f5234e8ecd01aa6caad97194cf
       </CartProvider>
     </div>
   );

@@ -5,10 +5,12 @@ import Register from "./components/Register/Register";
 import "./App.css";
 import Stores from "./components/Stores/Stores"
 import Store from "./components/Store/Store"
+import ResponsiveAppBar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <div className="App">
+      <ResponsiveAppBar/>
       <Router>
         <Routes>
           <Route path="/" element={<LogIn />} />

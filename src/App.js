@@ -5,6 +5,7 @@ import Register from "./components/Register/Register";
 import "./App.css";
 import Stores from "./components/Stores/Stores"
 import Store from "./components/Store/Store"
+import Orders from "./components/Orders/Orders"
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Stores" element={<Stores />} />
           <Route path="/Stores/:id" element={<Store />} />
+          <Route path="/Orders" element={<Orders />} />
         </Routes>
       </Router>
     </div>

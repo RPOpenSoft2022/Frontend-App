@@ -8,6 +8,9 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
+import Stores from "./components/Stores/Stores";
+import Store from "./components/Store/Store";
+import ResponsiveAppBar from "./components/Navbar/Navbar";
 
 function App() {
   return (
@@ -18,6 +21,7 @@ function App() {
             <Route path="/" element={<LogIn />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Stores" element={<Stores />} />
+            <Route path="/Stores/:id" element={<Store />} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/Checkout" element={<Checkout />} />
           </Routes>

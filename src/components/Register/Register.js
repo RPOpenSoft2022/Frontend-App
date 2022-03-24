@@ -99,7 +99,7 @@ export default function Register() {
           </FormControl>
         </form>
         <Link href="/" color="primary" underline="hover">
-          SignIn
+          SignUp
         </Link>
       </Box>
       <Modal

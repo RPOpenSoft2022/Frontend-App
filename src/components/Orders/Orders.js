@@ -174,64 +174,40 @@ export default function BasicTabs() {
             "id": 5
         },
         {
-            "date": "21 Jan, 2022",
+            "date": "03 Feb, 2022",
             "store": "Store A",
             "time": "8:30 PM",
             "id": 1
         },
         {
-            "date": "22 Jan, 2022",
+            "date": "04 Feb, 2022",
             "store": "Store B",
             "time": "8:31 PM",
             "id": 2
         },
         {
-            "date": "23 Jan, 2022",
+            "date": "05 Feb, 2022",
             "store": "Store C",
             "time": "8:32 PM",
             "id": 3
         },
         {
-            "date": "24 Jan, 2022",
+            "date": "06 Feb, 2022",
             "store": "Store D",
             "time": "8:33 PM",
             "id": 4
         },
         {
-            "date": "25 Jan, 2022",
+            "date": "07 Feb, 2022",
             "store": "Store E",
             "time": "8:34 PM",
             "id": 5
         },{
-            "date": "21 Jan, 2022",
+            "date": "08 Feb, 2022",
             "store": "Store A",
             "time": "8:30 PM",
             "id": 1
-        },
-        {
-            "date": "22 Jan, 2022",
-            "store": "Store B",
-            "time": "8:31 PM",
-            "id": 2
-        },
-        {
-            "date": "23 Jan, 2022",
-            "store": "Store C",
-            "time": "8:32 PM",
-            "id": 3
-        },
-        {
-            "date": "24 Jan, 2022",
-            "store": "Store D",
-            "time": "8:33 PM",
-            "id": 4
-        },
-        {
-            "date": "25 Jan, 2022",
-            "store": "Store E",
-            "time": "8:34 PM",
-            "id": 5
-        },
+        }
         ]
 
     const columns = [
@@ -277,7 +253,7 @@ export default function BasicTabs() {
                 <Table  dataSource={dataSource} columns={columns}  style={{minWidth:"280px"}}/>
             </TabPanel>
             <TabPanel value={value} index={1} className="orders_box">    
-                <Table  dataSource={dataSource} columns={columns} style={{minWidth:"280px"}} />
+                <Table  dataSource={dataSource1} columns={columns} style={{minWidth:"280px"}} />
             </TabPanel>
         </Box>
         </div>

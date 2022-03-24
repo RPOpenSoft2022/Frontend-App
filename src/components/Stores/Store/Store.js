@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom'
 const Store = () => {
     return ( 
     <>
-    <div>
-        
+    <div className="individual_stores_container">
+        <div className="hero_image">
+
+        </div>
     </div>
     </> 
     );

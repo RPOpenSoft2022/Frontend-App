@@ -8,7 +8,6 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
-import Stores from "./components/Stores/Stores"
 import Store from "./components/Store/Store"
 import Orders from "./components/Orders/Orders"
 import ResponsiveAppBar from "./components/Navbar/Navbar";

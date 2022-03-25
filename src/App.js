@@ -11,6 +11,7 @@ import "./App.css";
 import Store from "./components/Store/Store";
 import Orders from "./components/Orders/Orders";
 import ResponsiveAppBar from "./components/Navbar/Navbar";
+import EditProfile from "./components/Profile/edit-profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/Orders" element={<Orders />} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>
         </Router>
       </CartProvider>

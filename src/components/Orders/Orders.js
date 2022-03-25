@@ -336,10 +336,10 @@ export default function BasicTabs() {
         },
         {
             title: 'View Store',
-            dataIndex: 'store_id',
-            key: 'store_id',
+            dataIndex: 'store',
+            key: 'store',
             width: 250 ,
-            render: (text) => <Link to={`/Stores/${text}`}>view</Link>,
+            render: (text) => <Link to={`/Stores/${text.store_id}`}>{text.name}</Link>,
           },
         {
             title: 'Action',

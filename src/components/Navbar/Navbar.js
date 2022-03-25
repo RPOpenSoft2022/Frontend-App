@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation, Link} from 'react-router-dom';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const pages = ['Stores', 'Orders', 'Cart'];
@@ -120,7 +121,7 @@ const ResponsiveAppBar = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <AccountCircleIcon sx={{color:"white"}} fontSize="large"/>
               </IconButton>
             </Tooltip>
             <Menu

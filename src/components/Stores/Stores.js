@@ -71,6 +71,7 @@ const Stores = () => {
 
   return (
     <>
+    <Typography variant="h2" sx={{textAlign: "center", marginTop: "10px"}} color="primary"> Stores </Typography>
       <div className="stores_container">
         {stores_list.length !== null &&
           stores_list.map((item) => (

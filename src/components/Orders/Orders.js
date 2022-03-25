@@ -335,6 +335,13 @@ export default function BasicTabs() {
             render: (text) => `INR ${text}`
         },
         {
+            title: 'View Store',
+            dataIndex: 'store_id',
+            key: 'store_id',
+            width: 250 ,
+            render: (text) => <Link to={`/Stores/${text}`}>view</Link>,
+          },
+        {
             title: 'Action',
             dataIndex: 'id',
             key: 'id',

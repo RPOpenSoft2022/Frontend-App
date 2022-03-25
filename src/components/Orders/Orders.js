@@ -365,7 +365,7 @@ export default function BasicTabs() {
 
     return (
         <div className="orders_container">
-            <h1 className="orders_header">Your Orders</h1>
+            <Typography variant="h2" sx={{textAlign: "center", marginTop: "10px"}} color="primary"> Your Orders </Typography>
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">

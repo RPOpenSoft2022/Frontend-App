@@ -55,89 +55,104 @@ export default function BasicTabs() {
         "date": "21 Jan, 2022",
         "store": "Store A",
         "time": "8:30 PM",
+        "store_id":"2",
         "id": 1
     },
     {
         "date": "22 Jan, 2022",
         "store": "Store B",
         "time": "8:31 PM",
+        "store_id":"2",
         "id": 2
     },
     {
         "date": "23 Jan, 2022",
         "store": "Store C",
         "time": "8:32 PM",
+        "store_id":"2",
         "id": 3
     },
     {
         "date": "24 Jan, 2022",
         "store": "Store D",
         "time": "8:33 PM",
+        "store_id":"2",
         "id": 4
     },
     {
         "date": "25 Jan, 2022",
         "store": "Store E",
         "time": "8:34 PM",
+        "store_id":"2",
         "id": 5
     },
     {
         "date": "21 Jan, 2022",
         "store": "Store A",
         "time": "8:30 PM",
+        "store_id":"2",
         "id": 1
     },
     {
         "date": "22 Jan, 2022",
         "store": "Store B",
         "time": "8:31 PM",
+        "store_id":"2",
         "id": 2
     },
     {
         "date": "23 Jan, 2022",
         "store": "Store C",
         "time": "8:32 PM",
+        "store_id":"2",
         "id": 3
     },
     {
         "date": "24 Jan, 2022",
         "store": "Store D",
         "time": "8:33 PM",
+        "store_id":"2",
         "id": 4
     },
     {
         "date": "25 Jan, 2022",
         "store": "Store E",
         "time": "8:34 PM",
+        "store_id":"2",
         "id": 5
     },{
         "date": "21 Jan, 2022",
         "store": "Store A",
         "time": "8:30 PM",
+        "store_id":"2",
         "id": 1
     },
     {
         "date": "22 Jan, 2022",
         "store": "Store B",
         "time": "8:31 PM",
+        "store_id":"2",
         "id": 2
     },
     {
         "date": "23 Jan, 2022",
         "store": "Store C",
         "time": "8:32 PM",
+        "store_id":"2",
         "id": 3
     },
     {
         "date": "24 Jan, 2022",
         "store": "Store D",
         "time": "8:33 PM",
+        "store_id":"2",
         "id": 4
     },
     {
         "date": "25 Jan, 2022",
         "store": "Store E",
         "time": "8:34 PM",
+        "store_id":"2",
         "id": 5
     },
     ]
@@ -147,65 +162,76 @@ export default function BasicTabs() {
             "date": "29 Jan, 2022",
             "store": "Store A",
             "time": "8:30 PM",
+            "store_id":"2",
             "id": 1
         },
         {
             "date": "30 Jan, 2022",
             "store": "Store B",
             "time": "8:31 PM",
+            "store_id":"2",
             "id": 2
         },
         {
             "date": "31 Jan, 2022",
             "store": "Store C",
             "time": "8:32 PM",
+            "store_id":"2",
             "id": 3
         },
         {
             "date": "01 Feb, 2022",
             "store": "Store D",
             "time": "8:33 PM",
+            "store_id":"2",
             "id": 4
         },
         {
             "date": "02 Feb, 2022",
             "store": "Store E",
             "time": "8:34 PM",
+            "store_id":"2",
             "id": 5
         },
         {
             "date": "03 Feb, 2022",
             "store": "Store A",
             "time": "8:30 PM",
+            "store_id":"2",
             "id": 1
         },
         {
             "date": "04 Feb, 2022",
             "store": "Store B",
             "time": "8:31 PM",
+            "store_id":"2",
             "id": 2
         },
         {
             "date": "05 Feb, 2022",
             "store": "Store C",
             "time": "8:32 PM",
+            "store_id":"2",
             "id": 3
         },
         {
             "date": "06 Feb, 2022",
             "store": "Store D",
             "time": "8:33 PM",
+            "store_id":"2",
             "id": 4
         },
         {
             "date": "07 Feb, 2022",
             "store": "Store E",
             "time": "8:34 PM",
+            "store_id":"2",
             "id": 5
         },{
             "date": "08 Feb, 2022",
             "store": "Store A",
             "time": "8:30 PM",
+            "store_id":"2",
             "id": 1
         }
         ]
@@ -230,11 +256,18 @@ export default function BasicTabs() {
           width: 250 
         },
         {
+            title: 'View Store',
+            dataIndex: 'store_id',
+            key: 'store_id',
+            width: 250 ,
+            render: (text) => <Link to={`/Stores/${text}`}>view</Link>,
+          },
+        {
             title: 'Action',
             dataIndex: 'id',
             key: 'id',
             width: 250,
-            render: (text) => <a href={`Orders/${text}`}>view</a>,
+            render: (text) => <Link to={`/Orders/${text}`}>view</Link>,
         },
       ];
 

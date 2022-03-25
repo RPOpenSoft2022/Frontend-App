@@ -66,6 +66,7 @@ const Stores = () => {
     return (
         <>
             <div className="stores_container">
+            <h1 className="stores_header">Stores</h1>
                 {stores_list.length !== null && stores_list.map((item) =>
                     <Link to={`./${item.id}`} key={item.id} class="stores_item">
                         <Card sx={{ maxWidth: 345 }}>

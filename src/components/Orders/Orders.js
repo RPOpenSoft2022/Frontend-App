@@ -346,9 +346,21 @@ export default function BasicTabs() {
             dataIndex: 'id',
             key: 'id',
             width: 250,
-            render: (text) => <a href={`../Orders/${text}`}>view</a>,
+            render: (text) => <div>
+                <Button type="primary" style={{marginRight:"5px", marginBottom:"5px"}}><Link to={`../Orders/${text}`}>view</Link></Button>
+                <Button type="danger" style={{marginBottom:"5px"}}><Link to={`#`}>cancel</Link></Button>
+                </div>,
         },
     ];
+
+    const columns1 = columns.slice(0,3)
+    columns1.push({
+        title: 'Action',
+        dataIndex: 'id',
+        key: 'id',
+        width: 250,
+        render: (text) => <Button type="primary"><Link to={`../Orders/${text}`}>view</Link></Button>,
+    })
 
 
     return (
@@ -365,7 +377,7 @@ export default function BasicTabs() {
                     <Table dataSource={dataSource} columns={columns} style={{ minWidth: "280px" }} />
                 </TabPanel>
                 <TabPanel value={value} index={1} className="orders_box">
-                    <Table dataSource={dataSource1} columns={columns} style={{ minWidth: "280px" }} />
+                    <Table dataSource={dataSource1} columns={columns1} style={{ minWidth: "280px" }} />
                 </TabPanel>
             </Box>
         </div>

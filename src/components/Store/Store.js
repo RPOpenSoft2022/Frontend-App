@@ -1,6 +1,6 @@
 import * as React from 'react';
 import "./Store.css"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext} from 'react';
 import { Link, useParams } from 'react-router-dom'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,9 +15,12 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import GradeIcon from '@mui/icons-material/Grade';
 import Box from '@mui/material/Box';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { CartContext } from "../../Contexts/CartContext";
 
 const Store = (props) => {
     const { id } = useParams();
+    const [cart, setCart] = useContext(CartContext);
+    const [loading, setloading] = useState(false);
     const [store, setstore] = useState({
         "name": "PFC",
         "id": 2,
@@ -81,12 +84,44 @@ const Store = (props) => {
         ]
     });
     useEffect(() => {
-        return () => {
+        setloading(true);
+        if(cart.storeId==id){
+            cart.Items.map((item)=>{
+                const it_ind = store.menu.findIndex((curr_it) => curr_it.id==item.id);
+                if (it_ind > -1)
+                    store.menu[it_ind].selected = true;
+            })
+
         }
+        setloading(false);
     }, []);
 
+    const addToCart = (item) =>{
+        if(item.selected){
+            // show a notification that item is already selected
+            return;
+        }
+        if((!cart.storeId) || (cart.storeId != id)){
+            // show a notification that older selected items will be removed
+            setCart({});
+            setCart({storeId: id, storeName: store.name, Items: [{...item, quantity: 1}]});
+            item.selected = true;
+            return;
+        }
+        let items = cart.Items;
+        if(!items)
+            items = [item]
+        else
+            items = [...items, {...item, quantity: 1}]
+        setCart({...cart, Items: items});
+        item.selected = true;
+        // show a notification that items is selected
+    };
+    
     return (
         <>
+        {
+            loading?"Loading ....":(
             <div>
                 <Card>
                     <CardActionArea>
@@ -151,8 +186,8 @@ const Store = (props) => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" variant="contained" fullWidth sx={{ backgroundColor: "primary" }}>
-                                        <Typography fontFamily="monospace">Add-To-Cart</Typography>
+                                    <Button size="small" variant="contained" fullWidth sx={{ backgroundColor: "primary" }} onClick={(() => addToCart(item))} disabled={item.selected}>
+                                        <Typography fontFamily="monospace" >{item.selected?"Added-To-Cart":"Add-To-Cart"}</Typography>
                                     </Button>
                                 </CardActions>
                             </Card>
@@ -160,6 +195,9 @@ const Store = (props) => {
                     }
                 </Box>
             </div>
+            )
+        }
+            
         </>
     );
 }

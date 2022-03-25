@@ -10,6 +10,7 @@ import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
 import Store from "./components/Store/Store";
 import Orders from "./components/Orders/Orders";
+import Order from "./components/Order/Order"
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/Stores" element={<Stores />} />
             <Route path="/Stores/:id" element={<Store />} />
             <Route path="/Orders" element={<Orders />} />
+            <Route path="/Orders/:id" element={<Order />} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/Checkout" element={<Checkout />} />
             <Route exact path="/Profile" element={<Profile />} />

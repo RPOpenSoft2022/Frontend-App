@@ -87,9 +87,10 @@ const Store = (props) => {
         setloading(true);
         if(cart.storeId==id){
             cart.Items.map((item)=>{
-                const it_ind = store.menu.findIndex((curr_it) => curr_it.id==item.id);
-                if (it_ind > -1)
-                    store.menu[it_ind].selected = true;
+                const menu = store.menu;
+                const it_ind = menu.findIndex((curr_it) => curr_it.id==item.id);
+                menu[it_ind].selected = true;
+                setstore({...store, menu: menu});
             })
 
         }

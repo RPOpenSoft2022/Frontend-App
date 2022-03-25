@@ -1,19 +1,17 @@
 .orders_container{
-    width: 90%;
+    width: 95%;
     max-width: 1200px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 15px;
     margin: auto;
 }
 
-.orders_item{
-    width: 25%;
-    padding: 20px;
-    text-decoration: none !important;
-    min-width: 280px;
+.orders_header{
+    width: 100%;
+    text-align: center;
+    padding: 15px;
 }
 
 .css-ahj2mt-MuiTypography-root{
@@ -25,4 +23,8 @@
 
 .css-heg063-MuiTabs-flexContainer{
     justify-content: center;
+}
+
+.MuiBox-root.css-19midj6{
+    overflow-x: auto;
 }

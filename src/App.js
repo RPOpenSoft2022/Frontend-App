@@ -10,8 +10,9 @@ import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
 import Store from "./components/Store/Store";
 import Orders from "./components/Orders/Orders";
+import Order from "./components/Order/Order"
 import ResponsiveAppBar from "./components/Navbar/Navbar";
-import EditProfile from "./components/Profile/edit-profile";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
             <Route path="/Stores" element={<Stores />} />
             <Route path="/Stores/:id" element={<Store />} />
             <Route path="/Orders" element={<Orders />} />
+            <Route path="/Orders/:id" element={<Order />} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/Checkout" element={<Checkout />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route exact path="/Profile" element={<Profile />} />
           </Routes>
         </Router>
       </CartProvider>

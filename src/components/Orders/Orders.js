@@ -3,20 +3,16 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import "./Orders.css"
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-
+import { Table, Select, Input, Button } from 'antd';
+import Box from '@mui/material/Box';
+import 'antd/dist/antd.css';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-    
+
     return (
         <div
             role="tabpanel"
@@ -53,150 +49,337 @@ export default function BasicTabs() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const [pastOrders, setpastOrders] = useState([
-        {
-            "name": "French Fries",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "PFC",
-            "id": 1
-        },
-        {
-            "name": "Oreo Shake",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Subway",
-            "id": 2
-        },
-        {
-            "name": "Veg Roll",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Smart Pind",
-            "id": 3
-        },
-        {
-            "name": "Alu Paratha",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Heritage",
-            "id": 4
-        },
-        {
-            "name": "Paneer Tikka",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Tikka",
-            "id": 5
-        },
-    ])
 
-    const [currentOrders, setCurrentOrders] = useState([
+    const dataSource = [
         {
-            "name": "Alu Paratha",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": false,
-            "store": "PFC",
+            "date": "21 Jan, 2022",
+            "store": {
+                "name": "Store A",
+                "store_id": 1 
+            },
+            "time": "8:30 PM",
+            "cost": "50",
             "id": 1
         },
         {
-            "name": "Pav Bhaji",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Subway",
+            "date": "22 Jan, 2022",
+            "store": {
+                "name": "Store B",
+                "store_id": 2
+            },
+            "time": "8:31 PM",
+            "cost": "150",
             "id": 2
         },
         {
-            "name": "Samosa Pav",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Smart Pind",
+            "date": "23 Jan, 2022",
+            "store": {
+                "name": "Store C",
+                "store_id": 3 
+            },
+            "time": "8:32 PM",
+            "cost": "250",
             "id": 3
         },
         {
-            "name": "Sandwich",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": false,
-            "store": "Heritage",
+            "date": "24 Jan, 2022",
+            "store": {
+                "name": "Store D",
+                "store_id": 4 
+            },
+            "time": "8:33 PM",
+            "cost": "650",
             "id": 4
         },
         {
-            "name": "Burger",
-            "quantity": 3,
-            "total_price": 100,
-            "paymentDone": true,
-            "store": "Tikka",
+            "date": "25 Jan, 2022",
+            "store": {
+                "name": "Store E",
+                "store_id": 5 
+            },
+            "time": "8:34 PM",
+            "cost": "520",
             "id": 5
         },
-    ])
+        {
+            "date": "21 Jan, 2022",
+            "store": {
+                "name": "Store F",
+                "store_id": 6 
+            },
+            "time": "8:30 PM",
+            "cost": "510",
+            "id": 1
+        },
+        {
+            "date": "22 Jan, 2022",
+            "store": {
+                "name": "Store G",
+                "store_id": 7 
+            },
+            "time": "8:31 PM",
+            "cost": "344",
+            "id": 2
+        },
+        {
+            "date": "23 Jan, 2022",
+            "store": {
+                "name": "Store H",
+                "store_id": 8
+            },
+            "time": "8:32 PM",
+            "cost": "567",
+            "id": 3
+        },
+        {
+            "date": "24 Jan, 2022",
+            "store": {
+                "name": "Store I",
+                "store_id": 9 
+            },
+            "time": "8:33 PM",
+            "cost": "990",
+            "id": 4
+        },
+        {
+            "date": "25 Jan, 2022",
+            "store": {
+                "name": "Store J",
+                "store_id": 10
+            },
+            "time": "8:34 PM",
+            "cost": "510",
+            "id": 5
+        }, {
+            "date": "21 Jan, 2022",
+            "store": {
+                "name": "Store K",
+                "store_id": 11 
+            },
+            "time": "8:30 PM",
+            "cost": "250",
+            "id": 1
+        },
+        {
+            "date": "22 Jan, 2022",
+            "store": {
+                "name": "Store L",
+                "store_id": 12 
+            },
+            "time": "8:31 PM",
+            "cost": "50",
+            "id": 2
+        },
+        {
+            "date": "23 Jan, 2022",
+            "store": {
+                "name": "Store M",
+                "store_id": 13 
+            },
+            "time": "8:32 PM",
+            "cost": "500",
+            "id": 3
+        },
+        {
+            "date": "24 Jan, 2022",
+            "store": {
+                "name": "Store N",
+                "store_id": 14 
+            },
+            "time": "8:33 PM",
+            "cost": "539",
+            "id": 4
+        },
+        {
+            "date": "25 Jan, 2022",
+            "store": {
+                "name": "Store O",
+                "store_id": 15 
+            },
+            "time": "8:34 PM",
+            "cost": "233",
+            "id": 5
+        },
+    ]
+
+    const dataSource1 = [
+        {
+            "date": "29 Jan, 2022",
+            "store": {
+                "name": "Store P",
+                "store_id": 16 
+            },
+            "time": "8:30 PM",
+            "cost": "110",
+            "id": 1
+        },
+        {
+            "date": "30 Jan, 2022",
+            "store": {
+                "name": "Store Q",
+                "store_id": 17 
+            },
+            "time": "8:31 PM",
+            "cost": "570",
+            "id": 2
+        },
+        {
+            "date": "31 Jan, 2022",
+            "store": {
+                "name": "Store R",
+                "store_id": 18 
+            },
+            "time": "8:32 PM",
+            "cost": "670",
+            "id": 3
+        },
+        {
+            "date": "01 Feb, 2022",
+            "store": {
+                "name": "Store S",
+                "store_id": 19 
+            },
+            "time": "8:33 PM",
+            "cost": "765",
+            "id": 4
+        },
+        {
+            "date": "02 Feb, 2022",
+            "store": {
+                "name": "Store T",
+                "store_id": 20
+            },
+            "time": "8:34 PM",
+            "cost": "874",
+            "id": 5
+        },
+        {
+            "date": "03 Feb, 2022",
+            "store": {
+                "name": "Store U",
+                "store_id": 21
+            },
+            "time": "8:30 PM",
+            "cost": "540",
+            "id": 1
+        },
+        {
+            "date": "04 Feb, 2022",
+            "store": {
+                "name": "Store V",
+                "store_id": 22 
+            },
+            "time": "8:31 PM",
+            "cost": "210",
+            "id": 2
+        },
+        {
+            "date": "05 Feb, 2022",
+            "store": {
+                "name": "Store W",
+                "store_id": 23 
+            },
+            "time": "8:32 PM",
+            "cost": "220",
+            "id": 3
+        },
+        {
+            "date": "06 Feb, 2022",
+            "store": {
+                "name": "Store X",
+                "store_id": 24
+            },
+            "time": "8:33 PM",
+            "cost": "530",
+            "id": 4
+        },
+        {
+            "date": "07 Feb, 2022",
+            "store": {
+                "name": "Store Y",
+                "store_id": 25 
+            },
+            "time": "8:34 PM",
+            "cost": "770",
+            "id": 5
+        }, {
+            "date": "08 Feb, 2022",
+            "store": {
+                "name": "Store Z",
+                "store_id": 26 
+            },
+            "time": "8:30 PM",
+            "cost": "760",
+            "id": 6
+        }
+    ]
+
+    const columns = [
+        {
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
+            width: 250
+        },
+        {
+            title: 'Time',
+            dataIndex: 'time',
+            key: 'time',
+            width: 250
+        },
+        {
+            title: 'Cost',
+            dataIndex: 'cost',
+            key: 'cost',
+            width: 250,
+            render: (text) => `INR ${text}`
+        },
+        {
+            title: 'View Store',
+            dataIndex: 'store',
+            key: 'store',
+            width: 250 ,
+            render: (text) => <Link to={`/Stores/${text.store_id}`}>{text.name}</Link>,
+          },
+        {
+            title: 'Action',
+            dataIndex: 'id',
+            key: 'id',
+            width: 250,
+            render: (text) => <div>
+                <Button type="primary" style={{marginRight:"5px", marginBottom:"5px"}}><Link to={`../Orders/${text}`}>view</Link></Button>
+                <Button type="danger" style={{marginBottom:"5px"}}><Link to={`#`}>cancel</Link></Button>
+                </div>,
+        },
+    ];
+
+    const columns1 = columns.slice(0,3)
+    columns1.push({
+        title: 'Action',
+        dataIndex: 'id',
+        key: 'id',
+        width: 250,
+        render: (text) => <Button type="primary"><Link to={`../Orders/${text}`}>view</Link></Button>,
+    })
+
+
     return (
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Current Orders" {...a11yProps(0)} />
-                    <Tab label="Past Orders" {...a11yProps(1)} />
-                </Tabs>
+        <div className="orders_container">
+            <h1 className="orders_header">Your Orders</h1>
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab label="Current Orders" {...a11yProps(0)} />
+                        <Tab label="Past Orders" {...a11yProps(1)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={value} index={0} className="orders_box">
+                    <Table dataSource={dataSource} columns={columns} style={{ minWidth: "280px" }} />
+                </TabPanel>
+                <TabPanel value={value} index={1} className="orders_box">
+                    <Table dataSource={dataSource1} columns={columns1} style={{ minWidth: "280px" }} />
+                </TabPanel>
             </Box>
-            <TabPanel value={value} index={0} className="orders_container">    
-                {currentOrders && currentOrders.map((item) => 
-                    <Link to={`./${item.id}`} key={item.id} class="orders_item">
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {item.name}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {item.store}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                    <Button size="contained"><CurrencyRupeeIcon />{item.total_price}</Button>
-                    <Button size="contained">{item.paymentDone?'Done':'Not Done'}</Button>
-                </CardActions>
-                    </Card>
-                </Link>)}
-            </TabPanel>
-            <TabPanel value={value} index={1} className="orders_container">    
-                {pastOrders && pastOrders.map((item) => 
-                    <Link to={`./${item.id}`} key={item.id} class="orders_item">
-                        <Card sx={{ maxWidth: 345 }}>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                                alt="green iguana"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {item.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {item.store}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                        <Button size="contained" color="primary"><CurrencyRupeeIcon />{item.total_price}</Button>
-                        <Button size="contained" color="primary">{item.paymentDone?'Done':'Not Done'}</Button>
-                    </CardActions>
-                        </Card>
-                    </Link>
-                    )}
-            </TabPanel>
-        </Box>
+        </div>
     );
 }

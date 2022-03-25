@@ -10,13 +10,14 @@ import {
   Button,
 } from "@mui/material";
 function Cart() {
+  const [cart] = useContext(CartContext);
   return (
     <>
       {" "}
       <Typography
         align="center"
         color="primary"
-        variant="h4"
+        variant="h3"
         gutterBottom
         sx={{
           marginTop: "10px",
@@ -25,6 +26,7 @@ function Cart() {
         <ShoppingCartIcon />
         Cart
       </Typography>
+      <Typography variant="h5" sx={{textAlign:"center"}}>Picked From {cart.storeName}</Typography>
       <CardElement />
     </>
   );
@@ -51,7 +53,7 @@ function CardElement() {
             maxWidth: "1200px",
           }}
         >
-          {Items.map((Item) => {
+          {Items && Items.map((Item) => {
             const { id } = Item;
             return (
               <>

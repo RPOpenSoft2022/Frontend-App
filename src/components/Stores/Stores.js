@@ -71,9 +71,8 @@ const Stores = () => {
 
   return (
     <>
-    <Typography variant="h2" sx={{textAlign: "center", marginTop: "10px"}} color="primary"> Stores </Typography>
       <div className="stores_container">
-      <h1 className="stores_header">Stores</h1>
+        <h1 className="stores_header">Stores</h1>
         {stores_list.length !== null &&
           stores_list.map((item) => (
             <Link to={`./${item.id}`} key={item.id} class="stores_item">

@@ -9,20 +9,18 @@ import Avatar from "@mui/material/Avatar";
 
 
 const Profile = () => {
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [middleName, setMiddleName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [gender, setGender] = useState('');
-    const [foodPreference, setFoodPreference] = useState('');
-
-	// Data From Backend
-    const [profileImage, setProfileImage] = useState()
-	const firstNameBack = "Jagteshver";
-    const middleNameBack = "Singh";
-    const lastNameBack = "Sahni";
-	const fullName = [firstNameBack, middleNameBack, lastNameBack].join(' ')
+	const backendUser = {email:"",
+							firstName:"",
+							middleName:"",
+							lastName:"",
+							phoneNumber:"",
+							gender:"",
+							foodPreference:"",
+							profileImage:""
+						}
+	const [user, setUser] = useState(backendUser);
+	const updateUser = (key, value) => setUser({...user, key:value});
+	const fullName = [backendUser.firstNameBack, backendUser.middleNameBack, backendUser.lastNameBack].join(' ');
 
     return (
         <div className="edit-profile">
@@ -37,8 +35,6 @@ const Profile = () => {
                     maxWidth: "400px",
                     margin: "Auto"
                 }}
-                noValidate
-                autoComplete="off"
             >
 				<Avatar
 					style={{
@@ -47,7 +43,7 @@ const Profile = () => {
 						height: "100px"
 					}}
 					alt={ [fullName, '\'s Picture'].join() }
-					src= {profileImage}
+					src= {user.profileImage}
 				/>
                 <span
                     style={{
@@ -55,185 +51,101 @@ const Profile = () => {
                         margin:"auto"
                     }}
                 >{ fullName }</span>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="email">Email</InputLabel>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+					}}
+				>
+					<FormControl variant="standard" style={{margin:"0 2px"}}>
+						<InputLabel htmlFor="firstName">
+							First Name
+						</InputLabel>
+						<Input
+							id="firstName"
+							value={user.firstName}
+							style={{width: "100%"}}
+							onChange={(e) => updateUser("firstName",e.target.value)}
+							/>
+					</FormControl>
+					<FormControl variant="standard" style={{margin:"0 2px"}}>
+						<InputLabel htmlFor="middleName">
+							Middle Name
+						</InputLabel>
+						<Input
+							id="middleName"
+							value={user.middleName}
+							style={{width: "100%"}}
+							onChange={(e) => updateUser("middleName",e.target.value)}
+						/>
+					</FormControl>
+					<FormControl variant="standard" style={{margin:"0 2px"}}>
+						<InputLabel htmlFor="lastName">
+							Last Name
+						</InputLabel>
+						<Input
+							id="lastName"
+							value={user.lastName}
+							style={{width: "100%"}}
+							onChange={(e) => updateUser("lastName",e.target.value)}
+							/>
+					</FormControl>
+				</Box>
+                <FormControl variant="standard" >
+                    <InputLabel htmlFor="email" >Email</InputLabel>
                     <Input
                         id="email"
-                        value={email}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={user.email}
+                        style={{width: "100%"}}
+                        onChange={(e) => updateUser("email",e.target.value)}
                     />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                        onClick={(e)=>(
-                            console.log("")
-                        )}
-                    >
-                        Update
-                    </Button>
-                </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="firstName">First Name</InputLabel>
-                    <Input
-                        id="firstName"
-                        value={firstName}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
-                </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="middleName">Middle Name</InputLabel>
-                    <Input
-                        id="middleName"
-                        value={middleName}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setMiddleName(e.target.value)}
-                    />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
-                </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                    <Input
-                        id="lastName"
-                        value={lastName}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
-                </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="phoneNumber">Phone Number</InputLabel>
+				</FormControl>
+                <FormControl variant="standard" >
+                    <InputLabel htmlFor="phoneNumber">
+						Phone Number
+                    </InputLabel>
                     <Input
                         id="phoneNumber"
-                        value={phoneNumber}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        value={user.phoneNumber}
+                        style={{width: "100%"}}
+                        onChange={(e) => updateUser("phoneNumber",e.target.value)}
                     />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
                 </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="gender">Gender</InputLabel>
+                <FormControl variant="standard" >
+                    <InputLabel htmlFor="gender">
+						Gender
+                    </InputLabel>
                     <Input
                         id="gender"
-                        value={gender}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setGender(e.target.value)}
+                        value={user.gender}
+                        style={{width: "100%"}}
+                        onChange={(e) => updateUser("gender",e.target.value)}
                     />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
                 </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <InputLabel htmlFor="foodPreference">Food Preference</InputLabel>
+                <FormControl variant="standard" >
+                    <InputLabel htmlFor="foodPreference">
+						Food Preference
+                    </InputLabel>
                     <Input
                         id="foodPreference"
-                        value={foodPreference}
-                        style={{width: "75%", marginRight:"Auto"}}
-                        onChange={(e) => setFoodPreference(e.target.value)}
+                        value={user.foodPreference}
+                        style={{width: "100%"}}
+                        onChange={(e) => updateUser("foodPreference",e.target.value)}
                     />
-                    <Button
-                        variant="outlined"
-                        style={{
-                            width: "20%",
-                            height: "70%"
-                        }}
-                    >
-                        Update
-                    </Button>
                 </FormControl>
-                <FormControl
-                    variant="standard"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "Row",
-                    }}
-                >
-                    <Link
+                <FormControl variant="standard" >
+					<Button
+						variant="outlined"
+						style={{
+							width: "20%",
+							margin: "auto"
+						}}
+					>
+						Update
+					</Button>
+                </FormControl>
+                <FormControl variant="standard" >
+					<Link
                         to="/change-password"
                         style={{
                             textDecoration: "none",
@@ -244,7 +156,7 @@ const Profile = () => {
                             variant="contained"
                         > Change Password </Button>
                     </Link>
-                </FormControl>
+					</FormControl>
             </Box>
         </div>
     );

@@ -170,6 +170,18 @@ export default function Register() {
           <Verification />
         </>
       </Modal>
+      {/* <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          position: "absolute",
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <ReactLoading type="spin" color="rgb(25,118,210)" width={"25%"} />{" "}
+      </Container> */}
     </>
   );
 }

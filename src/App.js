@@ -10,7 +10,7 @@ import { CartProvider } from "./Contexts/CartContext";
 import "./App.css";
 import Store from "./components/Store/Store";
 import Orders from "./components/Orders/Orders";
-import Order from "./components/Order/Order"
+import Order from "./components/Order/Order";
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import { UserProvider } from "./Contexts/UserContext";

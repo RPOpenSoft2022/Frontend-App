@@ -6,76 +6,45 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./Stores.css";
+import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Stores = () => {
   let [loading, setLoading] = useState(true);
-  let [stores_list, setStores_List] = useState([
-    {
-      Store_Name: "Subway",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 1,
-    },
-    {
-      Store_Name: "PFC",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 2,
-    },
-    {
-      Store_Name: "Smart Pind",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 3,
-    },
-    {
-      Store_Name: "Heritage",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 4,
-    },
-    {
-      Store_Name: "CCD",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 5,
-    },
-    {
-      Store_Name: "Tikka",
-      Store_Desc: "Some Description about Subway fast food franchise.",
-      thumbnail:
-        "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-      id: 6,
-    },
-  ]);
+  let [storesList, setStores] = useState([]);
 
-  // useEffect(() => {
-  //     axios.get('/#/')
-  //         .then(res => {
-  //             console.log(res.data["stores_list"])
-  //             setStores_List(res.data["stores_list"])
-  //             console.log(stores_list)
-  //             setLoading(false)
-  //         })
-  //         .catch(err => { console.log(err) })
-  // },
-  // [])
+  const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
+
+  useEffect(() => {
+    axios
+      .get(baseURL + "stores/")
+      .then((res) => {
+        console.log(res.data["stores"]);
+        setStores(res.data["stores"]);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
 
   return (
     <>
       <div className="stores_container">
         <h1 className="stores_header">Stores</h1>
-        {stores_list.length !== null &&
-          stores_list.map((item) => (
-            <Link to={`./${item.id}`} key={item.id} class="stores_item">
+        {storesList.map((item) => {
+          return (
+            <Link to={`./${item.id}`} key={item.id} className="stores_item">
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -85,10 +54,10 @@ const Stores = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {item.Store_Name}
+                    {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.Store_Desc}
+                    {item.address + " " + item.contactInfo}
                   </Typography>
                 </CardContent>
                 {/* <CardActions>
@@ -97,7 +66,8 @@ const Stores = () => {
                     </CardActions> */}
               </Card>
             </Link>
-          ))}
+          );
+        })}
       </div>
     </>
   );

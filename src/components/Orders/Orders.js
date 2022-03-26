@@ -59,7 +59,8 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "50",
-            "id": 1
+            "id": 1,
+            "status": "Accepted"
         },
         {
             "date": "22 Jan, 2022",
@@ -69,7 +70,8 @@ export default function BasicTabs() {
             },
             "time": "8:31 PM",
             "cost": "150",
-            "id": 2
+            "id": 2,
+            "status": "Out for Delivery"
         },
         {
             "date": "23 Jan, 2022",
@@ -79,7 +81,8 @@ export default function BasicTabs() {
             },
             "time": "8:32 PM",
             "cost": "250",
-            "id": 3
+            "id": 3,
+            "status": "Accepted"
         },
         {
             "date": "24 Jan, 2022",
@@ -89,7 +92,8 @@ export default function BasicTabs() {
             },
             "time": "8:33 PM",
             "cost": "650",
-            "id": 4
+            "id": 4,
+            "status": "Accepted"
         },
         {
             "date": "25 Jan, 2022",
@@ -99,7 +103,8 @@ export default function BasicTabs() {
             },
             "time": "8:34 PM",
             "cost": "520",
-            "id": 5
+            "id": 5,
+            "status": "Accepted"
         },
         {
             "date": "21 Jan, 2022",
@@ -109,7 +114,8 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "510",
-            "id": 1
+            "id": 1,
+            "status": "Pending"
         },
         {
             "date": "22 Jan, 2022",
@@ -119,7 +125,8 @@ export default function BasicTabs() {
             },
             "time": "8:31 PM",
             "cost": "344",
-            "id": 2
+            "id": 2,
+            "status": "Pending"
         },
         {
             "date": "23 Jan, 2022",
@@ -129,7 +136,8 @@ export default function BasicTabs() {
             },
             "time": "8:32 PM",
             "cost": "567",
-            "id": 3
+            "id": 3,
+            "status": "Out for Delivery"
         },
         {
             "date": "24 Jan, 2022",
@@ -139,7 +147,8 @@ export default function BasicTabs() {
             },
             "time": "8:33 PM",
             "cost": "990",
-            "id": 4
+            "id": 4,
+            "status": "Out for Delivery"
         },
         {
             "date": "25 Jan, 2022",
@@ -149,7 +158,8 @@ export default function BasicTabs() {
             },
             "time": "8:34 PM",
             "cost": "510",
-            "id": 5
+            "id": 5,
+            "status": "Accepted"
         }, {
             "date": "21 Jan, 2022",
             "store": {
@@ -158,7 +168,8 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "250",
-            "id": 1
+            "id": 1,
+            "status": "Pending"
         },
         {
             "date": "22 Jan, 2022",
@@ -168,7 +179,8 @@ export default function BasicTabs() {
             },
             "time": "8:31 PM",
             "cost": "50",
-            "id": 2
+            "id": 2,
+            "status": "Pending"
         },
         {
             "date": "23 Jan, 2022",
@@ -178,7 +190,8 @@ export default function BasicTabs() {
             },
             "time": "8:32 PM",
             "cost": "500",
-            "id": 3
+            "id": 3,
+            "status": "Accepted"
         },
         {
             "date": "24 Jan, 2022",
@@ -188,7 +201,8 @@ export default function BasicTabs() {
             },
             "time": "8:33 PM",
             "cost": "539",
-            "id": 4
+            "id": 4,
+            "status": "Out for Delivery"
         },
         {
             "date": "25 Jan, 2022",
@@ -198,7 +212,8 @@ export default function BasicTabs() {
             },
             "time": "8:34 PM",
             "cost": "233",
-            "id": 5
+            "id": 5,
+            "status": "Pending"
         },
     ]
 
@@ -340,7 +355,28 @@ export default function BasicTabs() {
             key: 'store',
             width: 250 ,
             render: (text) => <Link to={`/Stores/${text.store_id}`}>{text.name}</Link>,
-          },
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            width: 250 ,
+            filters: [
+                {
+                  text: 'Accepted',
+                  value: 'Accepted',
+                },
+                {
+                  text: 'Pending',
+                  value: 'Pending',
+                },
+                {
+                  text: 'Out for Delivery',
+                  value: 'Out for Delivery',
+                },
+              ],
+              onFilter: (value, record) => record.status.indexOf(value) === 0,
+        },
         {
             title: 'Action',
             dataIndex: 'id',
@@ -362,10 +398,14 @@ export default function BasicTabs() {
         render: (text) => <Button type="primary"><Link to={`../Orders/${text}`}>view</Link></Button>,
     })
 
+    function onChange(pagination, filters, sorter, extra) {
+        console.log('params', pagination, filters, sorter, extra);
+    }
+
 
     return (
         <div className="orders_container">
-            <h1 className="orders_header">Your Orders</h1>
+            <Typography variant="h2" sx={{textAlign: "center", marginTop: "10px"}} color="primary"> Your Orders </Typography>
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -374,7 +414,7 @@ export default function BasicTabs() {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0} className="orders_box">
-                    <Table dataSource={dataSource} columns={columns} style={{ minWidth: "280px" }} />
+                    <Table dataSource={dataSource} columns={columns} style={{ minWidth: "280px" }} onChange={onChange}/>
                 </TabPanel>
                 <TabPanel value={value} index={1} className="orders_box">
                     <Table dataSource={dataSource1} columns={columns1} style={{ minWidth: "280px" }} />

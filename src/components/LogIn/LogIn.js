@@ -12,12 +12,37 @@ import {
   Link,
   InputAdornment,
 } from "@mui/material";
+import axios from 'axios';
 
 export default function LogIn() {
   const [data, setData] = useState({
     mobileNumber: "",
     password: "",
   });
+
+  const baseURL = process.env.REACT_APP_API_URL
+
+  const login = () => {
+    console.log(baseURL)
+    if (data.mobileNumber !== "" && data.password !== "") {
+      console.log('send')
+      axios.post(baseURL + 'login/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          localStorage.setItem("access", res.data["access"])
+          localStorage.setItem("refresh", res.data["refresh"])
+        })
+    }
+  }
   return (
     <>
       <Box
@@ -36,6 +61,7 @@ export default function LogIn() {
           onSubmit={(e) => {
             e.preventDefault();
             console.log(data);
+            login()
           }}
         >
           <FormControl

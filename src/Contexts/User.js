@@ -1,4 +1,4 @@
 export const userData = {
-    "username": "Guest User",
-    "token": "No Token",
-}
+  username: "Guest User",
+  token: "No Token",
+};

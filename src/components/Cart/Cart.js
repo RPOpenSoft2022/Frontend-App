@@ -93,7 +93,7 @@ function CardComponent(props) {
     const modifiedItems = Items.filter((item) => item.id !== itemId);
     setCart({ ...cart, Items: modifiedItems });
   };
-  const { id, name, quantity } = props;
+  const { id, name, quantity, price} = props;
   return (
     <Card sx={{ minWidth: 300, margin: "10px" }}>
       <CardMedia
@@ -108,7 +108,7 @@ function CardComponent(props) {
         </Typography>
       </CardContent>
       <Typography color="text.secondary" align="center">
-        Item Subtotal - ({quantity})*(56$)
+        Item Subtotal - ({quantity})*(INR {price})
       </Typography>
 
       <Box

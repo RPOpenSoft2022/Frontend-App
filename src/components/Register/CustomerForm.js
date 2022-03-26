@@ -12,7 +12,7 @@ import { useContext } from "react";
 
 import axios from 'axios'
 
-const Profile = () => {
+const CustomerForm = () => {
 	const backendUser = {email:"",
 							firstName:"",
 							middleName:"",
@@ -183,4 +183,4 @@ const Profile = () => {
     );
 }
 
-export default Profile;
+export default CustomerForm;

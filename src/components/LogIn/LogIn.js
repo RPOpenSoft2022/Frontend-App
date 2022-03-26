@@ -20,10 +20,13 @@ export default function LogIn() {
     password: "",
   });
 
+  const baseURL = process.env.REACT_APP_API_URL
+
   const login = () => {
+    console.log(baseURL)
     if (data.mobileNumber !== "" && data.password !== "") {
       console.log('send')
-      axios.post('http://127.0.0.1:8000/api/login/',
+      axios.post(baseURL + 'login/',
         {
           'phone': data.mobileNumber,
           'password': data.password

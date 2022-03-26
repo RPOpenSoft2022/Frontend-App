@@ -14,6 +14,7 @@ import {
   Link,
   InputAdornment,
 } from "@mui/material";
+import axios from 'axios';
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -21,6 +22,53 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
+
+  const sendOTP = () => {
+    if (data.mobileNumber !== "") {
+      console.log('send')
+      axios.post('http://127.0.0.1:8000/api/send-otp/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          setOpen(true)
+        })
+        .catch(err => {
+          console.log(err.response.data["message"])
+          window.alert(err.response.data["message"])
+        })
+    }
+  }
+
+  const signup = () => {
+    if (data.mobileNumber !== "" && data.password !== "") {
+      console.log('send')
+      axios.post('http://127.0.0.1:8000/api/verify-otp/new/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+          console.log(res.data["message"])
+          setOpen(true)
+        })
+        .catch(err => {
+          console.log(err.data["message"])
+        })
+    }
+  }
   return (
     <>
       <Box
@@ -39,6 +87,7 @@ export default function Register() {
           onSubmit={(e) => {
             e.preventDefault();
             console.log(data);
+            sendOTP()
           }}
         >
           <FormControl
@@ -67,8 +116,9 @@ export default function Register() {
                 let runMobileNumber = e.target.value;
                 setData({ ...data, mobileNumber: runMobileNumber });
               }}
+              value={data.mobileNumber}
             />
-            <TextField
+            {/* <TextField
               label="password"
               margin="dense"
               InputProps={{
@@ -83,24 +133,25 @@ export default function Register() {
                 let runPassowrd = e.target.value;
                 setData({ ...data, password: runPassowrd });
               }}
-            />
+            /> */}
             <Button
               variant="contained"
               type="submit"
               style={{
                 marginTop: "10px",
               }}
-              onClick={() => {
-                setOpen(true);
-              }}
+              // onClick={() => {
+              //   setOpen(true);
+                
+              // }}
             >
               Verify Number
             </Button>
           </FormControl>
         </form>
-        <Link href="/" color="primary" underline="hover">
+        {/* <Link href="/" color="primary" underline="hover">
           SignUp
-        </Link>
+        </Link> */}
       </Box>
       <Modal
         open={open}

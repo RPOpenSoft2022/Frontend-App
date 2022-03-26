@@ -1,8 +1,12 @@
 import React from "react";
 import OtpInput from "react-otp-input";
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
 import LockIcon from "@mui/icons-material/Lock";
 import { makeStyles } from "@mui/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
 import {
   CssBaseline,
   Avatar,
@@ -12,6 +16,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import axios from 'axios';
 
 // const theme = createTheme();
 // const useStyles = makeStyles((theme) => ({
@@ -36,6 +41,15 @@ import {
 // }));
 
 export default function Verification() {
+  const [otp, setOtp] = useState(null)
+  const verify = () => {
+
+  }
+  const [password, setPassword] = useState(null)
+  function handleOtp(OTP){
+    setOtp(OTP)
+    console.log(otp)
+  }
   // const classes = useStyles();
   return (
     <Container
@@ -49,7 +63,7 @@ export default function Verification() {
       <div>
         <Grid
           container
-          style={{ backgroundColor: "white" }}
+          style={{ backgroundColor: "white", paddi }}
           justify="center"
           alignItems="center"
           spacing={3}
@@ -100,7 +114,22 @@ export default function Verification() {
                   borderRadius: 4,
                   border: "1px solid rgba(0,0,0,0.3)",
                 }}
+                value={otp}
+                onChange={handleOtp}
               />
+            </Grid>
+            <Grid item>
+              <FormControl variant="standard" style={{margin:"0 2px"}}>
+                <InputLabel htmlFor="password">
+                  Password
+                </InputLabel>
+                <Input
+                  id="password"
+                  value={password}
+                  // style={{width: "100%"}}
+                  onChange={(e) => setPassword(e.target.value)}
+                  />
+            </FormControl>
             </Grid>
             <Grid item>
               <Button
@@ -108,6 +137,7 @@ export default function Verification() {
                 fullWidth
                 variant="contained"
                 color="primary"
+                onClick={() => verify()}
               >
                 Verify
               </Button>

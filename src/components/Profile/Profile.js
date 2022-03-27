@@ -19,7 +19,6 @@ const Profile = () => {
 							profileImage:""
 						}
 	const [user, setUser] = useState(backendUser);
-	const updateUser = (key, value) => setUser({...user, key:value});
 	const fullName = [backendUser.firstNameBack, backendUser.middleNameBack, backendUser.lastNameBack].join(' ');
 
     return (
@@ -65,7 +64,7 @@ const Profile = () => {
 							id="firstName"
 							value={user.firstName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("firstName",e.target.value)}
+							onChange={(e) => setUser({...user, firstName:e.target.value})}
 							/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -76,7 +75,7 @@ const Profile = () => {
 							id="middleName"
 							value={user.middleName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("middleName",e.target.value)}
+							onChange={(e) => setUser({...user, middleName:e.target.value})}
 						/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -87,7 +86,7 @@ const Profile = () => {
 							id="lastName"
 							value={user.lastName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("lastName",e.target.value)}
+							onChange={(e) => setUser({...user, lastName:e.target.value})}
 							/>
 					</FormControl>
 				</Box>
@@ -97,8 +96,8 @@ const Profile = () => {
                         id="email"
                         value={user.email}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("email",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, email:e.target.value})}
+						/>
 				</FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="phoneNumber">
@@ -108,8 +107,8 @@ const Profile = () => {
                         id="phoneNumber"
                         value={user.phoneNumber}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("phoneNumber",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, phoneNumber:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="gender">
@@ -119,8 +118,8 @@ const Profile = () => {
                         id="gender"
                         value={user.gender}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("gender",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, gender:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="foodPreference">
@@ -130,8 +129,8 @@ const Profile = () => {
                         id="foodPreference"
                         value={user.foodPreference}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("foodPreference",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, foodPreference:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
 					<Button

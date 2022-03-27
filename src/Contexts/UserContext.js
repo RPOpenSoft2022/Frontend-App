@@ -4,13 +4,13 @@ import axios from 'axios'
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-  const [user, setUser] = useState({});
+    const [user, setUser] = useState({});
 	const access = localStorage.getItem('access')
 	const [isFetched, setIsfetched] = useState(false)
 	const baseURL = process.env.REACT_APP_API_URL
 
 	if(!isFetched && access!==null){
-		const url = baseURL + "get-user/"
+		const url = baseURL + "api/get-user/"
 		const config = {
 			headers:{
 				Authorization: `Bearer ${access}` 

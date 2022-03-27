@@ -88,7 +88,7 @@ const Auth = () => {
     return (
         <>
             {authCheck &&
-                <UserProvider>
+                // <UserProvider>
                     <CartProvider>
                         <ResponsiveAppBar />
                         <Routes>
@@ -101,7 +101,7 @@ const Auth = () => {
                             <Route exact path="/Profile" element={<Profile />} />
                         </Routes>
                     </CartProvider>
-                </UserProvider>
+                // </UserProvider>
         }
         </>);
 }

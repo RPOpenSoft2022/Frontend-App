@@ -49,7 +49,7 @@ export default function Verification({password, phone}) {
   const navigate = useNavigate()
 
   const verifyOTP = () => {
-    axios.post(baseURL + "register/", 
+    axios.post(baseURL + "api/register/", 
     {
       'phone': phone,
       'otp': otp,

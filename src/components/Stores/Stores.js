@@ -12,6 +12,15 @@ import axios from "axios";
 
 const Stores = () => {
   let [loading, setLoading] = useState(true);
+  const [stores, setStores] = useState(null)
+  const baseURL = process.env.REACT_APP_API_URL
+
+  useEffect(() => {
+    axios.get(baseURL+'stores/')
+    .then(res => {
+      console.log(res.data)
+    })
+  }, [])
   let [stores_list, setStores_List] = useState([
     {
       Store_Name: "Subway",

@@ -12,6 +12,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import { useState } from 'react'
 
 // const theme = createTheme();
 // const useStyles = makeStyles((theme) => ({
@@ -35,8 +36,16 @@ import {
 //   },
 // }));
 
-export default function Verification() {
+export default function Verification({password}) {
   // const classes = useStyles();
+  const [otp, setOtp] = useState(null)
+  function handleOtp(OTP){
+    setOtp(OTP)
+    console.log(otp)
+  }
+
+  
+
   return (
     <Container
       component="main"
@@ -100,6 +109,9 @@ export default function Verification() {
                   borderRadius: 4,
                   border: "1px solid rgba(0,0,0,0.3)",
                 }}
+                
+                value={otp}
+                onChange={handleOtp}
               />
             </Grid>
             <Grid item>

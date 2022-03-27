@@ -22,7 +22,7 @@ export default function LogIn() {
     password: "",
   });
 
-  const baseURL = process.env.REACT_APP_API_URL
+  const baseURL = 'http://userapp.centralindia.cloudapp.azure.com:8081/'
   const navigate = useNavigate()
 
   const login = () => {

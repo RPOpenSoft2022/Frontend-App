@@ -22,10 +22,11 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
+  const baseURL = process.env.REACT_APP_API_URL
   const sendOTP = () => {
     if (data.mobileNumber !== "") {
       console.log('send')
-      axios.post('http://127.0.0.1:8000/api/send-otp/',
+      axios.post(baseURL + 'send-otp/',
         {
           'phone': data.mobileNumber,
           'password': data.password
@@ -125,7 +126,7 @@ export default function Register() {
           </FormControl>
         </form>
         <Link href="/" color="primary" underline="hover">
-          SignUp
+          SignIn
         </Link>
       </Box>
       <Modal
@@ -137,7 +138,7 @@ export default function Register() {
         aria-describedby="modal-modal-description"
       >
         <>
-          <Verification password={data.password}/>
+          <Verification password={data.password} phone={data.mobileNumber}/>
         </>
       </Modal>
     </>

@@ -13,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from 'react'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 // const theme = createTheme();
 // const useStyles = makeStyles((theme) => ({
@@ -36,12 +38,35 @@ import { useState } from 'react'
 //   },
 // }));
 
-export default function Verification({password}) {
+export default function Verification({password, phone}) {
   // const classes = useStyles();
   const [otp, setOtp] = useState(null)
   function handleOtp(OTP){
     setOtp(OTP)
     console.log(otp)
+  }
+  const baseURL = process.env.REACT_APP_API_URL
+  const navigate = useNavigate()
+
+  const verifyOTP = () => {
+    axios.post(baseURL + "register/", 
+    {
+      'phone': phone,
+      'otp': otp,
+      'password': password
+    })
+    .then(res => {
+      console.log(res.data["message"])
+      window.alert(res.data["message"])
+      localStorage.setItem("access", res.data["access"])
+      localStorage.setItem("refresh", res.data["refresh"])
+      navigate('../app/profile')
+    })
+    .catch(err => {
+      console.error(err.response.data["message"])
+      window.alert(err.response.data["message"])
+
+    })
   }
 
   
@@ -120,6 +145,8 @@ export default function Verification({password}) {
                 fullWidth
                 variant="contained"
                 color="primary"
+
+                onClick = {verifyOTP}
               >
                 Verify
               </Button>

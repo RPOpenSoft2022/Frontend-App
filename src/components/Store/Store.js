@@ -17,35 +17,31 @@ import Box from "@mui/material/Box";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { CartContext } from "../../Contexts/CartContext";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 
 const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
 
 const Store = (props) => {
   const { id } = useParams();
   const [cart, setCart] = useContext(CartContext);
-  const [loading, setLoading] = useState(false);
-  const [store, setstore] = useState({});
+  const [store, setstore] = useState({ loading: true });
   useEffect(() => {
-    setLoading(true);
-
-    axios
-      .get(baseURL + `stores/${id}`)
-      .then((res) => {
-        setstore(res.data);
-      })
-      .then(() => {
-        if (cart.storeId == id) {
-          const storeMenu = store.menu;
-          cart.Items.map((cartItem) => {
-            const itemIndex = storeMenu.findIndex(
-              (item) => item.id == cartItem.id
-            );
-            storeMenu[itemIndex].selected = true;
-          });
-          setstore({ ...store, menu: storeMenu });
-          setLoading(false);
-        }
-      });
+    axios.get(baseURL + `stores/${id}`).then((res) => {
+      console.log(res.data);
+      console.log("hipping");
+      if (cart.storeId == id) {
+        console.log(res.data);
+        const storeMenu = res.data.menu;
+        cart.Items.map((cartItem) => {
+          const itemIndex = storeMenu.findIndex(
+            (item) => item.id == cartItem.id
+          );
+          storeMenu[itemIndex].selected = true;
+        });
+        res.data = { ...res.data, menu: storeMenu };
+      }
+      setstore({ ...res.data, loading: false });
+    });
   }, []);
 
   const addToCart = (item) => {
@@ -74,8 +70,8 @@ const Store = (props) => {
 
   return (
     <>
-      {loading ? (
-        "Loading ...."
+      {store.loading ? (
+        <Loader />
       ) : (
         <div>
           <StoreCard {...store} />
@@ -144,11 +140,18 @@ const Store = (props) => {
 };
 
 const StoreCard = (props) => {
-  const { name, address, image, availabilityTime, contactInfo, rating } = props;
+  const { name, address, availabilityTime, contactInfo, rating } = props;
   return (
     <Card>
       <CardActionArea>
-        <CardMedia component="img" height="300" image={image} alt={name} />
+        <CardMedia
+          component="img"
+          height="300"
+          image={
+            "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/content9442.jpg"
+          }
+          alt={name}
+        />
         <CardContent
           sx={{ backgroundImage: "linear-gradient(#000000, #1667a6)" }}
         >

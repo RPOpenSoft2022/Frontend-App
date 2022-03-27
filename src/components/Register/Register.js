@@ -63,6 +63,7 @@ export default function Register() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            sendOTP()
             console.log(data);
           }}
         >
@@ -136,7 +137,7 @@ export default function Register() {
         aria-describedby="modal-modal-description"
       >
         <>
-          <Verification />
+          <Verification password={data.password}/>
         </>
       </Modal>
     </>

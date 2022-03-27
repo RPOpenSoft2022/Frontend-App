@@ -9,11 +9,12 @@ import {
   Typography,
   TextField,
   Button,
-  Link,
   InputAdornment,
 } from "@mui/material";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
 
 export default function LogIn() {
   const [data, setData] = useState({
@@ -25,9 +26,7 @@ export default function LogIn() {
   const navigate = useNavigate()
 
   const login = () => {
-    console.log(baseURL)
     if (data.mobileNumber !== "" && data.password !== "") {
-      console.log('send')
       axios.post(baseURL + 'login/',
         {
           'phone': data.mobileNumber,
@@ -39,7 +38,6 @@ export default function LogIn() {
           }
         })
         .then(res => {
-          console.log(res.data)
           localStorage.setItem("access", res.data["access"])
           localStorage.setItem("refresh", res.data["refresh"])
           navigate('./app/stores')
@@ -58,7 +56,7 @@ export default function LogIn() {
       >
         <LockOpenIcon color="primary" fontSize="large" />
         <Typography align="center" color="primary" variant="h4" gutterBottom>
-          SignIn
+          Sign in
         </Typography>
         <form
           onSubmit={(e) => {
@@ -75,7 +73,6 @@ export default function LogIn() {
             }}
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("hii");
             }}
           >
             <TextField
@@ -127,10 +124,10 @@ export default function LogIn() {
           </FormControl>
         </form>
         <br />
-        <Link href="/Register" color="primary" underline="hover">
+        <Link to="/Register" color="primary" underline="hover">
           Register
         </Link>
-        <Link href="#" color="primary" underline="hover">
+        <Link to="#" color="primary" underline="hover">
           Forgot-Password
         </Link>
       </Box>

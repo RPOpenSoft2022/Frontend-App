@@ -6,7 +6,7 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import { Box, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-
+import axios from 'axios'
 
 const Profile = () => {
 	const backendUser = {email:"",
@@ -18,6 +18,8 @@ const Profile = () => {
 							foodPreference:"",
 							profileImage:""
 						}
+	const accessToken = localStorage.getItem('access');
+	const url ='';
 	const [user, setUser] = useState(backendUser);
 	const fullName = [backendUser.firstNameBack, backendUser.middleNameBack, backendUser.lastNameBack].join(' ');
 
@@ -135,6 +137,15 @@ const Profile = () => {
                 <FormControl variant="standard" >
 					<Button
 						variant="outlined"
+						onClick={()=> {
+							const sender = {};
+							for (let key in backendUser) {
+								if (backendUser[key] != user[key]){
+									sender[key] = user[key]
+								}
+							}
+							axios.post(url, accessToken);
+						}}
 						style={{
 							width: "20%",
 							margin: "auto"

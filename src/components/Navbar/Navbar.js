@@ -109,7 +109,7 @@ const ResponsiveAppBar = (props) => {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Link to={`/app/${page}`} style={{ textDecoration: "none" }}>
+                <Link to={`/${page}`} style={{ textDecoration: "none" }}>
                   <Button
                     key={page}
                     onClick={handleCloseNavMenu}
@@ -148,7 +148,7 @@ const ResponsiveAppBar = (props) => {
                     key={setting}
                     onClick={handleCloseUserMenu}
                     component={Link}
-                    to={`/app/${setting}`}
+                    to={`app/${setting}`}
                   >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>

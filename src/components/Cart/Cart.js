@@ -9,6 +9,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+
 function Cart() {
   const [cart] = useContext(CartContext);
   return (
@@ -26,7 +28,9 @@ function Cart() {
         <ShoppingCartIcon />
         Cart
       </Typography>
-      <Typography variant="h5" sx={{textAlign:"center"}}>Picked From {cart.storeName}</Typography>
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Picked From {cart.storeName}
+      </Typography>
       <CardElement />
     </>
   );
@@ -53,20 +57,23 @@ function CardElement() {
             maxWidth: "1200px",
           }}
         >
-          {Items && Items.map((Item) => {
-            const { id } = Item;
-            return (
-              <>
-                <CardComponent key={id} {...Item} />
-              </>
-            );
-          })}
+          {Items &&
+            Items.map((Item) => {
+              const { id } = Item;
+              return (
+                <>
+                  <CardComponent key={id} {...Item} />
+                </>
+              );
+            })}
         </Box>
         <Button
           variant="contained"
           style={{
             maxWidth: "200px",
           }}
+          component={Link}
+          to="/app/Checkout"
         >
           Checkout and Pay
         </Button>
@@ -93,7 +100,7 @@ function CardComponent(props) {
     const modifiedItems = Items.filter((item) => item.id !== itemId);
     setCart({ ...cart, Items: modifiedItems });
   };
-  const { id, name, quantity, price} = props;
+  const { id, name, quantity, price } = props;
   return (
     <Card sx={{ minWidth: 300, margin: "10px" }}>
       <CardMedia

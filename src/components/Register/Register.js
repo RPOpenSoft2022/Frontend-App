@@ -14,7 +14,7 @@ import {
   Link,
   InputAdornment,
 } from "@mui/material";
-import axios from "axios";
+import axios from 'axios'
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -22,59 +22,31 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
-
+  const baseURL = process.env.REACT_APP_API_URL
   const sendOTP = () => {
     if (data.mobileNumber !== "") {
-      console.log("send");
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/send-otp/",
-          {
-            phone: data.mobileNumber,
-            password: data.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+      console.log('send')
+      axios.post(baseURL + 'send-otp/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           }
-        )
-        .then((res) => {
-          console.log(res.data);
-          setOpen(true);
         })
-        .catch((err) => {
-          console.log(err.response.data["message"]);
-          window.alert(err.response.data["message"]);
-        });
-    }
-  };
-
-  const signup = () => {
-    if (data.mobileNumber !== "" && data.password !== "") {
-      console.log("send");
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/verify-otp/new/",
-          {
-            phone: data.mobileNumber,
-            password: data.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data["message"]);
-          setOpen(true);
+        .then(res => {
+          console.log(res.data)
+          setOpen(true)
         })
-        .catch((err) => {
-          console.log(err.data["message"]);
-        });
+        .catch(err => {
+          console.log(err.response.data["message"])
+          window.alert(err.response.data["message"])
+        })
     }
-  };
+  }
+  
   return (
     <>
       <Box
@@ -92,6 +64,7 @@ export default function Register() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            sendOTP()
             console.log(data);
             sendOTP();
           }}
@@ -155,7 +128,7 @@ export default function Register() {
           </FormControl>
         </form>
         <Link href="/" color="primary" underline="hover">
-          SignUp
+          SignIn
         </Link>
       </Box>
       <Modal
@@ -167,9 +140,21 @@ export default function Register() {
         aria-describedby="modal-modal-description"
       >
         <>
-          <Verification />
+          <Verification password={data.password} phone={data.mobileNumber}/>
         </>
       </Modal>
+      {/* <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          position: "absolute",
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <ReactLoading type="spin" color="rgb(25,118,210)" width={"25%"} />{" "}
+      </Container> */}
     </>
   );
 }

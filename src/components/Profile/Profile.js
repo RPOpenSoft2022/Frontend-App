@@ -7,10 +7,6 @@ import InputLabel from '@mui/material/InputLabel';
 import { Box, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 
-import { UserContext } from "../../Contexts/UserContext";
-import { useContext } from "react";
-
-import axios from 'axios'
 
 const Profile = () => {
 	const backendUser = {email:"",
@@ -22,27 +18,9 @@ const Profile = () => {
 							foodPreference:"",
 							profileImage:""
 						}
-	const [userData, setUserData] = useState(backendUser);
-	const updateUser = (key, value) => setUserData({...userData, key:value});
+	const [user, setUser] = useState(backendUser);
 	const fullName = [backendUser.firstNameBack, backendUser.middleNameBack, backendUser.lastNameBack].join(' ');
-	// const [user, setUser] = useContext(UserContext)
-	// const access = localStorage.getItem('access')
-	// const [isFetched, setIsfetched] = useState(false)
-	// if(!isFetched){
-	// 	const url = "http://127.0.0.1:8000/api/get-user/"
-	// 	const config = {
-	// 		headers:{
-	// 			Authorization: `Bearer ${access}` 
-	// 		}		
-	// 	}
-	// 	axios.get(url, config)
-	// 	.then(res => {
-	// 		console.log(res.data)
-	// 		setUser({data: res.data,})
-	// 		setIsfetched(true)
-	// 		console.log(user)
-	// 	})
-	// }
+
     return (
         <div className="edit-profile">
             <Box
@@ -64,7 +42,7 @@ const Profile = () => {
 						height: "100px"
 					}}
 					alt={ [fullName, '\'s Picture'].join() }
-					src= {userData.profileImage}
+					src= {user.profileImage}
 				/>
                 <span
                     style={{
@@ -84,9 +62,9 @@ const Profile = () => {
 						</InputLabel>
 						<Input
 							id="firstName"
-							value={userData.firstName}
+							value={user.firstName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("firstName",e.target.value)}
+							onChange={(e) => setUser({...user, firstName:e.target.value})}
 							/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -95,9 +73,9 @@ const Profile = () => {
 						</InputLabel>
 						<Input
 							id="middleName"
-							value={userData.middleName}
+							value={user.middleName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("middleName",e.target.value)}
+							onChange={(e) => setUser({...user, middleName:e.target.value})}
 						/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -106,9 +84,9 @@ const Profile = () => {
 						</InputLabel>
 						<Input
 							id="lastName"
-							value={userData.lastName}
+							value={user.lastName}
 							style={{width: "100%"}}
-							onChange={(e) => updateUser("lastName",e.target.value)}
+							onChange={(e) => setUser({...user, lastName:e.target.value})}
 							/>
 					</FormControl>
 				</Box>
@@ -116,10 +94,10 @@ const Profile = () => {
                     <InputLabel htmlFor="email" >Email</InputLabel>
                     <Input
                         id="email"
-                        value={userData.email}
+                        value={user.email}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("email",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, email:e.target.value})}
+						/>
 				</FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="phoneNumber">
@@ -127,10 +105,10 @@ const Profile = () => {
                     </InputLabel>
                     <Input
                         id="phoneNumber"
-                        value={userData.phoneNumber}
+                        value={user.phoneNumber}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("phoneNumber",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, phoneNumber:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="gender">
@@ -138,10 +116,10 @@ const Profile = () => {
                     </InputLabel>
                     <Input
                         id="gender"
-                        value={userData.gender}
+                        value={user.gender}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("gender",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, gender:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="foodPreference">
@@ -149,10 +127,10 @@ const Profile = () => {
                     </InputLabel>
                     <Input
                         id="foodPreference"
-                        value={userData.foodPreference}
+                        value={user.foodPreference}
                         style={{width: "100%"}}
-                        onChange={(e) => updateUser("foodPreference",e.target.value)}
-                    />
+						onChange={(e) => setUser({...user, foodPreference:e.target.value})}
+						/>
                 </FormControl>
                 <FormControl variant="standard" >
 					<Button

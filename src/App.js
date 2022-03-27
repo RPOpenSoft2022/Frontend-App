@@ -14,6 +14,12 @@ import "./App.css";
 // import Order from "./components/Order/Order"
 // import Profile from "./components/Profile/Profile";
 import Auth from "./components/Auth";
+import Store from "./components/Store/Store";
+import Orders from "./components/Orders/Orders";
+import Order from "./components/Order/Order";
+import ResponsiveAppBar from "./components/Navbar/Navbar";
+import Profile from "./components/Profile/Profile";
+import { UserProvider } from "./Contexts/UserContext";
 
 function App() {
   return (

@@ -14,6 +14,7 @@ import {
   Link,
   InputAdornment,
 } from "@mui/material";
+import axios from 'axios'
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -21,6 +22,30 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
+  const sendOTP = () => {
+    if (data.mobileNumber !== "") {
+      console.log('send')
+      axios.post('http://127.0.0.1:8000/api/send-otp/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          setOpen(true)
+        })
+        .catch(err => {
+          console.log(err.response.data["message"])
+          window.alert(err.response.data["message"])
+        })
+    }
+  }
+  
   return (
     <>
       <Box

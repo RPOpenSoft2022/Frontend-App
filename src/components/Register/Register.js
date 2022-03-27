@@ -14,6 +14,7 @@ import {
   Link,
   InputAdornment,
 } from "@mui/material";
+import axios from 'axios'
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -21,6 +22,31 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
+  const baseURL = process.env.REACT_APP_API_URL
+  const sendOTP = () => {
+    if (data.mobileNumber !== "") {
+      console.log('send')
+      axios.post(baseURL + 'send-otp/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          setOpen(true)
+        })
+        .catch(err => {
+          console.log(err.response.data["message"])
+          window.alert(err.response.data["message"])
+        })
+    }
+  }
+  
   return (
     <>
       <Box
@@ -38,6 +64,7 @@ export default function Register() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            sendOTP()
             console.log(data);
           }}
         >
@@ -99,7 +126,7 @@ export default function Register() {
           </FormControl>
         </form>
         <Link href="/" color="primary" underline="hover">
-          SignUp
+          SignIn
         </Link>
       </Box>
       <Modal
@@ -111,7 +138,7 @@ export default function Register() {
         aria-describedby="modal-modal-description"
       >
         <>
-          <Verification />
+          <Verification password={data.password} phone={data.mobileNumber}/>
         </>
       </Modal>
     </>

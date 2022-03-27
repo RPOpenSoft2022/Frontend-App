@@ -3,28 +3,31 @@ import { Routes } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LogIn from "./components/LogIn/LogIn";
 import Register from "./components/Register/Register";
-import Stores from "./components/Stores/Stores";
-import Cart from "./components/Cart/Cart";
-import Checkout from "./components/Checkout/Checkout";
-import { CartProvider } from "./Contexts/CartContext";
-import { UserProvider } from "./Contexts/UserContext";
+// import Stores from "./components/Stores/Stores";
+// import Cart from "./components/Cart/Cart";
+// import Checkout from "./components/Checkout/Checkout";
+// import { CartProvider } from "./Contexts/CartContext";
+// import { UserProvider } from "./Contexts/UserContext";
 import "./App.css";
-import Store from "./components/Store/Store";
-import Orders from "./components/Orders/Orders";
-import Order from "./components/Order/Order"
-import ResponsiveAppBar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+// import Store from "./components/Store/Store";
+// import Orders from "./components/Orders/Orders";
+// import Order from "./components/Order/Order"
+// import Profile from "./components/Profile/Profile";
+import Auth from "./components/Auth";
 
 function App() {
   return (
     <div className="App">
-      <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LogIn />} />
+          <Route path="/Register" element={<Register />} />
+
+          {/* <UserProvider>
         <CartProvider>
           <Router>
             <ResponsiveAppBar />
             <Routes>
-              <Route path="/" element={<LogIn />} />
-              <Route path="/Register" element={<Register />} />
               <Route path="/Stores" element={<Stores />} />
               <Route path="/Stores/:id" element={<Store />} />
               <Route path="/Orders" element={<Orders />} />
@@ -35,7 +38,10 @@ function App() {
             </Routes>
           </Router>
         </CartProvider>
-      </UserProvider>
+      </UserProvider> */}
+            <Route path="/app/*" element={<Auth />} />
+          </Routes>
+        </Router>
     </div>
   );
 }

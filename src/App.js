@@ -45,9 +45,9 @@ function App() {
           </Router>
         </CartProvider>
       </UserProvider> */}
-            <Route path="/app/*" element={<Auth />} />
-          </Routes>
-        </Router>
+          <Route path="/app/*" element={<Auth />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

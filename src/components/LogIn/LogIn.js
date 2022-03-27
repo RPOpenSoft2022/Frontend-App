@@ -11,10 +11,9 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 
 export default function LogIn() {
   const [data, setData] = useState({
@@ -22,28 +21,33 @@ export default function LogIn() {
     password: "",
   });
 
-  const baseURL = process.env.REACT_APP_API_URL
-  const navigate = useNavigate()
-
+  const baseURL = "http://userapp.centralindia.cloudapp.azure.com:8080/api/";
+  const navigate = useNavigate();
   const login = () => {
     if (data.mobileNumber !== "" && data.password !== "") {
-      axios.post(baseURL + 'login/',
-        {
-          'phone': data.mobileNumber,
-          'password': data.password
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+      axios
+        .post(
+          baseURL + "login/",
+          {
+            phone: data.mobileNumber,
+            password: data.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
+        )
+        .then((res) => {
+          localStorage.setItem("access", res.data["access"]);
+          localStorage.setItem("refresh", res.data["refresh"]);
+          navigate("./app/stores");
         })
-        .then(res => {
-          localStorage.setItem("access", res.data["access"])
-          localStorage.setItem("refresh", res.data["refresh"])
-          navigate('./app/stores')
-        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
+  };
   return (
     <>
       <Box
@@ -62,7 +66,7 @@ export default function LogIn() {
           onSubmit={(e) => {
             e.preventDefault();
             console.log(data);
-            login()
+            login();
           }}
         >
           <FormControl
@@ -106,7 +110,9 @@ export default function LogIn() {
               placeholder="Password"
               required
               error={data.password.length < 8}
-              helperText={data.password.length < 8?"At least 8 characters":""}
+              helperText={
+                data.password.length < 8 ? "At least 8 characters" : ""
+              }
               onChange={(e) => {
                 let runPassowrd = e.target.value;
                 setData({ ...data, password: runPassowrd });

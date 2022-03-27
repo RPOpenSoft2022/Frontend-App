@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext, useState} from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { CartContext } from "../../Contexts/CartContext";
+import {UserContext} from '../../Contexts/UserContext';
+
 import {
   Card,
   CardMedia,
@@ -12,7 +15,102 @@ import {
   InputAdornment,
   Container,
 } from "@mui/material";
+import Item from "antd/lib/list/Item";
+import useRazorpay from "react-razorpay";
+
 function Checkout() {
+  const [cart, setcart] = useContext(CartContext);
+  const [user, setuser] = useContext(UserContext);
+
+  const [paymentResponse, setpaymentResponse] = useState({});
+  const Razorpay = useRazorpay();
+
+  const payWithRazor = (data) => {
+    let options = {
+      "key": "rzp_test_VQzdw3Uw16TNCX", // Enter the Key ID generated from the Dashboard
+      "amount": data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Acme Corp",
+      "description": "Checking out",
+      "image": "https://example.com/your_logo",
+      "order_id": data.transaction_token, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": (response) => {
+        setpaymentResponse(response);
+        if (!response.error)
+          handleSuccessfullPayment(data.order_id);
+      },
+      "prefill": {
+          "name": [user.first_name, user.middle_name, user.last_name].join(" "),
+          "email": user.email,
+          "contact": user.phone
+      },
+      "notes": {
+          "address": user.address
+      },
+      "theme": {
+          "color": "#FF5733"
+      }
+    };
+    let rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', (response) => {
+      setpaymentResponse(response);
+      // make a post request to delete the order here with data.order_id
+      handleFailedPayment(data.order_id);
+    });
+    rzp1.open();
+  }
+
+  const handleFailedPayment = (order_id) => {
+    fetch('/orders/payment_failed', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      mode: 'cors', 
+      body: JSON.stringify({...paymentResponse, order_id: order_id}),
+    })
+  }
+
+  const handleSuccessfullPayment = (order_id) => {
+    fetch('/orders/payment_success', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      mode: 'cors', 
+      body: JSON.stringify({...paymentResponse, order_id: order_id}),
+    })
+  }
+
+  const processPayment = () => {
+    // const data = {
+    //   "order_id": 2,
+    //   "amount": "50000",
+    //   "transaction_token": "order_JBR7tLb8md4kaw"
+    // }
+    // payWithRazor(data);
+    fetch('/orders', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      mode: 'cors', 
+      body: JSON.stringify(cart),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      // using razor pay for payment
+      payWithRazor(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
   return (
     <Box
       style={{
@@ -33,19 +131,17 @@ function Checkout() {
         <ShoppingCartCheckoutIcon size="medium" />
         Checkout
       </Typography>
-      <Container maxWidth="md">
-        <Box>
-          <CheckoutComponent />
-          <CheckoutComponent />
-          <CheckoutComponent />
-          <CheckoutComponent />
+      <Container maxWidth="md" sx={{justifyContent: "center"}}>
+        <Box >
+          {cart.Items && cart.Items.map((item) => <CheckoutComponent {...item}/> )}
         </Box>
       </Container>
+        <Button variant="contained" size="large" onClick={processPayment}> <Typography fontSize={20}>Proceed </Typography> </Button>
     </Box>
   );
 }
 
-const CheckoutComponent = () => {
+const CheckoutComponent = (props) => {
   return (
     <Card
       elevation={5}
@@ -76,7 +172,7 @@ const CheckoutComponent = () => {
             component="img"
             width="100%"
             height="100%"
-            image="https://static.freshtohome.com/media/catalog/product/cache/1/image/600x400/18ae109e34f485bd0b0c075abec96b2e/c/h/chicken_curry-cut.jpg"
+            image={props.thumbnail}
             alt="green iguana"
           />
         </Box>
@@ -102,7 +198,7 @@ const CheckoutComponent = () => {
                 color: "primary",
               }}
             >
-              Item Name
+              {props.name}
             </Typography>
             <p
               style={{
@@ -110,7 +206,7 @@ const CheckoutComponent = () => {
                 margin: "0px",
               }}
             >
-              Quantity = Quantity
+              Quantity = {props.quantity}
             </p>
             <p
               style={{
@@ -118,7 +214,7 @@ const CheckoutComponent = () => {
                 margin: "0px",
               }}
             >
-              Cost = Cost
+              Item Cost = {props.price}
             </p>
             <p
               style={{
@@ -126,7 +222,7 @@ const CheckoutComponent = () => {
                 margin: "0px",
               }}
             >
-              Total-Cost = Cost
+              Total Cost = {props.price * props.quantity}
             </p>
           </Box>
         </Box>

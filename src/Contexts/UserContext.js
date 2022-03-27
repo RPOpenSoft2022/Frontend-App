@@ -7,8 +7,10 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState({});
 	const access = localStorage.getItem('access')
 	const [isFetched, setIsfetched] = useState(false)
+	const baseURL = process.env.REACT_APP_API_URL
+
 	if(!isFetched && access!==null){
-		const url = "http://127.0.0.1:8000/api/get-user/"
+		const url = baseURL + "get-user/"
 		const config = {
 			headers:{
 				Authorization: `Bearer ${access}` 

@@ -67,7 +67,7 @@ export default function LogIn() {
               }}
             />
             <TextField
-              label="password"
+              label="Password"
               margin="dense"
               InputProps={{
                 startAdornment: (
@@ -76,8 +76,11 @@ export default function LogIn() {
                   </InputAdornment>
                 ),
               }}
+              type="password"
               placeholder="Password"
               required
+              error={data.password.length < 8}
+              helperText={data.password.length < 8?"At least 8 characters":""}
               onChange={(e) => {
                 let runPassowrd = e.target.value;
                 setData({ ...data, password: runPassowrd });

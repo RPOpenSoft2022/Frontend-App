@@ -21,7 +21,6 @@ import axios from 'axios';
 
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
-  const [user, setuser] = useContext(UserContext);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
   const Razorpay = useRazorpay();
@@ -29,25 +28,25 @@ function Checkout() {
   const payWithRazor = (data) => {
     let options = {
       "key": "rzp_test_VQzdw3Uw16TNCX", // Enter the Key ID generated from the Dashboard
-      "amount": data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "amount": data.amount*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       "currency": "INR",
       "name": "Acme Corp",
       "description": "Checking out",
-      "image": "https://example.com/your_logo",
+      "image": "https://d6xcmfyh68wv8.cloudfront.net/assets/razorpay-glyph.svg",
       "order_id": data.transaction_token, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       "handler": (response) => {
         setpaymentResponse(response);
         if (!response.error)
           handleSuccessfullPayment(data.order_id);
       },
-      "prefill": {
-          "name": [user.first_name, user.middle_name, user.last_name].join(" "),
-          "email": user.email,
-          "contact": user.phone
-      },
-      "notes": {
-          "address": user.address
-      },
+      // "prefill": {
+      //     "name": [user.first_name, user.middle_name, user.last_name].join(" "),
+      //     "email": user.email,
+      //     "contact": user.phone
+      // },
+      // "notes": {
+      //     "address": user.address
+      // },
       "theme": {
           "color": "#FF5733"
       }
@@ -93,12 +92,19 @@ function Checkout() {
     //   "transaction_token": "order_JBR7tLb8md4kaw"
     // }
     // payWithRazor(data);
-    axios.post(`${baseURL}order/`, JSON.stringify({...cart, token: localStorage.getItem('access'), customer: 6}))
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
+    let item_list = [];
+    for (const item of cart.item_list){
+      item_list.push({"id": item.id, "quantity" : parseInt(item.quantity)});
+    }
+    // item_list = JSON.stringify(item_list);
+    console.log(item_list);
+    const body = {"store_id": cart.store_id, "store_name": cart.store_name, "item_list": item_list, "token": localStorage.getItem('access'), "delivery_address": "RP Hall"};
+    console.log(body);
+    axios.post(`${baseURL}order/`, body)
+    .then(res => {
+      console.log('Success:', res.data);
       // using razor pay for payment
-      payWithRazor(data);
+      payWithRazor(res.data);
     })
     .catch((error) => {
       console.error('Error:', error);

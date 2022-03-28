@@ -22,7 +22,6 @@ const Stores = () => {
   useEffect(() => {
     axios
       .get(baseURL + "stores/", {headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       }})
       .then((res) => {

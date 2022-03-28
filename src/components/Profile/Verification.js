@@ -45,11 +45,12 @@ export default function Verification({password, phone}) {
     setOtp(OTP)
     console.log(otp)
   }
-  const baseURL = process.env.REACT_APP_API_URL
+  const baseURL = process.env.REACT_APP_USER_BASE_URL
   const navigate = useNavigate()
 
   const verifyOTP = () => {
-    axios.post(baseURL + "api/reset-password/", 
+    console.log(baseURL);
+    axios.post(baseURL + "reset-password/", 
     {
       'phone': phone,
       'otp': otp,

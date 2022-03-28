@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 
 const Profile = () => {
-	const baseURL = process.env.REACT_APP_API_URL
+	const baseURL = process.env.REACT_APP_USER_BASE_URL
 	const access = localStorage.getItem('access')
 	const [ data, setData ] = useState('')
 	const [ open, setOpen ]= useState(false)
@@ -27,7 +27,8 @@ const Profile = () => {
 
 	useEffect(() => {
 		if(data === ''){
-			const url = baseURL + "api/get-user/"
+			const url = baseURL + "get-user/"
+			console.log(url);
 			const config = {
 			headers:{
 				Authorization: `Bearer ${access}` 
@@ -43,7 +44,7 @@ const Profile = () => {
 	}, [data])
 
 	const updateData = () => {
-		const url = baseURL + "api/update-user/"
+		const url = baseURL + "update-user/"
 		const config = {
 		headers:{
 			Authorization: `Bearer ${access}` 
@@ -57,7 +58,7 @@ const Profile = () => {
 	const sendOTP = () => {
 		if (data.phone !== "" && password != "") {
 		  console.log('send')
-		  axios.post(baseURL + 'api/send-otp/',
+		  axios.post(baseURL + 'send-otp/',
 			{
 			  'phone': data.phone,
 			  'password': password
@@ -106,7 +107,7 @@ const Profile = () => {
                         fontSize: 30,
                         margin:"auto"
                     }}
-                >{`${data.first_name} ${data.middle_name} ${data.last_name}`}</span>
+                >{[data.first_name, data.middle_name, data.last_name].join(" ")}</span>
 				<Box
 					sx={{
 						display: "flex",

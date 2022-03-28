@@ -9,19 +9,20 @@ import Avatar from "@mui/material/Avatar";
 import axios from 'axios'
 
 const Profile = () => {
-	const backendUser = {email:"",
-							firstName:"",
-							middleName:"",
-							lastName:"",
-							phoneNumber:"",
-							gender:"",
-							foodPreference:"",
-							profileImage:""
-						}
+	const [backendUser,setBackendUser] = useState({});
 	const accessToken = localStorage.getItem('access');
-	const url ='';
+	const url ='http://127.0.0.1:8000/';
 	const [user, setUser] = useState(backendUser);
-	const fullName = [backendUser.firstNameBack, backendUser.middleNameBack, backendUser.lastNameBack].join(' ');
+	const fullName = [backendUser.firstNameBack,
+						backendUser.middleNameBack,
+						backendUser.lastNameBack].join(' ');
+	useEffect( () => {axios.get(`${url}/get-user/`,  {
+									headers:{
+										Authorization: `Bearer ${accessToken}`
+									}}).then(res => res.data)
+									.then(data=>setBackendUser(data))
+									.then(console.log(backendUser))}
+				,[])
 
     return (
         <div className="edit-profile">
@@ -144,7 +145,9 @@ const Profile = () => {
 									sender[key] = user[key]
 								}
 							}
-							axios.post(url, accessToken);
+							axios.post(`${url}/update-user/`, sender, {
+								headers:{Authorization: `Bearer ${accessToken}`
+							}});
 						}}
 						style={{
 							width: "20%",

@@ -8,44 +8,55 @@ import Box from "@mui/material/Box";
 import "antd/dist/antd.css";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Order = () => {
   const { id } = useParams();
-  // useEffect(() => {
-  //     console.log(id)
-  // }, [])
-  const dataSource = [
-    {
-      name: "Item 1",
-      quantity: "3",
-      price: "INR 100",
-      id: 1,
-    },
-    {
-      name: "Item 2",
-      quantity: "3",
-      price: "INR 200",
-      id: 2,
-    },
-    {
-      name: "Item 3",
-      quantity: "4",
-      price: "INR 150",
-      id: 3,
-    },
-    {
-      name: "Item 4",
-      quantity: "3",
-      price: "INR 300",
-      id: 4,
-    },
-    {
-      name: "Item 5",
-      quantity: "7",
-      price: "INR 455",
-      id: 5,
-    },
-  ];
+  const [data, setData] = useState({});
+
+  const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
+  const access = localStorage.getItem("access");
+  useEffect(() => {
+    axios
+      .get(baseURL + `order/${id}`, {
+        headers: { Authorization: `Bearer ${access}` },
+      })
+      .then((res) => {
+        setData(res.data);
+      });
+  }, []);
+  // const dataSource = [
+  //   {
+  //     name: "Item 1",
+  //     quantity: "3",
+  //     price: "INR 100",
+  //     id: 1,
+  //   },
+  //   {
+  //     name: "Item 2",
+  //     quantity: "3",
+  //     price: "INR 200",
+  //     id: 2,
+  //   },
+  //   {
+  //     name: "Item 3",
+  //     quantity: "4",
+  //     price: "INR 150",
+  //     id: 3,
+  //   },
+  //   {
+  //     name: "Item 4",
+  //     quantity: "3",
+  //     price: "INR 300",
+  //     id: 4,
+  //   },
+  //   {
+  //     name: "Item 5",
+  //     quantity: "7",
+  //     price: "INR 455",
+  //     id: 5,
+  //   },
+  // ];
 
   const columns = [
     {
@@ -62,12 +73,11 @@ const Order = () => {
     },
     {
       title: "Price Per Item",
-      dataIndex: "price",
+      dataIndex: "item_price",
       key: "price",
       width: 250,
     },
   ];
-
   return (
     <>
       <div className="order_container">
@@ -80,22 +90,26 @@ const Order = () => {
         </h1>
         <div className="order_table">
           <Table
-            dataSource={dataSource}
+            dataSource={data.item_list}
             columns={columns}
             style={{ minWidth: "280px", overflowX: "auto" }}
           />
           <div>
             <div>
-              <b>Total Cost: INR 2000</b>
+              <b>Total Cost: INR {data.cost}</b>
             </div>
             <div>
-              Ordered from: <Link to={`../Stores/${id}`}>Store A</Link>
+              Ordered from:{" "}
+              <Link to={`../Stores/${data.store_id}`}>{data.store_name}</Link>
             </div>
             <div>
-              <i>Date: 22 Jan, 2022</i>
+              <i>
+                Date:
+                {new Date(data.order_time).toLocaleDateString()}
+              </i>
             </div>
             <div>
-              <i>Time: 8.30 PM</i>
+              <i>Time: {new Date(data.order_time).toLocaleTimeString()}</i>
             </div>
           </div>
         </div>

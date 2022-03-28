@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import Item from "antd/lib/list/Item";
 import useRazorpay from "react-razorpay";
+import axios from 'axios';
 
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
@@ -61,7 +62,7 @@ function Checkout() {
   }
 
   const handleFailedPayment = (order_id) => {
-    fetch(`${baseURL}/orders/payment_failed`, {
+    fetch(`${baseURL}payment_failed`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ function Checkout() {
   }
 
   const handleSuccessfullPayment = (order_id) => {
-    fetch(`${baseURL}/orders/payment_success`, {
+    fetch(`${baseURL}payment_success`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -92,15 +93,7 @@ function Checkout() {
     //   "transaction_token": "order_JBR7tLb8md4kaw"
     // }
     // payWithRazor(data);
-    fetch(`${baseURL}order/`, {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      mode: 'cors', 
-      body: JSON.stringify({...cart, token: localStorage.getItem('access'), customer: 6}),
-    })
+    axios.post(`${baseURL}order/`, JSON.stringify({...cart, token: localStorage.getItem('access'), customer: 6}))
     .then(response => response.json())
     .then(data => {
       console.log('Success:', data);

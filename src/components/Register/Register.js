@@ -65,8 +65,6 @@ export default function Register() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            sendOTP()
-            console.log(data);
             sendOTP();
           }}
         >
@@ -78,7 +76,6 @@ export default function Register() {
             }}
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("hii");
             }}
           >
             <TextField

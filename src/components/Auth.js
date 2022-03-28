@@ -19,7 +19,7 @@ import LogIn from "./LogIn/LogIn";
 const Auth = () => {
   const access = localStorage.getItem("access");
   const refresh = localStorage.getItem("refresh");
-  const baseURL = "http://127.0.0.1:8000/api/";
+  const baseURL = process.env.REACT_APP_USER_BASE_URL;
   const navigate = useNavigate();
   const [authCheck, setAuthCheck] = useState(false);
 

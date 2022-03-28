@@ -17,11 +17,7 @@ const Stores = () => {
   let [loading, setLoading] = useState(true);
   let [storesList, setStores] = useState([]);
 
-<<<<<<< HEAD
-  const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
-=======
   const baseURL = process.env.REACT_APP_STORE_BASE_URL;
->>>>>>> 0c116787eaddb84a645eb41cc6f5a0cf9156e679
 
   useEffect(() => {
     axios
@@ -52,7 +48,9 @@ const Stores = () => {
   return (
     <>
       <div className="stores_container">
-        <Typography className="stores_header" variant="h2" color='primary'>Stores</Typography>
+        <Typography className="stores_header" variant="h2" color="primary">
+          Stores
+        </Typography>
         {storesList.map((item) => {
           return (
             <Link to={`./${item.id}`} key={item.id} className="stores_item">
@@ -68,12 +66,12 @@ const Stores = () => {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    <HomeIcon
-                      sx={{ transform: `translate(0%, 22%)` }}/>{item.address}
+                    <HomeIcon sx={{ transform: `translate(0%, 22%)` }} />
+                    {item.address}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    <LocalPhoneIcon 
-                      sx={{ transform: `translate(0%, 30%)` }}/>{item.contactInfo}
+                    <LocalPhoneIcon sx={{ transform: `translate(0%, 30%)` }} />
+                    {item.contactInfo}
                   </Typography>
                 </CardContent>
                 {/* <CardActions>

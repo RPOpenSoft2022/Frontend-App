@@ -160,8 +160,8 @@ const Profile = () => {
 						onClick={()=> {
 							const sender = {};
 							for (let key in backendUser) {
-								if (backendUser[key] != user[key]){
-									sender[key] = user[key]
+								if (backendUser[key] != userData[key]){
+									sender[key] = userData[key]
 								}
 							}
 							axios.post(`${url}/update-user/`, sender, {

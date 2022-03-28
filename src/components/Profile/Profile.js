@@ -9,7 +9,6 @@ import Avatar from "@mui/material/Avatar";
 import axios from 'axios';
 
 const Profile = () => {
-	const [user, setUser] = useState(backendUser);
 	const baseURL = process.env.REACT_APP_API_URL
 	const access = localStorage.getItem('access')
 	const [ data, setData ] = useState('')

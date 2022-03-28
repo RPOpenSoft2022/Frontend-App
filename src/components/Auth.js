@@ -61,7 +61,7 @@ const Auth = () => {
                 })
                 .catch(err => {
                     console.log(err)
-                    axios.post(baseURL + 'token/refresh',
+                    axios.post(baseURL + 'token/refresh/',
                     {
                         'refresh': refresh
                     })

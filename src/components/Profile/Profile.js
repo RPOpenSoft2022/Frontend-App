@@ -7,11 +7,24 @@ import InputLabel from '@mui/material/InputLabel';
 import { Box, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import axios from 'axios';
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import Verification from "./Verification";
+import {
+  Modal,
+  Typography,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 
 const Profile = () => {
 	const baseURL = process.env.REACT_APP_API_URL
 	const access = localStorage.getItem('access')
 	const [ data, setData ] = useState('')
+	const [ open, setOpen ]= useState(false)
+	const [ password, setPassword ] = useState('')
+
 	useEffect(() => {
 		if(data === ''){
 			const url = baseURL + "api/get-user/"
@@ -40,6 +53,30 @@ const Profile = () => {
 		.then(res => window.alert(res.data["message"]))
 		.catch(err => window.alert(err.response.data["message"]))
 	}
+
+	const sendOTP = () => {
+		if (data.phone !== "" && password != "") {
+		  console.log('send')
+		  axios.post(baseURL + 'api/send-otp/',
+			{
+			  'phone': data.phone,
+			  'password': password
+			},
+			{
+			  headers: {
+				'Content-Type': 'application/json',
+			  }
+			})
+			.then(res => {
+			  console.log(res.data)
+			  setOpen(true)
+			})
+			.catch(err => {
+			  console.log(err.response.data["message"])
+			  window.alert(err.response.data["message"])
+			})
+		}
+	  }
 
     return (
         <div className="edit-profile">
@@ -164,20 +201,34 @@ const Profile = () => {
 						Update
 					</Button>
                 </FormControl>
+				<FormControl>
+					<InputLabel htmlFor="password">
+						Password
+                    </InputLabel>
+                    <Input
+                        id="password"
+                        value={password}
+                        style={{width: "100%"}}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+				</FormControl>
                 <FormControl variant="standard" >
-					<Link
-                        to="/change-password"
-                        style={{
-                            textDecoration: "none",
-                            margin: "auto"
-                        }}
-                    >
-                        <Button
-                            variant="contained"
-                        > Change Password </Button>
-                    </Link>
-					</FormControl>
+					<Button variant="contained" onClick={() => sendOTP()}> Change Password </Button>
+				</FormControl>
+					
             </Box>}
+			<Modal
+				open={open}
+				onClose={() => {
+				setOpen(false);
+				}}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<>
+				<Verification password={password} phone={data.phone}/>
+				</>
+			</Modal>
         </div>
     );
 }

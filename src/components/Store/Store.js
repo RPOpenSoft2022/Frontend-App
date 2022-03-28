@@ -19,12 +19,13 @@ import { CartContext } from "../../Contexts/CartContext";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 
-const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
 
 const Store = (props) => {
   const { id } = useParams();
   const [cart, setCart] = useContext(CartContext);
   const [store, setstore] = useState({ loading: true });
+  const baseURL = process.env.REACT_APP_STORE_BASE_URL;
+
   useEffect(() => {
     axios.get(baseURL + `stores/${id}`).then((res) => {
       console.log(res.data);

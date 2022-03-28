@@ -22,7 +22,8 @@ export default function Register() {
     mobileNumber: "",
     password: "",
   });
-  const baseURL = process.env.REACT_APP_API_URL
+  const baseURL = process.env.REACT_APP_USER_BASE_URL;
+
   const sendOTP = () => {
     if (data.mobileNumber !== "") {
       console.log('send')

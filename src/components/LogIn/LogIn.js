@@ -21,7 +21,11 @@ export default function LogIn() {
     password: "",
   });
 
+<<<<<<< HEAD
   const baseURL = "http://userapp.centralindia.cloudapp.azure.com:8080/api/";
+=======
+  const baseURL = process.env.REACT_APP_USER_BASE_URL;
+>>>>>>> 0c116787eaddb84a645eb41cc6f5a0cf9156e679
   const navigate = useNavigate();
   const login = () => {
     if (data.mobileNumber !== "" && data.password !== "") {

@@ -10,12 +10,18 @@ import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import HomeIcon from "@mui/icons-material/Home";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 const Stores = () => {
   let [loading, setLoading] = useState(true);
   let [storesList, setStores] = useState([]);
 
+<<<<<<< HEAD
   const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
+=======
+  const baseURL = process.env.REACT_APP_STORE_BASE_URL;
+>>>>>>> 0c116787eaddb84a645eb41cc6f5a0cf9156e679
 
   useEffect(() => {
     axios
@@ -46,15 +52,15 @@ const Stores = () => {
   return (
     <>
       <div className="stores_container">
-        <h1 className="stores_header">Stores</h1>
+        <Typography className="stores_header" variant="h2" color='primary'>Stores</Typography>
         {storesList.map((item) => {
           return (
             <Link to={`./${item.id}`} key={item.id} className="stores_item">
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ height: 350 }}>
                 <CardMedia
                   component="img"
                   height="140"
-                  image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                  image="https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg"
                   alt="green iguana"
                 />
                 <CardContent>
@@ -62,7 +68,12 @@ const Stores = () => {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.address + " " + item.contactInfo}
+                    <HomeIcon
+                      sx={{ transform: `translate(0%, 22%)` }}/>{item.address}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <LocalPhoneIcon 
+                      sx={{ transform: `translate(0%, 30%)` }}/>{item.contactInfo}
                   </Typography>
                 </CardContent>
                 {/* <CardActions>

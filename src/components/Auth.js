@@ -19,12 +19,11 @@ import LogIn from "./LogIn/LogIn";
 const Auth = () => {
   const access = localStorage.getItem("access");
   const refresh = localStorage.getItem("refresh");
-  const baseURL = "http://userapp.centralindia.cloudapp.azure.com:8080/api/";
+  const baseURL = "http://127.0.0.1:8000/api/";
   const navigate = useNavigate();
   const [authCheck, setAuthCheck] = useState(false);
 
   useEffect(() => {
-    console.log("shobit gupta");
     if (
       access === null ||
       access === "" ||
@@ -67,7 +66,7 @@ const Auth = () => {
         .catch((err) => {
           console.log(err);
           axios
-            .post(baseURL + "token/refresh", {
+            .post(baseURL + "token/refresh/", {
               refresh: refresh,
             })
             .then((res) => {

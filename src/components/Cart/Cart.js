@@ -29,7 +29,7 @@ function Cart() {
         Cart
       </Typography>
       <Typography variant="h5" sx={{ textAlign: "center" }}>
-        Picked From {cart.storeName}
+        Picked From {cart.store_name}
       </Typography>
       <CardElement />
     </>
@@ -38,7 +38,7 @@ function Cart() {
 
 function CardElement() {
   const [cart] = useContext(CartContext);
-  const { Items } = cart;
+  const { item_list } = cart;
   return (
     <>
       <Box
@@ -57,8 +57,8 @@ function CardElement() {
             maxWidth: "1200px",
           }}
         >
-          {Items &&
-            Items.map((Item) => {
+          {item_list &&
+            item_list.map((Item) => {
               const { id } = Item;
               return (
                 <>
@@ -85,20 +85,20 @@ function CardElement() {
 function CardComponent(props) {
   const [cart, setCart] = useContext(CartContext);
   const updateItemQuantity = (itemId, operation) => {
-    const { Items } = cart;
-    const modifiedItems = Items.map((item) => {
+    const { item_list} = cart;
+    const modifiedItems = item_list.map((item) => {
       if (item.id === itemId) {
         const quantity = Number(item.quantity) + operation;
         const modifiedItem = { ...item, quantity: `${quantity}` };
         return modifiedItem;
       } else return item;
     }).filter((item) => item.quantity !== "0");
-    setCart({ ...cart, Items: modifiedItems });
+    setCart({ ...cart, item_list: modifiedItems });
   };
   const removeItem = (itemId) => {
-    const { Items } = cart;
-    const modifiedItems = Items.filter((item) => item.id !== itemId);
-    setCart({ ...cart, Items: modifiedItems });
+    const { item_list } = cart;
+    const modifiedItems = item_list.filter((item) => item.id !== itemId);
+    setCart({ ...cart, item_list: modifiedItems });
   };
   const { id, name, quantity, price } = props;
   return (

@@ -29,11 +29,9 @@ const Store = (props) => {
   useEffect(() => {
     axios.get(baseURL + `stores/${id}`).then((res) => {
       console.log(res.data);
-      console.log("hipping");
-      if (cart.storeId == id) {
-        console.log(res.data);
+      if (cart.store_id == id) {
         const storeMenu = res.data.menu;
-        cart.Items.map((cartItem) => {
+        cart.item_list.map((cartItem) => {
           const itemIndex = storeMenu.findIndex(
             (item) => item.id == cartItem.id
           );
@@ -50,21 +48,21 @@ const Store = (props) => {
       // show a notification that item is already selected
       return;
     }
-    if (!cart.storeId || cart.storeId != id) {
+    if (!cart.store_id || cart.store_id != id) {
       // show a notification that older selected items will be removed
       setCart({});
       setCart({
-        storeId: id,
-        storeName: store.name,
-        Items: [{ ...item, quantity: 1 }],
+        store_id: id,
+        store_name: store.name,
+        item_list: [{ ...item, quantity: 1 }],
       });
       item.selected = true;
       return;
     }
-    let items = cart.Items;
+    let items = cart.item_list;
     if (!items) items = [item];
     else items = [...items, { ...item, quantity: 1 }];
-    setCart({ ...cart, Items: items });
+    setCart({ ...cart, item_list: items });
     item.selected = true;
     // show a notification that items is selected
   };

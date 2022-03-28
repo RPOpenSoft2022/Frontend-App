@@ -27,7 +27,7 @@ export default function Register() {
   const sendOTP = () => {
     if (data.mobileNumber !== "") {
       console.log('send')
-      axios.post(baseURL + 'send-otp/',
+      axios.post(baseURL + 'api/send-otp/',
         {
           'phone': data.mobileNumber,
           'password': data.password

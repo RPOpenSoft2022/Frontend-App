@@ -23,93 +23,87 @@ const Auth = () => {
   const navigate = useNavigate();
   const [authCheck, setAuthCheck] = useState(false);
 
-  useEffect(() => {
-    if (
-      access === null ||
-      access === "" ||
-      refresh === null ||
-      refresh === ""
-    ) {
-      navigate("../");
-    } else {
-      axios
-        .post(baseURL + "token/verify/", {
-          token: access,
-        })
-        .then((res) => {
-          // if (res.ok) {
-          //     // navigate('./stores')
-          //     console.log('Hi 1')
-          //     setAuthCheck(true)
+    useEffect(() => {
+        if (access === null || access === "" || refresh === null || refresh === "") {
+            navigate("../")
+        }
+        else {
+            axios.post(baseURL + 'api/token/verify/',
+                {
+                    'token': access
+                })
+                .then(res => {
+                    // if (res.ok) {
+                    //     // navigate('./stores')
+                    //     console.log('Hi 1')
+                    //     setAuthCheck(true)
 
-          // }
-          // else {
-          //     console.log('Hi 2')
-          //     axios.post(baseURL + 'token/refresh',
-          //         {
-          //             'refresh': refresh
-          //         })
-          //         .then(res => {
-          //             if (res.ok) {
-          //                 localStorage.setItem('access', res.data["access"])
-          //                 setAuthCheck(true)
-          //                 // navigate('./stores')
-          //             }
-          //             else {
-          //                 navigate("../")
-          //             }
-          //         })
-          // }
-          console.log(res.data);
-          setAuthCheck(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          axios
-            .post(baseURL + "token/refresh/", {
-              refresh: refresh,
-            })
-            .then((res) => {
-              // if (res.ok) {
-              //     localStorage.setItem('access', res.data["access"])
-              //     setAuthCheck(true)
-              //     // navigate('./stores')
-              // }
-              // else {
-              //     navigate("../")
-              // }
-              localStorage.setItem("access", res.data["access"]);
-              setAuthCheck(true);
-            })
-            .catch((err) => {
-              console.log(err);
-              navigate("../");
-            });
-        });
-    }
-  });
+                    // }
+                    // else {
+                    //     console.log('Hi 2')
+                    //     axios.post(baseURL + 'token/refresh',
+                    //         {
+                    //             'refresh': refresh
+                    //         })
+                    //         .then(res => {
+                    //             if (res.ok) {
+                    //                 localStorage.setItem('access', res.data["access"])
+                    //                 setAuthCheck(true)
+                    //                 // navigate('./stores')
+                    //             }
+                    //             else {
+                    //                 navigate("../")
+                    //             }
+                    //         })
+                    // }
+                    console.log(res.data)
+                    setAuthCheck(true)
+                })
+                .catch(err => {
+                    console.log(err)
+                    axios.post(baseURL + 'token/refresh/',
+                    {
+                        'refresh': refresh
+                    })
+                    .then(res => {
+                        // if (res.ok) {
+                        //     localStorage.setItem('access', res.data["access"])
+                        //     setAuthCheck(true)
+                        //     // navigate('./stores')
+                        // }
+                        // else {
+                        //     navigate("../")
+                        // }
+                        localStorage.setItem('access', res.data["access"])
+                        setAuthCheck(true)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        navigate("../")
+                    })
+                })
+        }
+    }, [])
 
-  console.log("hippo Photomus");
-  return (
-    <>
-      {authCheck && (
-        <UserProvider>
-          <CartProvider>
-            <ResponsiveAppBar />
-            <Routes>
-              <Route path="/Stores" element={<Stores />} />
-              <Route path="/Stores/:id" element={<Store />} />
-              <Route path="/Orders" element={<Orders />} />
-              <Route path="/Orders/:id" element={<Order />} />
-              <Route path="/Cart" element={<Cart />} />
-              <Route path="/Checkout" element={<Checkout />} />
-              <Route exact path="/Profile" element={<Profile />} />
-            </Routes>
-          </CartProvider>
-        </UserProvider>
-      )}
-    </>
-  );
-};
+    return (
+        <>
+            {authCheck &&
+                // <UserProvider>
+                    <CartProvider>
+                        <ResponsiveAppBar />
+                        <Routes>
+                            <Route path="/Stores" element={<Stores />} />
+                            <Route path="/Stores/:id" element={<Store />} />
+                            <Route path="/Orders" element={<Orders />} />
+                            <Route path="/Orders/:id" element={<Order />} />
+                            <Route path="/Cart" element={<Cart />} />
+                            <Route path="/Checkout" element={<Checkout />} />
+                            <Route exact path="/Profile" element={<Profile />} />
+                        </Routes>
+                    </CartProvider>
+                // </UserProvider>
+        }
+        </>);
+}
 
 export default Auth;

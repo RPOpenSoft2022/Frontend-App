@@ -9,21 +9,21 @@ export const UserProvider = (props) => {
 	const [isFetched, setIsfetched] = useState(false)
 	const baseURL = process.env.REACT_APP_API_URL
 
-	if(!isFetched && access!==null){
-		const url = baseURL + "api/get-user/"
-		const config = {
-			headers:{
-				Authorization: `Bearer ${access}` 
-			}		
-		}
-		axios.get(url, config)
-		.then(res => {
-			console.log(res.data)
-			setUser({data: res.data,})
-			setIsfetched(true)
-			console.log(user)
-		})
-	}
+	// if(!isFetched && access!==null){
+	// 	const url = baseURL + "api/get-user/"
+	// 	const config = {
+	// 		headers:{
+	// 			Authorization: `Bearer ${access}` 
+	// 		}		
+	// 	}
+	// 	axios.get(url, config)
+	// 	.then(res => {
+	// 		console.log(res.data)
+	// 		setUser({data: res.data,})
+	// 		setIsfetched(true)
+	// 		console.log(user)
+	// 	})
+	// }
   return (
     <UserContext.Provider value={[user, setUser]}>
       {props.children}

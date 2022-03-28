@@ -49,7 +49,7 @@ const Profile = () => {
 			Authorization: `Bearer ${access}` 
 			}		
 		}
-		axios.put(url, config, data)
+		axios.put(url, data, config)
 		.then(res => window.alert(res.data["message"]))
 		.catch(err => window.alert(err.response.data["message"]))
 	}

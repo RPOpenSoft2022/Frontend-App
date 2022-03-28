@@ -13,6 +13,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 export default function LogIn() {
   const [data, setData] = useState({
@@ -21,12 +22,13 @@ export default function LogIn() {
   });
 
   const baseURL = process.env.REACT_APP_API_URL
+  const navigate = useNavigate()
 
   const login = () => {
     console.log(baseURL)
     if (data.mobileNumber !== "" && data.password !== "") {
       console.log('send')
-      axios.post(baseURL + 'login/',
+      axios.post(baseURL + 'api/login/',
         {
           'phone': data.mobileNumber,
           'password': data.password
@@ -40,6 +42,7 @@ export default function LogIn() {
           console.log(res.data)
           localStorage.setItem("access", res.data["access"])
           localStorage.setItem("refresh", res.data["refresh"])
+          navigate('./app/stores')
         })
     }
   }

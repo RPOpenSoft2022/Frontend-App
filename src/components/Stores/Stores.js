@@ -12,6 +12,15 @@ import axios from "axios";
 
 const Stores = () => {
   let [loading, setLoading] = useState(true);
+  const [stores, setStores] = useState(null)
+  const baseURL = process.env.REACT_APP_API_URL
+
+  useEffect(() => {
+    axios.get(baseURL+'stores/')
+    .then(res => {
+      console.log(res.data)
+    })
+  }, [])
   let [stores_list, setStores_List] = useState([
     {
       Store_Name: "Subway",
@@ -75,7 +84,7 @@ const Stores = () => {
         <h1 className="stores_header">Stores</h1>
         {stores_list.length !== null &&
           stores_list.map((item) => (
-            <Link to={`./${item.id}`} key={item.id} class="stores_item">
+            <Link to={`./${item.id}`} key={item.id} className="stores_item">
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"

@@ -1,6 +1,6 @@
 export const cartData = {
-  storeId: "1",
-  Items: [
+  store_id: "1",
+  item_list: [
     {
       id: "1",
       name: "chicken",

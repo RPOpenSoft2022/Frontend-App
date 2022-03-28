@@ -225,6 +225,7 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "110",
+            "status": "Cancelled",
             "id": 1
         },
         {
@@ -235,6 +236,7 @@ export default function BasicTabs() {
             },
             "time": "8:31 PM",
             "cost": "570",
+            "status": "Delivered",
             "id": 2
         },
         {
@@ -245,6 +247,7 @@ export default function BasicTabs() {
             },
             "time": "8:32 PM",
             "cost": "670",
+            "status": "Delivered",
             "id": 3
         },
         {
@@ -255,6 +258,7 @@ export default function BasicTabs() {
             },
             "time": "8:33 PM",
             "cost": "765",
+            "status": "Delivered",
             "id": 4
         },
         {
@@ -265,6 +269,7 @@ export default function BasicTabs() {
             },
             "time": "8:34 PM",
             "cost": "874",
+            "status": "Cancelled",
             "id": 5
         },
         {
@@ -275,6 +280,7 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "540",
+            "status": "Delivered",
             "id": 1
         },
         {
@@ -285,6 +291,7 @@ export default function BasicTabs() {
             },
             "time": "8:31 PM",
             "cost": "210",
+            "status": "Delivered",
             "id": 2
         },
         {
@@ -295,6 +302,7 @@ export default function BasicTabs() {
             },
             "time": "8:32 PM",
             "cost": "220",
+            "status": "Delivered",
             "id": 3
         },
         {
@@ -305,6 +313,7 @@ export default function BasicTabs() {
             },
             "time": "8:33 PM",
             "cost": "530",
+            "status": "Delivered",
             "id": 4
         },
         {
@@ -315,6 +324,7 @@ export default function BasicTabs() {
             },
             "time": "8:34 PM",
             "cost": "770",
+            "status": "Delivered",
             "id": 5
         }, {
             "date": "08 Feb, 2022",
@@ -324,6 +334,7 @@ export default function BasicTabs() {
             },
             "time": "8:30 PM",
             "cost": "760",
+            "status": "Delivered",
             "id": 6
         }
     ]
@@ -388,7 +399,26 @@ export default function BasicTabs() {
         },
     ];
 
-    const columns1 = columns.slice(0,3)
+    const columns1 = columns.slice(0,3)    
+    
+    columns1.push({
+        title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            width: 250 ,
+            filters: [
+                {
+                  text: 'Delivered',
+                  value: 'Delivered',
+                },
+                {
+                  text: 'Cancelled',
+                  value: 'Cancelled',
+                },
+              ],
+              onFilter: (value, record) => record.status.indexOf(value) === 0,
+    })
+
     columns1.push({
         title: 'Action',
         dataIndex: 'id',
@@ -396,6 +426,8 @@ export default function BasicTabs() {
         width: 250,
         render: (text) => <Button type="primary"><Link to={`../Orders/${text}`}>view</Link></Button>,
     })
+
+   
 
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);

@@ -9,6 +9,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import {Link} from 'react-router-dom';
+
 function Cart() {
   const [cart] = useContext(CartContext);
   return (
@@ -67,6 +69,8 @@ function CardElement() {
           style={{
             maxWidth: "200px",
           }}
+          component={Link}
+          to = "/Checkout"
         >
           Checkout and Pay
         </Button>

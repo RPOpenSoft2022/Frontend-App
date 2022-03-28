@@ -1,95 +1,159 @@
-import React, { Component } from "react";
+import React from "react";
 import OtpInput from "react-otp-input";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
 import LockIcon from "@mui/icons-material/Lock";
-import { Container, Box, Grid, Typography, Button } from "@mui/material";
-export default class Verification extends Component {
-  state = { otp: "" };
+import { makeStyles } from "@mui/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  CssBaseline,
+  Avatar,
+  Button,
+  Grid,
+  Paper,
+  Container,
+  Typography,
+} from "@mui/material";
+import { useState } from 'react'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
-  handleChange = (otp) => this.setState({ otp });
+// const theme = createTheme();
+// const useStyles = makeStyles((theme) => ({
+//   grid: {
+//     backgroundColor: "grey",
+//     height: "50vh",
+//     textAlign: "center",
+//   },
+//   avatar: {
+//     margin: theme.spacing(1),
+//     backgroundColor: theme.palette.secondary.main,
+//   },
+//   submit: {
+//     margin: theme.spacing(3),
+//   },
+//   paper: {
+//     marginTop: theme.spacing(8),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
+// }));
 
-  render() {
-    return (
-      <>
-        <Container
-          style={{
-            minWidth: "300px",
-            maxWidth: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "1rem",
-            backgroundColor: "white",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <LockIcon color="primary" fontSize="large" />
-          <Typography
-            variant="h5"
-            align="center"
-            style={{
-              margin: "1rem",
-            }}
-          >
-            Verification Code
-          </Typography>
-          <Typography
-            variant="h6"
-            align="center"
-            style={{
-              fontSize: "1rem",
-              margin: "1rem",
-            }}
-          >
-            Please Enter The Verification Code Sent To Your Mobile
-          </Typography>
-          <Grid
-            justify="center"
-            style={{
-              width: "300px",
-              margin: "0 auto",
-            }}
-          >
-            <OtpInput
-              value={this.state.otp}
-              onChange={this.handleChange}
-              numInputs={4}
-              separator={<span>:</span>}
-              inputStyle={{
-                position: "relative",
-                display: "block",
-                width: "3rem",
-                height: "3rem",
-                margin: "0 0.5rem",
-                fontSize: "2rem",
-                color: "black",
-                borderRadius: 4,
-                border: "1px solid rgba(0,0,0,0.3)",
-              }}
-              containerStyle="div"
-              isInputNum
-            />
-          </Grid>
-          <Button
-            variant="contained"
-            type="submit"
-            style={{
-              marginTop: "10px",
-            }}
-            onClick={() => {
-              console.log(this.state.otp);
-            }}
-          >
-            Verify
-          </Button>
-        </Container>
-      </>
-    );
+export default function Verification({password, phone}) {
+  // const classes = useStyles();
+  const [otp, setOtp] = useState(null)
+  function handleOtp(OTP){
+    setOtp(OTP)
+    console.log(otp)
   }
+  const baseURL = process.env.REACT_APP_API_URL
+  const navigate = useNavigate()
+
+  const verifyOTP = () => {
+    axios.post(baseURL + "api/register/", 
+    {
+      'phone': phone,
+      'otp': otp,
+      'password': password
+    })
+    .then(res => {
+      console.log(res.data["message"])
+      window.alert(res.data["message"])
+      localStorage.setItem("access", res.data["access"])
+      localStorage.setItem("refresh", res.data["refresh"])
+      navigate('../app/profile')
+    })
+    .catch(err => {
+      console.error(err.response.data["message"])
+      window.alert(err.response.data["message"])
+
+    })
+  }
+
+  
+
+  return (
+    <Container
+      component="main"
+      maxWidth="sm"
+      style={{
+        backgroundColor: "red",
+      }}
+    >
+      <CssBaseline />
+      <div>
+        <Grid
+          container
+          style={{ backgroundColor: "white" }}
+          justify="center"
+          alignItems="center"
+          spacing={3}
+        >
+          aayush
+          <Grid item container justify="center">
+            <Grid item container alignItems="center" direction="column">
+              <Grid item>
+                <Avatar>
+                  <LockIcon />
+                </Avatar>
+              </Grid>
+              <Grid item>
+                <Typography component="h1" variant="h5">
+                  Verification Code
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} textAlign="center">
+            <Paper elevation={0}>
+              <Typography variant="h6">
+                Please enter the verification code sent to your mobile
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            container
+            justify="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Grid item spacing={3} justify="center">
+              <OtpInput
+                separator={
+                  <span>
+                    <strong>:</strong>
+                  </span>
+                }
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 0.5rem",
+                  fontSize: "2rem",
+                  color: "black",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)",
+                }}
+                
+                value={otp}
+                onChange={handleOtp}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+
+                onClick = {verifyOTP}
+              >
+                Verify
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    </Container>
+  );
 }

@@ -86,7 +86,7 @@ const Profile = () => {
 							id="firstName"
 							value={userData.firstName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, firstName:e.target.value})}
+							onChange={(e) => setUserData({...userData, firstName:e.target.value})}
 							/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -97,7 +97,7 @@ const Profile = () => {
 							id="middleName"
 							value={userData.middleName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, middleName:e.target.value})}
+							onChange={(e) => setUserData({...userData, middleName:e.target.value})}
 						/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -108,7 +108,7 @@ const Profile = () => {
 							id="lastName"
 							value={userData.lastName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, lastName:e.target.value})}
+							onChange={(e) => setUserData({...userData, lastName:e.target.value})}
 							/>
 					</FormControl>
 				</Box>
@@ -118,7 +118,7 @@ const Profile = () => {
                         id="email"
                         value={userData.email}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, email:e.target.value})}
+						onChange={(e) => setUserData({...userData, email:e.target.value})}
 						/>
 				</FormControl>
                 <FormControl variant="standard" >
@@ -129,7 +129,7 @@ const Profile = () => {
                         id="phoneNumber"
                         value={userData.phoneNumber}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, phoneNumber:e.target.value})}
+						onChange={(e) => setUserData({...userData, phoneNumber:e.target.value})}
 						/>
                 </FormControl>
                 <FormControl variant="standard" >
@@ -140,7 +140,7 @@ const Profile = () => {
                         id="gender"
                         value={userData.gender}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, gender:e.target.value})}
+						onChange={(e) => setUserData({...userData, gender:e.target.value})}
 						/>
                 </FormControl>
                 <FormControl variant="standard" >
@@ -151,7 +151,7 @@ const Profile = () => {
                         id="foodPreference"
                         value={userData.foodPreference}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, foodPreference:e.target.value})}
+						onChange={(e) => setUserData({...userData, foodPreference:e.target.value})}
 						/>
                 </FormControl>
                 <FormControl variant="standard" >

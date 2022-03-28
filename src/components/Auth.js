@@ -24,7 +24,6 @@ const Auth = () => {
   const [authCheck, setAuthCheck] = useState(false);
 
   useEffect(() => {
-    console.log("shobit gupta");
     if (
       access === null ||
       access === "" ||
@@ -67,7 +66,7 @@ const Auth = () => {
         .catch((err) => {
           console.log(err);
           axios
-            .post(baseURL + "token/refresh", {
+            .post(baseURL + "token/refresh/", {
               refresh: refresh,
             })
             .then((res) => {

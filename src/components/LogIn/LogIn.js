@@ -27,7 +27,12 @@ export default function LogIn() {
 
   const login = () => {
     if (data.mobileNumber !== "" && data.password !== "") {
+<<<<<<< HEAD
       axios.post(baseURL + 'login/',
+=======
+      console.log('send')
+      axios.post(baseURL + 'api/login/',
+>>>>>>> 6530960e01d374d11208c92c02801815de761910
         {
           'phone': data.mobileNumber,
           'password': data.password

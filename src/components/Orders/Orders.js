@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import 'antd/dist/antd.css';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"

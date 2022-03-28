@@ -6,33 +6,13 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import { Box, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-<<<<<<< HEAD
-import axios from 'axios'
-
-const Profile = () => {
-	const [backendUser,setBackendUser] = useState({});
-	const accessToken = localStorage.getItem('access');
-	const url ='http://127.0.0.1:8000/';
-	const [user, setUser] = useState(backendUser);
-	const fullName = [backendUser.firstNameBack,
-						backendUser.middleNameBack,
-						backendUser.lastNameBack].join(' ');
-	useEffect( () => {axios.get(`${url}/get-user/`,  {
-									headers:{
-										Authorization: `Bearer ${accessToken}`
-									}}).then(res => res.data)
-									.then(data=>setBackendUser(data))
-									.then(console.log(backendUser))}
-				,[])
-
-=======
 
 import { UserContext } from "../../Contexts/UserContext";
 import { useContext } from "react";
 
 import axios from 'axios'
 
-const Profile = () => {
+const CustomerForm = () => {
 	const backendUser = {email:"",
 							firstName:"",
 							middleName:"",
@@ -63,7 +43,6 @@ const Profile = () => {
 	// 		console.log(user)
 	// 	})
 	// }
->>>>>>> 6530960e01d374d11208c92c02801815de761910
     return (
         <div className="edit-profile">
             <Box
@@ -107,7 +86,7 @@ const Profile = () => {
 							id="firstName"
 							value={userData.firstName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, firstName:e.target.value})}
+							onChange={(e) => updateUser("firstName",e.target.value)}
 							/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -118,7 +97,7 @@ const Profile = () => {
 							id="middleName"
 							value={userData.middleName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, middleName:e.target.value})}
+							onChange={(e) => updateUser("middleName",e.target.value)}
 						/>
 					</FormControl>
 					<FormControl variant="standard" style={{margin:"0 2px"}}>
@@ -129,7 +108,7 @@ const Profile = () => {
 							id="lastName"
 							value={userData.lastName}
 							style={{width: "100%"}}
-							onChange={(e) => setUser({...user, lastName:e.target.value})}
+							onChange={(e) => updateUser("lastName",e.target.value)}
 							/>
 					</FormControl>
 				</Box>
@@ -139,8 +118,8 @@ const Profile = () => {
                         id="email"
                         value={userData.email}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, email:e.target.value})}
-						/>
+                        onChange={(e) => updateUser("email",e.target.value)}
+                    />
 				</FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="phoneNumber">
@@ -150,8 +129,8 @@ const Profile = () => {
                         id="phoneNumber"
                         value={userData.phoneNumber}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, phoneNumber:e.target.value})}
-						/>
+                        onChange={(e) => updateUser("phoneNumber",e.target.value)}
+                    />
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="gender">
@@ -161,8 +140,8 @@ const Profile = () => {
                         id="gender"
                         value={userData.gender}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, gender:e.target.value})}
-						/>
+                        onChange={(e) => updateUser("gender",e.target.value)}
+                    />
                 </FormControl>
                 <FormControl variant="standard" >
                     <InputLabel htmlFor="foodPreference">
@@ -172,23 +151,12 @@ const Profile = () => {
                         id="foodPreference"
                         value={userData.foodPreference}
                         style={{width: "100%"}}
-						onChange={(e) => setUser({...user, foodPreference:e.target.value})}
-						/>
+                        onChange={(e) => updateUser("foodPreference",e.target.value)}
+                    />
                 </FormControl>
                 <FormControl variant="standard" >
 					<Button
 						variant="outlined"
-						onClick={()=> {
-							const sender = {};
-							for (let key in backendUser) {
-								if (backendUser[key] != user[key]){
-									sender[key] = user[key]
-								}
-							}
-							axios.post(`${url}/update-user/`, sender, {
-								headers:{Authorization: `Bearer ${accessToken}`
-							}});
-						}}
 						style={{
 							width: "20%",
 							margin: "auto"
@@ -215,4 +183,4 @@ const Profile = () => {
     );
 }
 
-export default Profile;
+export default CustomerForm;

@@ -26,7 +26,7 @@ export default function Register() {
   const sendOTP = () => {
     if (data.mobileNumber !== "") {
       console.log('send')
-      axios.post(baseURL + 'send-otp/',
+      axios.post(baseURL + 'api/send-otp/',
         {
           'phone': data.mobileNumber,
           'password': data.password
@@ -66,6 +66,7 @@ export default function Register() {
             e.preventDefault();
             sendOTP()
             console.log(data);
+            sendOTP();
           }}
         >
           <FormControl
@@ -94,6 +95,7 @@ export default function Register() {
                 let runMobileNumber = e.target.value;
                 setData({ ...data, mobileNumber: runMobileNumber });
               }}
+              value={data.mobileNumber}
             />
             <TextField
               label="password"

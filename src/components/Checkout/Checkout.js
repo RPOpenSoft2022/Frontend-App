@@ -21,7 +21,7 @@ import useRazorpay from "react-razorpay";
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
   const [user, setuser] = useContext(UserContext);
-
+  const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
   const Razorpay = useRazorpay();
 
@@ -61,7 +61,7 @@ function Checkout() {
   }
 
   const handleFailedPayment = (order_id) => {
-    fetch('/orders/payment_failed', {
+    fetch(`${baseURL}/orders/payment_failed`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function Checkout() {
   }
 
   const handleSuccessfullPayment = (order_id) => {
-    fetch('/orders/payment_success', {
+    fetch(`${baseURL}/orders/payment_success`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -85,20 +85,21 @@ function Checkout() {
   }
 
   const processPayment = () => {
+    console.log(cart);
     // const data = {
     //   "order_id": 2,
     //   "amount": "50000",
     //   "transaction_token": "order_JBR7tLb8md4kaw"
     // }
     // payWithRazor(data);
-    fetch('/orders', {
+    fetch(`${baseURL}order/`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
       mode: 'cors', 
-      body: JSON.stringify(cart),
+      body: JSON.stringify({...cart, token: localStorage.getItem('access'), customer: 6}),
     })
     .then(response => response.json())
     .then(data => {
@@ -131,9 +132,10 @@ function Checkout() {
         <ShoppingCartCheckoutIcon size="medium" />
         Checkout
       </Typography>
+      <Typography variant="h4">From {cart.store_name}</Typography>
       <Container maxWidth="md" sx={{justifyContent: "center"}}>
         <Box >
-          {cart.Items && cart.Items.map((item) => <CheckoutComponent {...item}/> )}
+          {cart.item_list && cart.item_list.map((item) => <CheckoutComponent {...item}/> )}
         </Box>
       </Container>
         <Button variant="contained" size="large" onClick={processPayment}> <Typography fontSize={20}>Proceed </Typography> </Button>

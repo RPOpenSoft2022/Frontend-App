@@ -21,14 +21,8 @@ export default function LogIn() {
     password: "",
   });
 
-<<<<<<< HEAD
-  const baseURL = "http://userapp.centralindia.cloudapp.azure.com:8080/api/";
+  const baseURL = "http://127.0.0.1:8000/api/";
   const navigate = useNavigate();
-=======
-  const baseURL = 'http://userapp.centralindia.cloudapp.azure.com:8081/'
-  const navigate = useNavigate()
-
->>>>>>> 258afcd65861d2b542a2fe3873de74f31a73b9c4
   const login = () => {
     if (data.mobileNumber !== "" && data.password !== "") {
       axios

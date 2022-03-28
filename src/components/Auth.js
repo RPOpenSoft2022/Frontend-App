@@ -28,7 +28,7 @@ const Auth = () => {
             navigate("../")
         }
         else {
-            axios.post(baseURL + 'token/verify/',
+            axios.post(baseURL + 'api/token/verify/',
                 {
                     'token': access
                 })

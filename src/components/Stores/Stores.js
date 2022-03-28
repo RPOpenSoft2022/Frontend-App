@@ -15,14 +15,16 @@ const Stores = () => {
   let [loading, setLoading] = useState(true);
   let [storesList, setStores] = useState([]);
 
-  const baseURL = "http://127.0.0.1:8002/";
+  const baseURL = "http://storesapp.centralindia.cloudapp.azure.com:8082/";
 
   useEffect(() => {
     axios
-      .get(baseURL + "stores/", {headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      }})
+      .get(baseURL + "stores/", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res.data["stores"]);
         setStores(res.data["stores"]);

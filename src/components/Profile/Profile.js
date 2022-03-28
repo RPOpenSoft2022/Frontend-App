@@ -6,26 +6,6 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import { Box, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-<<<<<<< HEAD
-import axios from 'axios'
-
-const Profile = () => {
-	const [backendUser,setBackendUser] = useState({});
-	const accessToken = localStorage.getItem('access');
-	const url ='http://127.0.0.1:8000/';
-	const [user, setUser] = useState(backendUser);
-	const fullName = [backendUser.firstNameBack,
-						backendUser.middleNameBack,
-						backendUser.lastNameBack].join(' ');
-	useEffect( () => {axios.get(`${url}/get-user/`,  {
-									headers:{
-										Authorization: `Bearer ${accessToken}`
-									}}).then(res => res.data)
-									.then(data=>setBackendUser(data))
-									.then(console.log(backendUser))}
-				,[])
-
-=======
 
 import { UserContext } from "../../Contexts/UserContext";
 import { useContext } from "react";
@@ -63,7 +43,6 @@ const Profile = () => {
 	// 		console.log(user)
 	// 	})
 	// }
->>>>>>> 6530960e01d374d11208c92c02801815de761910
     return (
         <div className="edit-profile">
             <Box

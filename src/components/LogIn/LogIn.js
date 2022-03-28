@@ -21,7 +21,7 @@ export default function LogIn() {
     password: "",
   });
 
-  const baseURL = "http://127.0.0.1:8000/api/";
+  const baseURL = process.env.REACT_APP_USER_BASE_URL;
   const navigate = useNavigate();
   const login = () => {
     if (data.mobileNumber !== "" && data.password !== "") {

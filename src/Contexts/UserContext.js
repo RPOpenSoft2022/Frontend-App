@@ -7,7 +7,7 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState({ isFetched: false });
   const access = localStorage.getItem("access");
   const [isFetched, setIsfetched] = useState(false);
-  const baseURL = "http://userapp.centralindia.cloudapp.azure.com:8080/api/";
+  const baseURL = process.env.REACT_APP_USER_BASE_URL;
 
   //   if (!isFetched && access !== null) {
   //     const url = baseURL + "get-user/";

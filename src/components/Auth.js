@@ -15,8 +15,12 @@ import Profile from "./Profile/Profile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+<<<<<<< HEAD
 import LogIn from "./LogIn/LogIn";
 import { TryRounded } from "@mui/icons-material";
+=======
+import Logout from "./Logout/Logout";
+>>>>>>> 06aa444311112436a2cc720068ff17eea257c51a
 
 const Auth = () => {
   const access = localStorage.getItem("access");
@@ -59,6 +63,7 @@ const Auth = () => {
     }
   };
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   if (
   //     access === null ||
@@ -128,5 +133,28 @@ const Auth = () => {
     </>
   );
 };
+=======
+    return (
+        <>
+            {authCheck &&
+                // <UserProvider>
+                    <CartProvider>
+                        <ResponsiveAppBar />
+                        <Routes>
+                            <Route path="/Stores" element={<Stores />} />
+                            <Route path="/Stores/:id" element={<Store />} />
+                            <Route path="/Orders" element={<Orders />} />
+                            <Route path="/Orders/:id" element={<Order />} />
+                            <Route path="/Cart" element={<Cart />} />
+                            <Route path="/Checkout" element={<Checkout />} />
+                            <Route exact path="/Profile" element={<Profile />} />
+                            <Route exact path="/Logout" element={<Logout />} />
+                        </Routes>
+                    </CartProvider>
+                // </UserProvider>
+        }
+        </>);
+}
+>>>>>>> 06aa444311112436a2cc720068ff17eea257c51a
 
 export default Auth;

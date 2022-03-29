@@ -62,9 +62,6 @@ export const columns = [
         >
           <Link to={`../Orders/${text}`}>view</Link>
         </Button>
-        <Button type="danger" style={{ marginBottom: "5px" }}>
-          <Link to={`#`}>cancel</Link>
-        </Button>
       </div>
     ),
   },

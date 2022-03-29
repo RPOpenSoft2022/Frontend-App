@@ -9,10 +9,12 @@ import "antd/dist/antd.css";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loader from '../Loader/Loader';
+import {Typography} from '@mui/material'
 
 const Order = () => {
   const { id } = useParams();
-  const [data, setData] = useState({});
+  const [data, setData] = useState({"loading": true});
 
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const access = localStorage.getItem("access");
@@ -23,7 +25,7 @@ const Order = () => {
       })
       .then((res) => {
         console.log(res.data);
-        setData(res.data);
+        setData({...res.data, "loading": false});
       });
   }, []);
   // const dataSource = [
@@ -81,7 +83,8 @@ const Order = () => {
   ];
   return (
     <>
-      <div className="order_container">
+    {data.loading?<Loader/>:
+      <Box className="order_container">
         <h1 className="order_header">
           <SummarizeIcon
             color="primary"
@@ -89,37 +92,38 @@ const Order = () => {
           />{" "}
           Order Summary
         </h1>
-        <div className="order_table">
+        <Box className="order_table">
           <Table
             dataSource={data.item_list}
             columns={columns}
             style={{ minWidth: "280px", overflowX: "auto" }}
           />
-          <div>
-            <div>
-              <b>Total Cost: INR {data.cost}</b>
-            </div>
-            <div>
-              <i>Order Status: {data.delivery_status}</i>
-            </div>
-            <div>
-              <i>Delivery Address: {data.delivery_address}</i>
-            </div>
-            <div>
+          <Box>
+            <Typography variant="h6">
+              Total Cost: INR {data.cost}
+            </Typography>
+            <Typography variant="subtitle2">
+             Delivery otp: {data.delivery_otp}
+            </Typography>
+            <Typography variant="paragraphy" sx={{display: 'block'}}>
+              Order Status: {data.delivery_status.split(",")[1].slice(2, -2)}
+            </Typography>
+            <Typography variant="paragraphy" sx={{display: 'block'}}>
+              Delivery Address: {data.delivery_address}
+            </Typography>
+            <Typography variant="paragraphy" sx={{display: 'block'}}>
               Ordered from:{" "}
               <Link to={`/app/Stores/${data.store_id}`}>{data.store_name}</Link>
-            </div>
-            <div>
-              <i>
+            </Typography>
+            <Typography variant="paragraphy" sx={{display: 'block'}}>
                 Date: {new Date(data.order_time).toLocaleDateString()}
-              </i>
-            </div>
-            <div>
-              <i>Time: {new Date(data.order_time).toLocaleTimeString()}</i>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Typography>
+            <Typography variant="paragraphy" sx={{display: 'block'}}>
+              Time: {new Date(data.order_time).toLocaleTimeString()}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>}
     </>
   );
 };

@@ -20,6 +20,8 @@ import Order from "./components/Order/Order";
 import ResponsiveAppBar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import { UserProvider } from "./Contexts/UserContext";
+import Deliveries from "./deliveryComponents/Deliveries/Deliveries";
+import Delivery from "./deliveryComponents/Delivery/Delivery";
 
 function App() {
   return (

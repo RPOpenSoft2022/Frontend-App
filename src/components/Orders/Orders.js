@@ -42,7 +42,7 @@ export default function BasicTabs() {
     let dataSource = [],
       dataSource1 = [];
     axios
-      .get(baseURL + "order/past_orders/16", {
+      .get(baseURL + "order/past_orders", {
         headers: { Authorization: `Bearer ${access}` },
       })
       .then((res) => {

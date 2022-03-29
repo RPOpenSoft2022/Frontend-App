@@ -14,7 +14,7 @@ import Profile from "./Profile/Profile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import LogIn from "./LogIn/LogIn";
+import Logout from "./Logout/Logout";
 
 const Auth = () => {
   const access = localStorage.getItem("access");
@@ -99,6 +99,7 @@ const Auth = () => {
                             <Route path="/Cart" element={<Cart />} />
                             <Route path="/Checkout" element={<Checkout />} />
                             <Route exact path="/Profile" element={<Profile />} />
+                            <Route exact path="/Logout" element={<Logout />} />
                         </Routes>
                     </CartProvider>
                 // </UserProvider>

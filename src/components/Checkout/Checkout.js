@@ -58,8 +58,9 @@ function Checkout() {
       "order_id": data.transaction_token, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       "handler": (response) => {
         setpaymentResponse(response);
-        if (!response.error)
-        handlePaymentStatus(data.order_id, 1);
+        if (!response.error){
+          handlePaymentStatus(data.order_id, 1);
+        }
       },
       // "prefill": {
       //     "name": [user.first_name, user.middle_name, user.last_name].join(" "),
@@ -119,7 +120,11 @@ function Checkout() {
     // accepted change
     // calculate amount only
     // does not create order
-    axios.post(`${baseURL}order/`, body)
+    axios.post(`${baseURL}order/`, body, {
+      headers: { 
+        Authorization: `Bearer ${access}` 
+      }
+    })
     .then(res => {
       console.log('Success:', res.data);
       // using razor pay for payment

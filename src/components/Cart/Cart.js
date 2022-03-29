@@ -28,10 +28,20 @@ function Cart() {
         <ShoppingCartIcon />
         Cart
       </Typography>
-      <Typography variant="h5" sx={{ textAlign: "center" }}>
-        Picked From {cart.store_name}
-      </Typography>
-      <CardElement />
+      {
+        !cart.item_list? 
+        (<Typography variant="h5" sx={{ textAlign: "center" }}>
+            No Food Items are picked
+          </Typography>):
+        (
+          <Box>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+            Picked From {cart.store_name}
+            </Typography>
+            <CardElement />
+          </Box>
+        )
+      }
     </>
   );
 }

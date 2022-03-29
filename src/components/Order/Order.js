@@ -107,7 +107,7 @@ const Order = () => {
             </div>
             <div>
               Ordered from:{" "}
-              <Link to={`../Stores/${data.store_id}`}>{data.store_name}</Link>
+              <Link to={`/app/Stores/${data.store_id}`}>{data.store_name}</Link>
             </div>
             <div>
               <i>

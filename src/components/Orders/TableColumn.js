@@ -26,7 +26,7 @@ export const columns = [
     dataIndex: "store",
     key: "store",
     width: 250,
-    render: (text) => <Link to={`/Stores/${text.store_id}`}>{text.name}</Link>,
+    render: (text) => <Link to={`/app/Stores/${text.store_id}`}>{text.name}</Link>,
   },
   {
     title: "Status",
@@ -35,12 +35,12 @@ export const columns = [
     width: 250,
     filters: [
       {
-        text: "Accepted",
-        value: "Accepted",
+        text: "Payment Pending",
+        value: "Payment Pending",
       },
       {
-        text: "Pending",
-        value: "Pending",
+        text: "Preparing Item",
+        value: "Preparing Item",
       },
       {
         text: "Out for Delivery",

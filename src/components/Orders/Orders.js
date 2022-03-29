@@ -20,11 +20,11 @@ const orderStatus = {
 };
 
 const statusCodes = {
-  1: "PENDING",
-  2: "ACCEPTED",
-  3: "OUT_FOR_DELIVERY",
-  4: "DELIVERED",
-  5: "CANCELLED",
+  1: "Payment Pending",
+  2: "Preparing Item",
+  3: "Out for Delivery",
+  4: "Delivered",
+  5: "Cancelled",
 };
 
 export default function BasicTabs() {
@@ -42,7 +42,7 @@ export default function BasicTabs() {
     let dataSource = [],
       dataSource1 = [];
     axios
-      .get(baseURL + "order/past_orders/1", {
+      .get(baseURL + "order/past_orders/16", {
         headers: { Authorization: `Bearer ${access}` },
       })
       .then((res) => {

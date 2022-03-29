@@ -8,30 +8,52 @@ import Typography from "@mui/material/Typography";
 import "./Stores.css";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
 import axios from "axios";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { UserContext } from "../../Contexts/UserContext";
 
 const Stores = () => {
-  let [loading, setLoading] = useState(true);
-  let [storesList, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [storesList, setStores] = useState([]);
+
+  const [user, setUser] = useContext(UserContext);
 
   const baseURL = process.env.REACT_APP_STORE_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get(baseURL + "stores/", {headers: {
-        'Content-Type': 'application/json',
-      }})
-      .then((res) => {
-        console.log(res.data["stores"]);
-        setStores(res.data["stores"]);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    
+    if (user.user_category == 'Customer'){
+      axios
+        .get(baseURL + "stores/", {headers: {
+          'Content-Type': 'application/json',
+        }})
+        .then((res) => {
+          console.log(res.data["stores"]);
+          setStores(res.data["stores"]);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }else if(user.user_category == 'Staff'){
+      axios
+        .post(baseURL + `store_manager/`, {
+          "user_id":user.id
+        },{
+          headers: {
+          'Content-Type': 'application/json',
+        }})
+        .then((res) => {
+          console.log(res.data);
+          setStores(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   if (loading) {

@@ -12,7 +12,7 @@ import { columns, columns1 } from "./TableColumn";
 import "./Orders.css";
 
 const orderStatus = {
-  1: "('PENDING', 'Order Pending')",
+  1: "('PENDING', 'Payment Pending')",
   2: "('ACCEPTED', 'Preparing Item')",
   3: "('OUT_FOR_DELIVERY', 'Out for Delivery')",
   4: "('DELIVERED', 'Delivered')",

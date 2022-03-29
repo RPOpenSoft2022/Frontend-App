@@ -73,6 +73,7 @@ export default function Verification({ password, phone }) {
       component="main"
       maxWidth="sm"
       style={{
+        marginTop: "30vh",
         backgroundColor: "red",
       }}
     >
@@ -80,12 +81,11 @@ export default function Verification({ password, phone }) {
       <div>
         <Grid
           container
-          style={{ backgroundColor: "white" }}
+          style={{ backgroundColor: "white"}}
           justify="center"
           alignItems="center"
           spacing={3}
         >
-          aayush
           <Grid item container justify="center">
             <Grid item container alignItems="center" direction="column">
               <Grid item>
@@ -135,7 +135,7 @@ export default function Verification({ password, phone }) {
                 onChange={handleOtp}
               />
             </Grid>
-            <Grid item>
+            <Grid item sx={{margin: "20px"}}>
               <Button
                 type="submit"
                 fullWidth

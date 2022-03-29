@@ -1,0 +1,14 @@
+.delivery_container{
+    width: 100%;
+    padding: 10px;
+}
+
+.delivery_header{
+    width: 100%;
+    text-align: center;
+}
+
+.delivery_table{
+    width: 100%;
+    text-align: center;
+}

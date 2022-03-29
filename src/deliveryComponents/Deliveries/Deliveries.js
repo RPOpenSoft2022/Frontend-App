@@ -13,16 +13,12 @@ import "./Deliveries.css";
 import ResponsiveAppBar from "../../deliveryComponents/Navbar/Navbar";
 
 const orderStatus = {
-  1: "('PENDING', 'Payment Pending')",
-  2: "('ACCEPTED', 'Preparing Item')",
   3: "('OUT_FOR_DELIVERY', 'Out for Delivery')",
   4: "('DELIVERED', 'Delivered')",
   5: "('CANCELLED', 'Cancelled')",
 };
 
 const statusCodes = {
-  1: "Payment Pending",
-  2: "Preparing Item",
   3: "Out for Delivery",
   4: "Delivered",
   5: "Cancelled",

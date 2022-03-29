@@ -23,39 +23,6 @@ const Delivery = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false)
   const [data, setData] = useState({
-    "item_list": 
-        [
-            {
-                name: "Item 1",
-                quantity: "3",
-                price: "INR 100",
-                id: 1,
-            },
-            {
-                name: "Item 2",
-                quantity: "3",
-                price: "INR 200",
-                id: 2,
-            },
-            {
-                name: "Item 3",
-                quantity: "4",
-                price: "INR 150",
-                id: 3,
-            },
-            {
-                name: "Item 4",
-                quantity: "3",
-                price: "INR 300",
-                id: 4,
-            },
-            {
-                name: "Item 5",
-                quantity: "7",
-                price: "INR 455",
-                id: 5,
-            }
-        ],
     "loading": false,
     "cost": "300",
     "delivery_otp": "8376",
@@ -66,66 +33,41 @@ const Delivery = () => {
     "order_time": "11:00 AM"
     });
 
-  const columns = [
-    {
-      title: "Item",
-      dataIndex: "name",
-      key: "name",
-      width: 250,
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
-      width: 250,
-    },
-    {
-      title: "Price Per Item",
-      dataIndex: "price",
-      key: "price",
-      width: 250,
-    },
-  ];
   return (
     <>
     <ResponsiveAppBar />
     {data.loading?<Loader/>:
-      <Box className="order_container">
-        <h1 className="order_header">
+      <Box className="delivery_container">
+        <h1 className="delivery_header">
           <SummarizeIcon
             color="primary"
             style={{ fontSize: "35px", marginBottom: "-5px" }}
           />{" "}
           Delivery Summary
         </h1>
-        <Box className="order_table">
-          <Table
-            dataSource={data.item_list}
-            columns={columns}
-            style={{ minWidth: "280px", overflowX: "auto" }}
-          />
+        <Box className="delivery_table">
           <Box>
             <Typography variant="h6">
               Total Cost: INR {data.cost}
             </Typography>
-            <Typography variant="paragraphy" sx={{display: 'block'}}>
+            <Typography variant="paragraphy" sx={{display: 'block', padding:"10px"}}>
               Delivery Status: {data.delivery_status}
             </Typography>
-            <Typography variant="paragraphy" sx={{display: 'block'}}>
+            <Typography variant="paragraphy" sx={{display: 'block', padding:"5px"}}>
               Delivery Address: {data.delivery_address}
             </Typography>
-            <Typography variant="paragraphy" sx={{display: 'block'}}>
+            <Typography variant="paragraphy" sx={{display: 'block', padding:"5px"}}>
               Ordered from:{" "}
               <Link to={`/app/Stores/${data.store_id}`}>{data.store_name}</Link>
             </Typography>
-            <Typography variant="paragraphy" sx={{display: 'block'}}>
+            <Typography variant="paragraphy" sx={{display: 'block', padding:"5px"}}>
                 Date: {new Date(data.order_time).toLocaleDateString()}
             </Typography>
-            <Typography variant="paragraphy" sx={{display: 'block'}}>
+            <Typography variant="paragraphy" sx={{display: 'block', padding:"5px"}}>
               Time: {new Date(data.order_time).toLocaleTimeString()}
             </Typography>
             {data.delivery_status === "Picked"?
-            <Button onClick={() => {
+            <Button style={{margin:"5px"}} onClick={() => {
                 setOpen(true)
             }}>Verify OTP</Button>:null}
           </Box>

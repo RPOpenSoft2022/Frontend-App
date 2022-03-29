@@ -21,9 +21,11 @@ const Stores = () => {
 
   useEffect(() => {
     axios
-      .get(baseURL + "stores/", {headers: {
-        'Content-Type': 'application/json',
-      }})
+      .get(baseURL + "stores/", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res.data["stores"]);
         setStores(res.data["stores"]);

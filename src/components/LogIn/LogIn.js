@@ -130,10 +130,10 @@ export default function LogIn() {
           </FormControl>
         </form>
         <Button component={Link} to="/Register">
-        Register
+          Register
         </Button>
         <Button component={Link} to="/Register">
-        Forgot-Password
+          Forgot-Password
         </Button>
       </Box>
     </>

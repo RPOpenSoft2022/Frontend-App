@@ -35,12 +35,12 @@ export const columns = [
     width: 250,
     filters: [
       {
-        text: "Accepted",
-        value: "Accepted",
+        text: "Payment Pending",
+        value: "Payment Pending",
       },
       {
-        text: "Pending",
-        value: "Pending",
+        text: "Preparing Item",
+        value: "Preparing Item",
       },
       {
         text: "Out for Delivery",

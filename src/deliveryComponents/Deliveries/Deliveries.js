@@ -107,7 +107,6 @@ export default function Deliveries() {
 
   return (
     <>
-      <ResponsiveAppBar />
       <div className="orders_container">
         <Typography
           variant="h2"

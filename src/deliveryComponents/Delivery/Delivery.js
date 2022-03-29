@@ -31,7 +31,6 @@ const Delivery = () => {
 
   return (
     <>
-      <ResponsiveAppBar />
       {data.loading ? (
         <Loader />
       ) : (

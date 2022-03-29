@@ -27,5 +27,43 @@ export const columns = [
     width: 250,
     render: (text) => <Link to={`/Delivery/${text}`}>View</Link>,
   },
+  {
+    title: "Status",
+    dataIndex: "delivery_status",
+    key: "delivery_status",
+    width: 250,
+    filters: [
+      {
+        text: "Picked",
+        value: "Picked",
+      },
+      {
+        text: "Not Picked",
+        value: "Not Picked",
+      }
+    ],
+    onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
+  },
 ];
+
+export const columns1 = columns.slice(0,4)
+
+columns1.push({
+  title: "Status",
+  dataIndex: "delivery_status",
+  key: "delivery_status",
+  width: 250,
+  filters: [
+    {
+      text: "Delivered",
+      value: "Delivered",
+    },
+    {
+      text: "Cancelled",
+      value: "Cancelled",
+    },
+  ],
+  onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
+});
+
 

@@ -32,30 +32,64 @@ export default function BasicTabs() {
         order_id: 1,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
+        delivery_status: "Picked"
       },
       {
         order_id: 2,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
+        delivery_status: "Not Picked"
       },
       {
         order_id: 3,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
+        delivery_status: "Picked"
       },
       {
         order_id: 4,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
+        delivery_status: "Picked"
       },
       {
         order_id: 5,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
+        delivery_status: "Not Picked"
       },
 
     ], dataSource1: [
-
+      {
+        order_id: 1,
+        pickup_address: "Some random address",
+        delivery_address: "Some random address",
+        delivery_status: "Delivered"
+      },
+      {
+        order_id: 2,
+        pickup_address: "Some random address",
+        delivery_address: "Some random address",
+        delivery_status: "Cancelled"
+      },
+      {
+        order_id: 3,
+        pickup_address: "Some random address",
+        delivery_address: "Some random address",
+        delivery_status: "Delivered"
+      },
+      {
+        order_id: 4,
+        pickup_address: "Some random address",
+        delivery_address: "Some random address",
+        delivery_status: "Delivered"
+      },
+      {
+        order_id: 5,
+        pickup_address: "Some random address",
+        delivery_address: "Some random address",
+        delivery_status: "Cancelled"
+      },
     ]
   });
 
@@ -149,8 +183,8 @@ export default function BasicTabs() {
           </TabPanel>
           <TabPanel value={value} index={1} className="orders_box">
             <Table
-              dataSource={data.dataSource}
-              columns={columns}
+              dataSource={data.dataSource1}
+              columns={columns1}
               style={{ minWidth: "280px" }}
             />
           </TabPanel>

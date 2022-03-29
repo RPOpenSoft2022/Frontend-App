@@ -26,7 +26,7 @@ export const columns = [
     dataIndex: "store",
     key: "store",
     width: 250,
-    render: (text) => <Link to={`/Stores/${text.store_id}`}>{text.name}</Link>,
+    render: (text) => <Link to={`/app/Stores/${text.store_id}`}>{text.name}</Link>,
   },
   {
     title: "Status",

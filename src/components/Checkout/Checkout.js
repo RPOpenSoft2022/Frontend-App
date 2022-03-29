@@ -116,6 +116,9 @@ function Checkout() {
     console.log(item_list);
     const body = {"store_id": cart.store_id, "store_name": cart.store_name, "item_list": item_list, "token": localStorage.getItem('access'), "delivery_address": "RP Hall"};
     console.log(body);
+    // accepted change
+    // calculate amount only
+    // does not create order
     axios.post(`${baseURL}order/`, body)
     .then(res => {
       console.log('Success:', res.data);

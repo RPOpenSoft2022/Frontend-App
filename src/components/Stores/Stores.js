@@ -38,16 +38,14 @@ const Stores = () => {
           console.log(err);
         });
     }else if(user.user_category == 'Staff'){
-      axios
-        .post(baseURL + `store_manager/`, {
-          "user_id":user.id
-        },{
-          headers: {
-          'Content-Type': 'application/json',
-        }})
+      console.log(user);
+      const body = {
+        user_id: user.id
+      };
+      axios.post(baseURL + "store_manager/", body)
         .then((res) => {
           console.log(res.data);
-          setStores(res.data);
+          setStores([res.data]);
           setLoading(false);
         })
         .catch((err) => {

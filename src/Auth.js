@@ -63,7 +63,17 @@ const Auth = () => {
 
   const userView = (userCategory) => {
     switch (userCategory) {
-      case "Customer":
+      case "Delivery":
+        return (
+          <>
+            <DeliveryNavBar />
+            <Routes>
+              <Route path="/Deliveries" element={<Deliveries />} />
+              <Route path="/Deliveries/:id" element={<Delivery />} />
+            </Routes>
+          </>
+        );
+      default:
         return (
           <>
             <CartProvider>
@@ -80,18 +90,6 @@ const Auth = () => {
             </CartProvider>
           </>
         );
-      case "Delivery":
-        return (
-          <>
-            <DeliveryNavBar />
-            <Routes>
-              <Route path="/Deliveries" element={<Deliveries />} />
-              <Route path="/Deliveries/:id" element={<Delivery />} />
-            </Routes>
-          </>
-        );
-      default:
-        <>Delivery</>;
     }
   };
 

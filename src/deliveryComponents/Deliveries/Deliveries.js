@@ -24,7 +24,7 @@ const statusCodes = {
   5: "Cancelled",
 };
 
-export default function BasicTabs() {
+export default function Deliveries() {
   const [value, setValue] = useState(0);
   const [data, setData] = useState({
     dataSource: [
@@ -32,65 +32,65 @@ export default function BasicTabs() {
         order_id: 1,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Picked"
+        delivery_status: "Picked",
       },
       {
         order_id: 2,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Not Picked"
+        delivery_status: "Not Picked",
       },
       {
         order_id: 3,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Picked"
+        delivery_status: "Picked",
       },
       {
         order_id: 4,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Picked"
+        delivery_status: "Picked",
       },
       {
         order_id: 5,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Not Picked"
+        delivery_status: "Not Picked",
       },
-
-    ], dataSource1: [
+    ],
+    dataSource1: [
       {
         order_id: 1,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Delivered"
+        delivery_status: "Delivered",
       },
       {
         order_id: 2,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Cancelled"
+        delivery_status: "Cancelled",
       },
       {
         order_id: 3,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Delivered"
+        delivery_status: "Delivered",
       },
       {
         order_id: 4,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Delivered"
+        delivery_status: "Delivered",
       },
       {
         order_id: 5,
         pickup_address: "Some random address",
         delivery_address: "Some random address",
-        delivery_status: "Cancelled"
+        delivery_status: "Cancelled",
       },
-    ]
+    ],
   });
 
   const handleChange = (event, newValue) => {
@@ -100,45 +100,6 @@ export default function BasicTabs() {
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const access = localStorage.getItem("access");
   console.log(baseURL);
-  //   useEffect(() => {
-  //     let dataSource = [],
-  //       dataSource1 = [];
-  //     axios
-  //       .get(baseURL + "order/past_orders/16", {
-  //         headers: { Authorization: `Bearer ${access}` },
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         res.data.map((item) => {
-  //           let status = item.delivery_status;
-  //           console.log(status);
-  //           for (let i = 1; i <= 5; ++i) {
-  //             if (status == orderStatus[i]) {
-  //               if (i === 4 || i === 5) {
-  //                 dataSource1 = [
-  //                   ...dataSource1,
-  //                   orderObject({ ...item, status: i }),
-  //                 ];
-  //               } else {
-  //                 console.log("hey", i);
-  //                 dataSource = [
-  //                   ...dataSource,
-  //                   orderObject({ ...item, status: i }),
-  //                 ];
-  //               }
-  //             }
-  //           }
-  //         });
-  //         const updatedData = {
-  //           dataSource: dataSource,
-  //           dataSource1: dataSource1,
-  //         };
-  //         console.log(dataSource);
-  //         console.log(dataSource1);
-  //         setData(updatedData);
-  //         console.log(data);
-  //       });
-  //   }, []);
 
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);

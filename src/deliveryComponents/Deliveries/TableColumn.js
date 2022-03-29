@@ -25,7 +25,7 @@ export const columns = [
     dataIndex: "order_id",
     key: "order_id",
     width: 250,
-    render: (text) => <Link to={`/Delivery/${text}`}>View</Link>,
+    render: (text) => <Link to={`/app/Deliveries/${text}`}>View</Link>,
   },
   {
     title: "Status",
@@ -40,13 +40,13 @@ export const columns = [
       {
         text: "Not Picked",
         value: "Not Picked",
-      }
+      },
     ],
     onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
   },
 ];
 
-export const columns1 = columns.slice(0,4)
+export const columns1 = columns.slice(0, 4);
 
 columns1.push({
   title: "Status",
@@ -65,5 +65,3 @@ columns1.push({
   ],
   onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
 });
-
-

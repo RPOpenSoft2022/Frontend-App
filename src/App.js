@@ -13,44 +13,27 @@ import "./App.css";
 // import Orders from "./components/Orders/Orders";
 // import Order from "./components/Order/Order"
 // import Profile from "./components/Profile/Profile";
-import Auth from "./components/Auth";
-import Store from "./components/Store/Store";
-import Orders from "./components/Orders/Orders";
-import Order from "./components/Order/Order";
-import ResponsiveAppBar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+import Auth from "./Auth";
+// import Store from "./components/Store/Store";
+// import Orders from "./components/Orders/Orders";
+// import Order from "./components/Order/Order";
+// import ResponsiveAppBar from "./components/Navbar/Navbar";
+// import Profile from "./components/Profile/Profile";
 import { UserProvider } from "./Contexts/UserContext";
-import Deliveries from "./deliveryComponents/Deliveries/Deliveries"
-import Delivery from "./deliveryComponents/Delivery/Delivery"
+// import Deliveries from "./deliveryComponents/Deliveries/Deliveries";
+// import Delivery from "./deliveryComponents/Delivery/Delivery";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-          <Route path="/" element={<LogIn />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/deliveries" element={<Deliveries />} />
-          <Route path="/delivery/:id" element={<Delivery />} />
-
-          {/* <UserProvider>
-        <CartProvider>
-          <Router>
-            <ResponsiveAppBar />
-            <Routes>
-              <Route path="/Stores" element={<Stores />} />
-              <Route path="/Stores/:id" element={<Store />} />
-              <Route path="/Orders" element={<Orders />} />
-              <Route path="/Orders/:id" element={<Order />} />
-              <Route path="/Cart" element={<Cart />} />
-              <Route path="/Checkout" element={<Checkout />} />
-              <Route exact path="/Profile" element={<Profile />} />
-            </Routes>
-          </Router>
-        </CartProvider>
-      </UserProvider> */}
-          <Route path="/app/*" element={<Auth />} />
-        </Routes>
+        <UserProvider>
+          <Routes>
+            <Route path="/" element={<LogIn />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/app/*" element={<Auth />} />
+          </Routes>
+        </UserProvider>
       </Router>
     </div>
   );

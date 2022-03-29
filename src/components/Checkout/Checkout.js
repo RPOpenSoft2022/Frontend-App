@@ -60,6 +60,7 @@ function Checkout() {
         setpaymentResponse(response);
         if (!response.error){
           handlePaymentStatus(data.order_id, 1);
+          setcart({});
         }
       },
       // "prefill": {
@@ -155,7 +156,7 @@ function Checkout() {
         <ShoppingCartCheckoutIcon size="medium" />
         Checkout
       </Typography>
-      <Typography variant="h4">From {cart.store_name}</Typography>
+      {cart.store_name && (<Typography variant="h4">From {cart.store_name}</Typography>)}
       <Container maxWidth="md" sx={{justifyContent: "center"}}>
         <Box >
           {cart.item_list && cart.item_list.map((item) => <CheckoutComponent {...item}/> )}

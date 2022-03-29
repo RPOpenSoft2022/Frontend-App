@@ -11,10 +11,11 @@ import {
   Typography,
   TextField,
   Button,
-  Link,
   InputAdornment,
 } from "@mui/material";
 import axios from 'axios'
+
+import {Link} from 'react-router-dom';
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -125,9 +126,9 @@ export default function Register() {
             </Button>
           </FormControl>
         </form>
-        <Link href="/" color="primary" underline="hover">
-          SignIn
-        </Link>
+        <Button component={Link} to="/" sx={{marginTop:"5px"}}>
+        Sign in
+        </Button>
       </Box>
       <Modal
         open={open}

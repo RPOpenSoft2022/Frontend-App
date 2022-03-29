@@ -129,13 +129,12 @@ export default function LogIn() {
             </Button>
           </FormControl>
         </form>
-        <br />
-        <Link to="/Register" color="primary" underline="hover">
-          Register
-        </Link>
-        <Link to="#" color="primary" underline="hover">
-          Forgot-Password
-        </Link>
+        <Button component={Link} to="/Register">
+        Register
+        </Button>
+        <Button component={Link} to="/Register">
+        Forgot-Password
+        </Button>
       </Box>
     </>
   );

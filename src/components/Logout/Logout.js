@@ -20,7 +20,7 @@ function Logout() {
 	
   return (
 	  	<Box> 
-		  <Typography variant="h4" align='center' >Logging Out ....</Typography>
+		  <Typography variant="h4" align='center' color='primary'>Logging Out ....</Typography>
 		</Box>
   )
 }

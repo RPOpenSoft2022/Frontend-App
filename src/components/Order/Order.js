@@ -22,6 +22,7 @@ const Order = () => {
         headers: { Authorization: `Bearer ${access}` },
       })
       .then((res) => {
+        console.log(res.data);
         setData(res.data);
       });
   }, []);
@@ -99,13 +100,18 @@ const Order = () => {
               <b>Total Cost: INR {data.cost}</b>
             </div>
             <div>
+              <i>Order Status: {data.delivery_status}</i>
+            </div>
+            <div>
+              <i>Delivery Address: {data.delivery_address}</i>
+            </div>
+            <div>
               Ordered from:{" "}
               <Link to={`../Stores/${data.store_id}`}>{data.store_name}</Link>
             </div>
             <div>
               <i>
-                Date:
-                {new Date(data.order_time).toLocaleDateString()}
+                Date: {new Date(data.order_time).toLocaleDateString()}
               </i>
             </div>
             <div>

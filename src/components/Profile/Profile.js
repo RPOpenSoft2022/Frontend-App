@@ -26,22 +26,20 @@ const Profile = () => {
 	const [ password, setPassword ] = useState('')
 
 	useEffect(() => {
-		if(data === ''){
-			const url = baseURL + "get-user/"
-			console.log(url);
-			const config = {
-			headers:{
-				Authorization: `Bearer ${access}` 
-				}		
-			}
-			axios.get(url, config)
-			.then(res => {
-				console.log(res)
-				setData(res.data)
-			})
-			.catch((err) => window.alert(err.response.data["message"]))
+		const url = baseURL + "get-user/"
+		console.log(url);
+		const config = {
+		headers:{
+			Authorization: `Bearer ${access}` 
+			}		
 		}
-	}, [data])
+		axios.get(url, config)
+		.then(res => {
+			console.log(res)
+			setData(res.data)
+		})
+		.catch((err) => window.alert(err.response.data["message"]))
+	}, [])
 
 	const updateData = () => {
 		const url = baseURL + "update-user/"

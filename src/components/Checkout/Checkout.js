@@ -1,4 +1,4 @@
-import React, { useContext, useState} from "react";
+import React, { useContext, useState, useEffect} from "react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { CartContext } from "../../Contexts/CartContext";
 import {UserContext} from '../../Contexts/UserContext';
@@ -18,12 +18,34 @@ import {
 import Item from "antd/lib/list/Item";
 import useRazorpay from "react-razorpay";
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
+  const userBaseURL = process.env.REACT_APP_USER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
   const Razorpay = useRazorpay();
+  const [userOrderDetails, setuserOrderDetails] = useState({});
+  const navigate = useNavigate();
+  const access = localStorage.getItem('access');
+
+  useEffect(()=>{
+    const url = baseURL + "get-user/"
+		console.log(url);
+		const config = {
+		headers:{
+			Authorization: `Bearer ${access}` 
+			}		
+		}
+    axios.get(`${userBaseURL}get-user`, config)
+		.then(res => {
+			console.log(res);
+			setuserOrderDetails(res.data)
+		})
+		.catch((err) => window.alert(err.response.data["message"]))
+  },[]);
+  
 
   const payWithRazor = (data) => {
     let options = {
@@ -37,7 +59,7 @@ function Checkout() {
       "handler": (response) => {
         setpaymentResponse(response);
         if (!response.error)
-          handleSuccessfullPayment(data.order_id);
+        handlePaymentStatus(data.order_id, 1);
       },
       // "prefill": {
       //     "name": [user.first_name, user.middle_name, user.last_name].join(" "),
@@ -55,33 +77,27 @@ function Checkout() {
     rzp1.on('payment.failed', (response) => {
       setpaymentResponse(response);
       // make a post request to delete the order here with data.order_id
-      handleFailedPayment(data.order_id);
+      handlePaymentStatus(data.order_id, 4);
     });
     rzp1.open();
   }
 
-  const handleFailedPayment = (order_id) => {
-    fetch(`${baseURL}payment_failed`, {
+  const handlePaymentStatus = (order_id, status) => {
+    console.log(paymentResponse);
+    fetch(`${baseURL}order/${order_id}/payment`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
       mode: 'cors', 
-      body: JSON.stringify({...paymentResponse, order_id: order_id}),
+      body: JSON.stringify({...paymentResponse, "status": status}),
+    }).then(() => {
+      navigate(`/app/Orders/${order_id}`)
     })
-  }
-
-  const handleSuccessfullPayment = (order_id) => {
-    fetch(`${baseURL}payment_success`, {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      mode: 'cors', 
-      body: JSON.stringify({...paymentResponse, order_id: order_id}),
-    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   const processPayment = () => {

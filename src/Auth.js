@@ -2,25 +2,23 @@ import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Routes } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Stores from "./Stores/Stores";
-import Cart from "./Cart/Cart";
-import Checkout from "./Checkout/Checkout";
-import { CartProvider } from "../Contexts/CartContext";
-import { UserContext } from "../Contexts/UserContext";
-import Store from "./Store/Store";
-import Orders from "./Orders/Orders";
-import Order from "./Order/Order";
-import ResponsiveAppBar from "./Navbar/Navbar";
-import Profile from "./Profile/Profile";
+import Stores from "./components/Stores/Stores";
+import Cart from "./components/Cart/Cart";
+import Checkout from ".//components/Checkout/Checkout";
+import { CartProvider } from "./Contexts/CartContext";
+import { UserContext } from "./Contexts/UserContext";
+import Store from "./components/Store/Store";
+import Orders from "./components/Orders/Orders";
+import Order from "./components/Order/Order";
+import ResponsiveAppBar from "./components/Navbar/Navbar";
+import Profile from "./components/Profile/Profile";
+import Logout from "./components/Logout/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-<<<<<<< HEAD
-import LogIn from "./LogIn/LogIn";
-import { TryRounded } from "@mui/icons-material";
-=======
-import Logout from "./Logout/Logout";
->>>>>>> 06aa444311112436a2cc720068ff17eea257c51a
+import DeliveryNavBar from "./deliveryComponents/Navbar/Navbar";
+import Deliveries from "./deliveryComponents/Deliveries/Deliveries";
+import Delivery from "./deliveryComponents/Delivery/Delivery";
 
 const Auth = () => {
   const access = localStorage.getItem("access");
@@ -63,7 +61,40 @@ const Auth = () => {
     }
   };
 
-<<<<<<< HEAD
+  const userView = (userCategory) => {
+    switch (userCategory) {
+      case "Customer":
+        return (
+          <>
+            <CartProvider>
+              <ResponsiveAppBar />
+              <Routes>
+                <Route path="/Stores" element={<Stores />} />
+                <Route path="/Stores/:id" element={<Store />} />
+                <Route path="/Orders" element={<Orders />} />
+                <Route path="/Orders/:id" element={<Order />} />
+                <Route path="/Cart" element={<Cart />} />
+                <Route path="/Checkout" element={<Checkout />} />
+                <Route exact path="/Profile" element={<Profile />} />
+              </Routes>
+            </CartProvider>
+          </>
+        );
+      case "Delivery":
+        return (
+          <>
+            <DeliveryNavBar />
+            <Routes>
+              <Route path="/Deliveries" element={<Deliveries />} />
+              <Route path="/Deliveries/:id" element={<Delivery />} />
+            </Routes>
+          </>
+        );
+      default:
+        <>Delivery</>;
+    }
+  };
+
   // useEffect(() => {
   //   if (
   //     access === null ||
@@ -113,48 +144,10 @@ const Auth = () => {
   // console.log(user);
   console.log(user.user_category);
   if (!user.user_category) AuthCheck();
-  return (
-    <>
-      {user.user_category && (
-        <CartProvider>
-          {user.user_category}
-          <ResponsiveAppBar />
-          <Routes>
-            <Route path="/Stores" element={<Stores />} />
-            <Route path="/Stores/:id" element={<Store />} />
-            <Route path="/Orders" element={<Orders />} />
-            <Route path="/Orders/:id" element={<Order />} />
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/Checkout" element={<Checkout />} />
-            <Route exact path="/Profile" element={<Profile />} />
-          </Routes>
-        </CartProvider>
-      )}
-    </>
-  );
+  else {
+    console.log(user);
+  }
+  return <>{user.user_category && userView(user.user_category)}</>;
 };
-=======
-    return (
-        <>
-            {authCheck &&
-                // <UserProvider>
-                    <CartProvider>
-                        <ResponsiveAppBar />
-                        <Routes>
-                            <Route path="/Stores" element={<Stores />} />
-                            <Route path="/Stores/:id" element={<Store />} />
-                            <Route path="/Orders" element={<Orders />} />
-                            <Route path="/Orders/:id" element={<Order />} />
-                            <Route path="/Cart" element={<Cart />} />
-                            <Route path="/Checkout" element={<Checkout />} />
-                            <Route exact path="/Profile" element={<Profile />} />
-                            <Route exact path="/Logout" element={<Logout />} />
-                        </Routes>
-                    </CartProvider>
-                // </UserProvider>
-        }
-        </>);
-}
->>>>>>> 06aa444311112436a2cc720068ff17eea257c51a
 
 export default Auth;

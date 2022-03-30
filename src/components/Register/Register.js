@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
@@ -14,15 +14,30 @@ import {
   InputAdornment,
 } from "@mui/material";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 import {Link} from 'react-router-dom';
 
 export default function Register() {
+  const [LoggedIn, setLoggedIn] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState({
     mobileNumber: "",
     password: "",
   });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(LoggedIn){
+      navigate('/app/Stores');
+    }
+    if(localStorage.getItem("access")){
+      setLoggedIn(true);
+   }else{
+     setLoggedIn(false);
+   }
+  }, [LoggedIn]);
+
   const baseURL = process.env.REACT_APP_USER_BASE_URL;
 
   const sendOTP = () => {

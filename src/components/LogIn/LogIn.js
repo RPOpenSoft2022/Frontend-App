@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
@@ -16,10 +16,23 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function LogIn() {
+  const [LoggedIn, setLoggedIn] = useState(false);
   const [data, setData] = useState({
     mobileNumber: "",
     password: "",
   });
+
+  useEffect(() => {
+    if(LoggedIn){
+      navigate('./app/Stores');
+    }
+    if(localStorage.getItem("access")){
+      setLoggedIn(true);
+   }else{
+     setLoggedIn(false);
+   }
+  }, [LoggedIn]);
+  
 
   const baseURL = process.env.REACT_APP_USER_BASE_URL;
   const navigate = useNavigate();
@@ -41,7 +54,7 @@ export default function LogIn() {
         .then((res) => {
           localStorage.setItem("access", res.data["access"]);
           localStorage.setItem("refresh", res.data["refresh"]);
-          navigate("./app/stores");
+          setLoggedIn(true);
         })
         .catch((err) => {
           console.log(err);

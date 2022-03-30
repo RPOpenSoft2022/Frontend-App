@@ -71,6 +71,8 @@ const Auth = () => {
         await UserDetails(localStorage.getItem("access"));
       } catch (err) {
         console.log(err);
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
         navigate("../");
       }
     }

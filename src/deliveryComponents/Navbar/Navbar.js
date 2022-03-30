@@ -92,7 +92,7 @@ const ResponsiveAppBar = (props) => {
                     key={page}
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    to={`../../${page}`}
+                    to={`../../app/${page}`}
                   >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>

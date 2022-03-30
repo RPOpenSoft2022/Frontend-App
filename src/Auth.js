@@ -87,6 +87,7 @@ const Auth = () => {
             <Routes>
               <Route path="/Deliveries" element={<Deliveries />} />
               <Route path="/Deliveries/:id" element={<Delivery />} />
+              <Route exact path="/Profile" element={<Profile />} />
             </Routes>
           </>
         );

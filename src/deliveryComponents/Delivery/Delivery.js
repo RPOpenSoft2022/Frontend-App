@@ -9,25 +9,68 @@ import "antd/dist/antd.css";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Loader from "../../components/Loader/Loader";
 import { Typography } from "@mui/material";
-import ResponsiveAppBar from "../../deliveryComponents/Navbar/Navbar";
 import Verification from "../Delivery/Verification";
+import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 import { Modal, TextField, InputAdornment } from "@mui/material";
 
 const Delivery = () => {
   const { id } = useParams();
+  // const [open, setOpen] = useState(false);
+  // const [data, setData] = useState({
+  //   loading: false,
+  //   cost: "300",
+  //   delivery_otp: "8376",
+  //   delivery_status: "Picked",
+  //   delivery_address: "Some address to drop at",
+  //   store_id: 12,
+  //   store_name: "Carlos",
+  //   order_time: "11:00 AM",
+  // });
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState({
-    loading: false,
-    cost: "300",
-    delivery_otp: "8376",
-    delivery_status: "Picked",
-    delivery_address: "Some address to drop at",
-    store_id: 12,
-    store_name: "Carlos",
-    order_time: "11:00 AM",
-  });
+  const [data, setData] = useState({ loading: true });
+  const baseURL = process.env.REACT_APP_DELIVERY_BASE_URL;
+  const access = localStorage.getItem("access");
+
+  const navigate = useNavigate();
+  const PickUpOrder = (orderId) => {
+    const baseURL = process.env.REACT_APP_DELIVERY_BASE_URL;
+    axios
+      .post(baseURL + "ready_to_pick/", {
+        order_id: orderId,
+      })
+      .then((res) => {
+        alert(res.data["message"]);
+        navigate("../Deliveries");
+      });
+  };
+
+  useEffect(() => {
+    let data = {};
+    axios
+      .get(baseURL + `delivery/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        let date = new Date(res.data.creation_time);
+        data = { ...res.data };
+        data = {
+          ...data,
+          date: date.toDateString(),
+          time: date.toLocaleTimeString(),
+        };
+        let updatedData = {
+          data: data,
+          loading: false,
+        };
+        setData(updatedData);
+      });
+  }, []);
 
   return (
     <>
@@ -44,18 +87,17 @@ const Delivery = () => {
           </h1>
           <Box className="delivery_table">
             <Box>
-              <Typography variant="h6">Total Cost: INR {data.cost}</Typography>
               <Typography
                 variant="paragraphy"
                 sx={{ display: "block", padding: "10px" }}
               >
-                Delivery Status: {data.delivery_status}
+                Delivery Status: {data.data.status}
               </Typography>
               <Typography
                 variant="paragraphy"
                 sx={{ display: "block", padding: "5px" }}
               >
-                Delivery Address: {data.delivery_address}
+                Delivery Address: {data.data.delivery_address}
               </Typography>
               <Typography
                 variant="paragraphy"
@@ -63,22 +105,22 @@ const Delivery = () => {
               >
                 Ordered from:{" "}
                 <Link to={`/app/Stores/${data.store_id}`}>
-                  {data.store_name}
+                  {data.data.pickup_address}
                 </Link>
               </Typography>
               <Typography
                 variant="paragraphy"
                 sx={{ display: "block", padding: "5px" }}
               >
-                Date: {new Date(data.order_time).toLocaleDateString()}
+                Date: {data.data.date}
               </Typography>
               <Typography
                 variant="paragraphy"
                 sx={{ display: "block", padding: "5px" }}
               >
-                Time: {new Date(data.order_time).toLocaleTimeString()}
+                Time: {data.data.time}
               </Typography>
-              {data.delivery_status === "Picked" ? (
+              {data.data.status === "PICKED" ? (
                 <Button
                   style={{ margin: "5px" }}
                   onClick={() => {
@@ -86,6 +128,16 @@ const Delivery = () => {
                   }}
                 >
                   Verify OTP
+                </Button>
+              ) : null}
+              {data.data.status === "NOT_PICKED" ? (
+                <Button
+                  style={{ margin: "5px" }}
+                  onClick={() => {
+                    PickUpOrder(data.data.order_id);
+                  }}
+                >
+                  PICK UP
                 </Button>
               ) : null}
             </Box>
@@ -99,7 +151,7 @@ const Delivery = () => {
             aria-describedby="modal-modal-description"
           >
             <>
-              <Verification />
+              <Verification order_id={data.data.order_id} />
             </>
           </Modal>
         </Box>

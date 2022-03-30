@@ -12,9 +12,9 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import { useState } from 'react'
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // const theme = createTheme();
 // const useStyles = makeStyles((theme) => ({
@@ -38,53 +38,47 @@ import { useNavigate } from 'react-router-dom'
 //   },
 // }));
 
-export default function Verification({password, phone}) {
-  // const classes = useStyles();
-  const [otp, setOtp] = useState(null)
-  function handleOtp(OTP){
-    setOtp(OTP)
-    console.log(otp)
+export default function Verification(props) {
+  const { order_id } = props;
+  const [otp, setOtp] = useState(null);
+  function handleOtp(OTP) {
+    setOtp(OTP);
+    console.log(otp);
   }
-  const baseURL = process.env.REACT_APP_USER_BASE_URL
-  const navigate = useNavigate()
+  const baseURL = process.env.REACT_APP_DELIVERY_BASE_URL;
+  const navigate = useNavigate();
 
   const verifyOTP = () => {
-    console.log(baseURL);
-    axios.post(baseURL + "reset-password/", 
-    {
-      'phone': phone,
-      'otp': otp,
-      'new_password': password
-    })
-    .then(res => {
-      console.log(res.data["message"])
-      window.alert(res.data["message"])
-      localStorage.setItem("access", res.data["access"])
-      localStorage.setItem("refresh", res.data["refresh"])
-      navigate('/')
-    })
-    .catch(err => {
-      console.error(err.response.data["message"])
-      window.alert(err.response.data["message"])
-
-    })
-  }
-
-  
+    console.log(otp, order_id);
+    axios
+      .post(baseURL + "verifyotp/", {
+        order_id: order_id,
+        otp: otp,
+      })
+      .then((res) => {
+        console.log(res.data["message"]);
+        window.alert(res.data["message"]);
+        navigate("../Deliveries");
+      })
+      .catch((err) => {
+        console.error(err.response.data["message"]);
+        window.alert(err.response.data["message"]);
+      });
+  };
 
   return (
     <Container
       component="main"
       maxWidth="sm"
       style={{
-        marginTop: "30vh"
+        marginTop: "30vh",
       }}
     >
       <CssBaseline />
       <div>
         <Grid
           container
-          style={{ backgroundColor: "white", padding:"10px"}}
+          style={{ backgroundColor: "white", padding: "10px" }}
           justify="center"
           alignItems="center"
           spacing={3}
@@ -118,7 +112,7 @@ export default function Verification({password, phone}) {
             alignItems="center"
             direction="column"
           >
-            <Grid item spacing={3} justify="center" style={{padding:"10px"}}>
+            <Grid item spacing={3} justify="center" style={{ padding: "10px" }}>
               <OtpInput
                 separator={
                   <span>
@@ -134,9 +128,10 @@ export default function Verification({password, phone}) {
                   borderRadius: 4,
                   border: "1px solid rgba(0,0,0,0.3)",
                 }}
-                
+                numInputs={6}
                 value={otp}
                 onChange={handleOtp}
+                isInputNum
               />
             </Grid>
             <Grid item>
@@ -145,8 +140,7 @@ export default function Verification({password, phone}) {
                 fullWidth
                 variant="contained"
                 color="primary"
-
-                onClick = {verifyOTP}
+                onClick={verifyOTP}
               >
                 Verify
               </Button>

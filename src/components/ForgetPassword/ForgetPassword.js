@@ -20,7 +20,7 @@ import {Link} from 'react-router-dom';
 
 export default function Register() {
   const [LoggedIn, setLoggedIn] = useState(false); 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [data, setData] = useState({
     mobileNumber: "",
     password: "",

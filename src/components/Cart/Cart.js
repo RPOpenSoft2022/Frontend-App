@@ -10,6 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Cart() {
   const [cart] = useContext(CartContext);
@@ -110,14 +111,14 @@ function CardComponent(props) {
     const modifiedItems = item_list.filter((item) => item.id !== itemId);
     setCart({ ...cart, item_list: modifiedItems });
   };
-  const { id, name, quantity, price } = props;
+  const { id, name, quantity, price, thumbnail} = props;
   return (
     <Card sx={{ minWidth: 300, margin: "10px" }}>
       <CardMedia
         component="img"
         height="120"
-        image="https://static.freshtohome.com/media/catalog/product/cache/1/image/600x400/18ae109e34f485bd0b0c075abec96b2e/c/h/chicken_curry-cut.jpg"
-        alt="green iguana"
+        image={thumbnail}
+        alt={name}
       />
       <CardContent>
         <Typography variant="h5" component="div" align="center">
@@ -125,7 +126,10 @@ function CardComponent(props) {
         </Typography>
       </CardContent>
       <Typography color="text.secondary" align="center">
-        Item Subtotal - ({quantity})*(INR {price})
+        Quantity - {quantity} unit
+      </Typography>
+      <Typography color="text.secondary" align="center">
+        Item Price - {quantity*price} INR
       </Typography>
 
       <Box
@@ -137,7 +141,7 @@ function CardComponent(props) {
       >
         <Box>
           <Button
-            size="small"
+            sx={{fontSize: 25}}
             onClick={() => {
               updateItemQuantity(id, 1);
             }}
@@ -145,7 +149,7 @@ function CardComponent(props) {
             +
           </Button>
           <Button
-            size="small"
+            sx={{fontSize: 25}}
             onClick={() => {
               updateItemQuantity(id, -1);
             }}
@@ -154,12 +158,11 @@ function CardComponent(props) {
           </Button>
         </Box>
         <Button
-          size="xs"
           onClick={() => {
             removeItem(id);
           }}
         >
-          Remove
+          <DeleteIcon/>
         </Button>
       </Box>
     </Card>

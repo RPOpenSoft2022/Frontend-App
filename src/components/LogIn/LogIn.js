@@ -69,7 +69,7 @@ export default function LogIn() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <LockOpenIcon color="primary" fontSize="large" />

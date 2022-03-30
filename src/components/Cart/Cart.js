@@ -29,7 +29,7 @@ function Cart() {
         Cart
       </Typography>
       {
-        !cart.item_list? 
+        !cart.item_list || !cart.item_list.length? 
         (<Typography variant="h5" sx={{ textAlign: "center" }}>
             No Food Items are picked
           </Typography>):

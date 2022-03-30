@@ -165,10 +165,10 @@ function Checkout() {
         <ShoppingCartCheckoutIcon size="medium" />
         Checkout
       </Typography>
-      {cart.store_name && (<Typography variant="h4">From {cart.store_name}</Typography>)}
+      {cart.item_list && cart.item_list.length && cart.store_name && (<Typography variant="h4">From {cart.store_name}</Typography>)}
       <Container maxWidth="md" sx={{justifyContent: "center"}}>
         <Box >
-          {cart.item_list && cart.item_list.map((item) => <CheckoutComponent {...item}/> )}
+          {cart.item_list && cart.item_list.length && cart.item_list.map((item) => <CheckoutComponent {...item}/> )}
         </Box>
       </Container>
         <Button variant="contained" size="large" onClick={processPayment}> <Typography fontSize={20}>Proceed </Typography> </Button>

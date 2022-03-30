@@ -1,9 +1,11 @@
 import * as React from "react";
 import { useState, useEffect} from "react";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import Verification from "./Verification";
 import {
+  Modal,
   Box,
   FormControl,
   Typography,
@@ -11,20 +13,23 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
-import axios from "axios";
+import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-export default function LogIn() {
-  const [LoggedIn, setLoggedIn] = useState(false);
+import {Link} from 'react-router-dom';
+
+export default function Register() {
+  const [LoggedIn, setLoggedIn] = useState(false); 
+  const [open, setOpen] = React.useState(true);
   const [data, setData] = useState({
     mobileNumber: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(LoggedIn){
-      navigate('./app/Stores');
+      navigate('/app/Stores');
     }
     if(localStorage.getItem("access")){
       setLoggedIn(true);
@@ -32,35 +37,33 @@ export default function LogIn() {
      setLoggedIn(false);
    }
   }, [LoggedIn]);
-  
 
   const baseURL = process.env.REACT_APP_USER_BASE_URL;
-  const navigate = useNavigate();
-  const login = () => {
-    if (data.mobileNumber !== "" && data.password !== "") {
-      axios
-        .post(
-          baseURL + "login/",
-          {
-            phone: data.mobileNumber,
-            password: data.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+
+  const sendOTP = () => {
+    if (data.mobileNumber !== "") {
+      console.log('send')
+      axios.post(baseURL + 'send-otp/',
+        {
+          'phone': data.mobileNumber,
+          'password': data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           }
-        )
-        .then((res) => {
-          localStorage.setItem("access", res.data["access"]);
-          localStorage.setItem("refresh", res.data["refresh"]);
-          setLoggedIn(true);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then(res => {
+          console.log(res.data)
+          setOpen(true)
+        })
+        .catch(err => {
+          console.log(err.response.data["message"])
+          window.alert(err.response.data["message"])
+        })
     }
-  };
+  }
+  
   return (
     <>
       <Box
@@ -71,15 +74,14 @@ export default function LogIn() {
           alignItems: "center",
         }}
       >
-        <LockOpenIcon color="primary" fontSize="large" />
+        <HowToRegIcon color="primary" fontSize="large" />
         <Typography align="center" color="primary" variant="h4" gutterBottom>
-          Sign in
+          Reset Password
         </Typography>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            console.log(data);
-            login();
+            sendOTP();
           }}
         >
           <FormControl
@@ -103,14 +105,14 @@ export default function LogIn() {
                   </InputAdornment>
                 ),
               }}
-              required
               onChange={(e) => {
                 let runMobileNumber = e.target.value;
                 setData({ ...data, mobileNumber: runMobileNumber });
               }}
+              value={data.mobileNumber}
             />
             <TextField
-              label="Password"
+              label="password"
               margin="dense"
               InputProps={{
                 startAdornment: (
@@ -121,7 +123,6 @@ export default function LogIn() {
               }}
               type="password"
               placeholder="Password"
-              required
               onChange={(e) => {
                 let runPassowrd = e.target.value;
                 setData({ ...data, password: runPassowrd });
@@ -133,18 +134,30 @@ export default function LogIn() {
               style={{
                 marginTop: "10px",
               }}
+              onClick={() => {
+                setOpen(true);
+              }}
             >
-              Sign-In
+              Verify Number
             </Button>
           </FormControl>
         </form>
-        <Button component={Link} to="/Register">
-          Register
-        </Button>
-        <Button component={Link} to="/ForgetPassword">
-          Forgot-Password
+        <Button component={Link} to="/" sx={{marginTop:"5px"}}>
+        Sign in
         </Button>
       </Box>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <>
+          <Verification password={data.password} phone={data.mobileNumber}/>
+        </>
+      </Modal>
     </>
   );
 }

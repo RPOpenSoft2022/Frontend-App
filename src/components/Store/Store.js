@@ -111,14 +111,14 @@ const Store = (props) => {
             }}
           >
             {store.menu.map((item) => (
-              <Card sx={{ minWidth: 320, margin: "15px" }} key={item.id}>
+              <Card sx={{ width: 320, margin: "15px"}} key={item.id}>
                 <CardMedia
                   component="img"
                   alt={item.name}
                   height="140"
                   image={item.thumbnail}
                 />
-                <CardContent sx={{ marginBottom: "-7px" }}>
+                <CardContent sx={{ marginBottom: "-7px", height: 120}}>
                   <Typography gutterBottom variant="h5" component="div">
                     {item.name[0].toUpperCase() +
                       item.name.slice(1, item.name.length)}

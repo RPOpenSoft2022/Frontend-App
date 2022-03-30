@@ -17,6 +17,7 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import { deepPurple } from '@mui/material/colors';
 
 const Profile = () => {
 	const baseURL = process.env.REACT_APP_USER_BASE_URL
@@ -92,14 +93,18 @@ const Profile = () => {
                     margin: "Auto"
                 }}
             >
-				<Avatar
-					style={{
-						margin: "Auto",
-						width: "100px",
-						height: "100px"
-					}}
-					alt={ [data.first_name, '\'s Picture'].join() }
-				/>
+				
+				{data.first_name && <Avatar 
+					sx={{ bgcolor: deepPurple[500], 
+					margin: "Auto",
+					width: "100px",
+					height: "100px",
+					transform: "translate(140%,10px)",
+					fontSize: 40
+				}}
+					>
+					{data.first_name[0]}
+				</Avatar>}
                 <span
                     style={{
                         fontSize: 30,
@@ -206,6 +211,7 @@ const Profile = () => {
                     </InputLabel>
                     <Input
                         id="password"
+						type="password"
                         value={password}
                         style={{width: "100%"}}
                         onChange={(e) => setPassword(e.target.value)}

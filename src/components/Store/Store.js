@@ -28,32 +28,40 @@ const Store = (props) => {
   const baseURL = process.env.REACT_APP_STORE_BASE_URL;
   const [user, setuser] = useContext(UserContext);
 
-  useEffect(() => {
-    if(user.user_category == 'Customer'){
-      axios.get(baseURL + `stores/${id}`).then((res) => {
-        console.log(res.data);
-        if (cart.store_id == id) {
-          const storeMenu = res.data.menu;
-          cart.item_list.map((cartItem) => {
-            const itemIndex = storeMenu.findIndex(
-              (item) => item.id == cartItem.id
-            );
-            storeMenu[itemIndex].selected = true;
-          });
-          res.data = { ...res.data, menu: storeMenu };
-        }
-        setstore({ ...res.data, loading: false });
+  const DisableCartItems = (data) => {
+    if (cart.store_id == id) {
+      cart.item_list.map((cartItem) => {
+        const itemIndex = data.menu.findIndex(
+          (item) => item.id == cartItem.id
+        );
+        data.menu[itemIndex].selected = true;
       });
-   }else if(user.user_category == 'Staff'){
-      setstore({ ...user.storeData, loading: false });
-   }
+    }
+    setstore({ ...data, loading: false});
+  }
+
+  useEffect(() => {
+    const takeAction = () =>{
+      console.log(user.storeData);
+      if(user.user_category == 'Customer'){
+        axios.get(baseURL + `stores/${id}`).then((res) => {
+          DisableCartItems(res.data);
+        });
+     }else if(user.user_category == 'Staff'){
+        DisableCartItems({...user.storeData});
+     }
+    }
+    takeAction();
   }, []);
 
   const addToCart = (item) => {
+
+    console.log(user.storeData);
     if (item.selected) {
       // show a notification that item is already selected
       return;
     }
+    const indx = store.menu.findIndex((curr_item) => curr_item.id == item.id);
     if (!cart.store_id || cart.store_id != id) {
       // show a notification that older selected items will be removed
       setCart({});
@@ -62,14 +70,15 @@ const Store = (props) => {
         store_name: store.name,
         item_list: [{ ...item, quantity: 1 }],
       });
-      item.selected = true;
+      store.menu[indx] = {...item, selected: true};
       return;
     }
     let items = cart.item_list;
-    if (!items) items = [item];
+    if (!items) items = [{...item, quantity: 1}];
     else items = [...items, { ...item, quantity: 1 }];
     setCart({ ...cart, item_list: items });
-    item.selected = true;
+    store.menu[indx] = {...item, selected: true};
+    console.log(user.storeData);
     // show a notification that items is selected
   };
 

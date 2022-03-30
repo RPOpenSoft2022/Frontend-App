@@ -53,6 +53,7 @@ const Auth = () => {
   };
 
   const AuthCheck = async () => {
+    console.log('auth check');
     try {
       const res = await axios.post(baseURL + "token/verify/", {
         token: access,
@@ -63,7 +64,7 @@ const Auth = () => {
     } catch (err) {
       console.log(err);
       try {
-        const res = axios.post(baseURL + "token/refresh/", {
+        const res = await axios.post(baseURL + "token/refresh/", {
           refresh: refresh,
         });
         localStorage.setItem("access", res.data["access"]);
@@ -156,11 +157,7 @@ const Auth = () => {
   //     });
   // }, []);
   // console.log(user);
-  console.log(user.user_category);
   if (!user.user_category) AuthCheck();
-  else {
-    console.log(user);
-  }
   return <>{user.user_category && userView(user.user_category)}</>;
 };
 

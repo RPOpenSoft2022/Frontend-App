@@ -29,6 +29,7 @@ const Store = (props) => {
   const [user, setuser] = useContext(UserContext);
 
   const DisableCartItems = (data) => {
+    data.menu.map((item) => item.selected = false);
     if (cart.store_id == id) {
       cart.item_list.map((cartItem) => {
         const itemIndex = data.menu.findIndex(

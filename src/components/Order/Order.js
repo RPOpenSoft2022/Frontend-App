@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
 import { Link } from "react-router-dom";
 import "./Order.css";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
@@ -12,11 +12,12 @@ import axios from "axios";
 import Loader from '../Loader/Loader';
 import {Typography} from '@mui/material'
 import {Button} from '@mui/material'
+import { UserContext } from "../../Contexts/UserContext";
 
 const Order = () => {
   const { id } = useParams();
   const [data, setData] = useState({"loading": true});
-
+  const [user, setuser] = useContext(UserContext);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const access = localStorage.getItem("access");
 
@@ -38,6 +39,7 @@ const Order = () => {
       window.alert(res.data['msg']);
     }).catch((err)=>{
       console.log(err);
+      window.alert(err);
     }) 
   }
 
@@ -136,6 +138,8 @@ const Order = () => {
             </Typography>
           </Box>
           {
+            (user.user_category == 'Staff')
+            &&
             ((data.delivery_status == "('ACCEPTED', 'Preparing Item')")
             ||
             (data.delivery_status == "('PENDING', 'Payment Pending')"))

@@ -39,7 +39,7 @@ const Order = () => {
       window.alert(res.data['msg']);
     }).catch((err)=>{
       console.log(err);
-      window.alert(err);
+      window.alert(err.response.data['msg']);
     }) 
   }
 
@@ -117,9 +117,13 @@ const Order = () => {
             <Typography variant="h6">
               Total Cost: INR {data.cost}
             </Typography>
-            <Typography variant="subtitle2">
-             Delivery otp: {data.delivery_otp}
-            </Typography>
+            {
+              (user.user_category == 'Customer')
+              &&
+              (<Typography variant="subtitle2">
+                Delivery otp: {data.delivery_otp}
+              </Typography>)
+            }
             <Typography variant="paragraphy" sx={{display: 'block'}}>
               Order Status: {data.delivery_status.split(",")[1].slice(2, -2)}
             </Typography>

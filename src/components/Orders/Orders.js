@@ -43,7 +43,7 @@ export default function BasicTabs() {
   useEffect(() => {
     let dataSource = [],
       dataSource1 = [];
-    const fetchUrl = (user.user_category == 'Customer'?'past_order':`store/${user.storeData.id}`);
+    const fetchUrl = (user.user_category == 'Customer'?'past_orders':`store/${user.storeData.id}`);
     axios
       .get(baseURL + `order/${fetchUrl}`, {
         headers: { Authorization: `Bearer ${access}` },

@@ -4,6 +4,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import Verification from "./Verification";
+import LockResetIcon from '@mui/icons-material/LockReset';
 import {
   Modal,
   Box,
@@ -74,7 +75,7 @@ export default function Register() {
           alignItems: "center",
         }}
       >
-        <HowToRegIcon color="primary" fontSize="large" />
+        <LockResetIcon color="primary" fontSize="large" />
         <Typography align="center" color="primary" variant="h4" gutterBottom>
           Reset Password
         </Typography>

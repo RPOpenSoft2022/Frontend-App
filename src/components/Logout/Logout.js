@@ -23,7 +23,7 @@ function Logout() {
 	
   return (
 	  	<Box> 
-		  <Typography variant="h4" align='center' color='primary'>Logging Out ....</Typography>
+		  <Typography variant="h4" align='center' color='primary' sx={{marginTop: "20vh"}}>Logging Out ....</Typography>
 		</Box>
   )
 }

@@ -22,6 +22,7 @@ import {useNavigate} from 'react-router-dom';
 
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
+  const [user, setuser] = useContext(UserContext);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const userBaseURL = process.env.REACT_APP_USER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
@@ -116,7 +117,15 @@ function Checkout() {
     }
     // item_list = JSON.stringify(item_list);
     console.log(item_list);
-    const body = {"store_id": cart.store_id, "store_name": cart.store_name, "item_list": item_list, "token": localStorage.getItem('access'), "delivery_address": "RP Hall"};
+    const body = {
+      "store_id": cart.store_id, 
+      "store_name": cart.store_name, 
+      "item_list": item_list, 
+      "token": localStorage.getItem('access'), 
+      "delivery_address": "RP Hall",
+      "customer_name": [user.first_name, user.middle_name, user.last_name].join(" "),
+      "customer_phone_no": user.phone
+    };
     console.log(body);
     // accepted change
     // calculate amount only

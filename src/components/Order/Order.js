@@ -127,6 +127,14 @@ const Order = () => {
             <Typography variant="paragraphy" sx={{display: 'block'}}>
               Order Status: {data.delivery_status.split(",")[1].slice(2, -2)}
             </Typography>
+
+            {
+              data.delivery_phone_no && 
+              (<Typography variant="paragraphy" sx={{display: 'block'}}>
+                Delivery Person Contact: {data.delivery_phone_no}
+              </Typography>)
+            }
+
             <Typography variant="paragraphy" sx={{display: 'block'}}>
               Delivery Address: {data.delivery_address}
             </Typography>

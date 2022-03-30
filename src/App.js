@@ -3,6 +3,7 @@ import { Routes } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LogIn from "./components/LogIn/LogIn";
 import Register from "./components/Register/Register";
+import ForgetPassword from "./components/ForgetPassword/ForgetPassword";
 // import Stores from "./components/Stores/Stores";
 // import Cart from "./components/Cart/Cart";
 // import Checkout from "./components/Checkout/Checkout";
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LogIn />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/ForgetPassword" element={<ForgetPassword />} />
             <Route path="/app/*" element={<Auth />} />
           </Routes>
         </UserProvider>

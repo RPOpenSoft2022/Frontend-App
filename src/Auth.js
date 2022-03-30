@@ -35,10 +35,25 @@ const Auth = () => {
     const res = await axios.get(baseURL + "get-user/", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    await setUser({ ...res.data });
+    const userData = res.data;
+    console.log("here");
+    console.log(userData);
+    if (userData["user_category"] == "Staff") {
+      const body = {
+        user_id: userData["id"],
+      };
+      const storeURL = process.env.REACT_APP_STORE_BASE_URL;
+      const res = await axios.post(storeURL + "store_manager/", body);
+      console.log(res.data);
+      await setUser({ ...userData, storeData: res.data });
+      console.log(user);
+    } else {
+      await setUser({ ...userData });
+    }
   };
 
   const AuthCheck = async () => {
+    console.log("auth check");
     try {
       const res = await axios.post(baseURL + "token/verify/", {
         token: access,
@@ -49,7 +64,7 @@ const Auth = () => {
     } catch (err) {
       console.log(err);
       try {
-        const res = axios.post(baseURL + "token/refresh/", {
+        const res = await axios.post(baseURL + "token/refresh/", {
           refresh: refresh,
         });
         localStorage.setItem("access", res.data["access"]);
@@ -63,7 +78,19 @@ const Auth = () => {
 
   const userView = (userCategory) => {
     switch (userCategory) {
-      case "Customer":
+      case "Delivery":
+        return (
+          <>
+            <DeliveryNavBar />
+            <Routes>
+              <Route path="/Deliveries" element={<Deliveries />} />
+              <Route path="/Deliveries/:id" element={<Delivery />} />
+              <Route exact path="/Profile" element={<Profile />} />
+              <Route exact path="/Logout" element={<Logout />} />
+            </Routes>
+          </>
+        );
+      default:
         return (
           <>
             <CartProvider>
@@ -76,23 +103,11 @@ const Auth = () => {
                 <Route path="/Cart" element={<Cart />} />
                 <Route path="/Checkout" element={<Checkout />} />
                 <Route exact path="/Profile" element={<Profile />} />
+                <Route exact path="/Logout" element={<Logout />} />
               </Routes>
             </CartProvider>
           </>
         );
-      case "Delivery":
-        return (
-          <>
-            <DeliveryNavBar />
-            <Routes>
-              <Route path="/Deliveries" element={<Deliveries />} />
-              <Route path="/Deliveries/:id" element={<Delivery />} />
-              <Route exact path="/Profile" element={<Profile />} />
-            </Routes>
-          </>
-        );
-      default:
-        <>Delivery</>;
     }
   };
 
@@ -143,11 +158,7 @@ const Auth = () => {
   //     });
   // }, []);
   // console.log(user);
-  console.log(user.user_category);
   if (!user.user_category) AuthCheck();
-  else {
-    console.log(user);
-  }
   return <>{user.user_category && userView(user.user_category)}</>;
 };
 

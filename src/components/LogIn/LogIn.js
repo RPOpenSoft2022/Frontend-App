@@ -109,10 +109,6 @@ export default function LogIn() {
               type="password"
               placeholder="Password"
               required
-              error={data.password.length < 8}
-              helperText={
-                data.password.length < 8 ? "At least 8 characters" : ""
-              }
               onChange={(e) => {
                 let runPassowrd = e.target.value;
                 setData({ ...data, password: runPassowrd });

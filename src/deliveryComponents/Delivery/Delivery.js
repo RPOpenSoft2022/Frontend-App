@@ -103,6 +103,18 @@ const Delivery = () => {
                 variant="paragraphy"
                 sx={{ display: "block", padding: "5px" }}
               >
+                Customer Name: {data.data.customer_name}
+              </Typography>
+              <Typography
+                variant="paragraphy"
+                sx={{ display: "block", padding: "5px" }}
+              >
+                Customer Phone: {data.data.customer_phone_number}
+              </Typography>
+              <Typography
+                variant="paragraphy"
+                sx={{ display: "block", padding: "5px" }}
+              >
                 Ordered from:{" "}
                 <Link to={`/app/Stores/${data.store_id}`}>
                   {data.data.pickup_address}

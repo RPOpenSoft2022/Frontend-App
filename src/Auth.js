@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useContext } from "react";
-import { Routes } from "react-router-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Navigate} from "react-router-dom";
 import Stores from "./components/Stores/Stores";
 import Cart from "./components/Cart/Cart";
 import Checkout from ".//components/Checkout/Checkout";
@@ -89,6 +89,10 @@ const Auth = () => {
               <Route path="/Deliveries/:id" element={<Delivery />} />
               <Route exact path="/Profile" element={<Profile />} />
               <Route exact path="/Logout" element={<Logout />} />
+              <Route
+                path="*"
+                element={<Navigate to="/app/Deliveries" replace />}
+            />
             </Routes>
           </>
         );

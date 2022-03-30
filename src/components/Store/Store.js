@@ -18,6 +18,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { CartContext } from "../../Contexts/CartContext";
 import axios from "axios";
 import Loader from "../Loader/Loader";
+import { UserContext } from "../../Contexts/UserContext";
 
 
 const Store = (props) => {
@@ -25,22 +26,27 @@ const Store = (props) => {
   const [cart, setCart] = useContext(CartContext);
   const [store, setstore] = useState({ loading: true });
   const baseURL = process.env.REACT_APP_STORE_BASE_URL;
+  const [user, setuser] = useContext(UserContext);
 
   useEffect(() => {
-    axios.get(baseURL + `stores/${id}`).then((res) => {
-      console.log(res.data);
-      if (cart.store_id == id) {
-        const storeMenu = res.data.menu;
-        cart.item_list.map((cartItem) => {
-          const itemIndex = storeMenu.findIndex(
-            (item) => item.id == cartItem.id
-          );
-          storeMenu[itemIndex].selected = true;
-        });
-        res.data = { ...res.data, menu: storeMenu };
-      }
-      setstore({ ...res.data, loading: false });
-    });
+    if(user.user_category == 'Customer'){
+      axios.get(baseURL + `stores/${id}`).then((res) => {
+        console.log(res.data);
+        if (cart.store_id == id) {
+          const storeMenu = res.data.menu;
+          cart.item_list.map((cartItem) => {
+            const itemIndex = storeMenu.findIndex(
+              (item) => item.id == cartItem.id
+            );
+            storeMenu[itemIndex].selected = true;
+          });
+          res.data = { ...res.data, menu: storeMenu };
+        }
+        setstore({ ...res.data, loading: false });
+      });
+   }else if(user.user_category == 'Staff'){
+      setstore({ ...user.storeData, loading: false });
+   }
   }, []);
 
   const addToCart = (item) => {

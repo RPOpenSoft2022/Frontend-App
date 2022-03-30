@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Order.css";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import { Table, Select, Input, Button } from "antd";
+import { Table, Select, Input } from "antd";
 import Box from "@mui/material/Box";
 import "antd/dist/antd.css";
 import SummarizeIcon from "@mui/icons-material/Summarize";
@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from '../Loader/Loader';
 import {Typography} from '@mui/material'
+import {Button} from '@mui/material'
 
 const Order = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const Order = () => {
 
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const access = localStorage.getItem("access");
+
   useEffect(() => {
     axios
       .get(baseURL + `order/${id}`, {
@@ -28,6 +30,17 @@ const Order = () => {
         setData({...res.data, "loading": false});
       });
   }, []);
+
+  const PrepareOrder = () => {
+    axios.post(baseURL + `order/${id}/prepared`)
+    .then((res)=>{
+      console.log(res);
+      window.alert(res.data['msg']);
+    }).catch((err)=>{
+      console.log(err);
+    }) 
+  }
+
   // const dataSource = [
   //   {
   //     name: "Item 1",
@@ -122,6 +135,15 @@ const Order = () => {
               Time: {new Date(data.order_time).toLocaleTimeString()}
             </Typography>
           </Box>
+          {
+            ((data.delivery_status == "('ACCEPTED', 'Preparing Item')")
+            ||
+            (data.delivery_status == "('PENDING', 'Payment Pending')"))
+            &&
+            <Button variant='contained' onClick={PrepareOrder}>
+              Order Prepared
+            </Button>
+          }
         </Box>
       </Box>}
     </>

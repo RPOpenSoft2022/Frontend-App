@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
 import { Table } from "antd";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import "antd/dist/antd.css";
 import { columns, columns1 } from "./TableColumn";
 import "./Orders.css";
+import { UserContext } from "../../Contexts/UserContext";
 
 const orderStatus = {
   1: "('PENDING', 'Payment Pending')",
@@ -30,6 +31,7 @@ const statusCodes = {
 export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [data, setData] = useState({ dataSource: [], dataSource1: [] });
+  const [user, setuser] = useContext(UserContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,15 +43,15 @@ export default function BasicTabs() {
   useEffect(() => {
     let dataSource = [],
       dataSource1 = [];
+    const fetchUrl = (user.user_category == 'Customer'?'past_order':`store/${user.store_id}`);
     axios
-      .get(baseURL + "order/past_orders", {
+      .get(baseURL + `order/${fetchUrl}`, {
         headers: { Authorization: `Bearer ${access}` },
       })
       .then((res) => {
         console.log(res.data);
         res.data.map((item) => {
           let status = item.delivery_status;
-          console.log(status);
           for (let i = 1; i <= 5; ++i) {
             if (status == orderStatus[i]) {
               if (i === 4 || i === 5) {
@@ -58,7 +60,6 @@ export default function BasicTabs() {
                   orderObject({ ...item, status: i }),
                 ];
               } else {
-                console.log("hey", i);
                 dataSource = [
                   ...dataSource,
                   orderObject({ ...item, status: i }),

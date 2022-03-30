@@ -23,6 +23,7 @@ import {useNavigate} from 'react-router-dom';
 function Checkout() {
   const [cart, setcart] = useContext(CartContext);
   const [user, setuser] = useContext(UserContext);
+  const [Address, setAddress] = useState(null);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
   const userBaseURL = process.env.REACT_APP_USER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
@@ -64,14 +65,14 @@ function Checkout() {
           setcart({});
         }
       },
-      // "prefill": {
-      //     "name": [user.first_name, user.middle_name, user.last_name].join(" "),
-      //     "email": user.email,
-      //     "contact": user.phone
-      // },
-      // "notes": {
-      //     "address": user.address
-      // },
+      "prefill": {
+          "name": [user.first_name, user.middle_name, user.last_name].join(" "),
+          "email": user.email,
+          "contact": user.phone
+      },
+      "notes": {
+          "address": Address
+      },
       "theme": {
           "color": "#FF5733"
       }
@@ -122,7 +123,7 @@ function Checkout() {
       "store_name": cart.store_name, 
       "item_list": item_list, 
       "token": localStorage.getItem('access'), 
-      "delivery_address": "RP Hall",
+      "delivery_address": Address,
       "customer_name": [user.first_name, user.middle_name, user.last_name].join(" "),
       "customer_phone_no": user.phone
     };
@@ -171,7 +172,19 @@ function Checkout() {
           {cart.item_list && cart.item_list.length && cart.item_list.map((item) => <CheckoutComponent {...item}/> )}
         </Box>
       </Container>
-        <Button variant="contained" size="large" onClick={processPayment}> <Typography fontSize={20}>Proceed </Typography> </Button>
+        <TextField
+          id="filled-multiline-flexible"
+          label="Delivery Address"
+          multiline
+          sx={{width: "500px", alignContent: "center", marginBottom: "10px"}}
+          rows={4}
+          maxRows={10}
+          value={Address}
+          onChange={(e)=>(setAddress(e.target.value))}
+          variant="outlined"
+          required
+        />
+        <Button disabled={!Address || !Address.length} variant="contained" size="large" onClick={processPayment}> <Typography fontSize={20}>Proceed </Typography> </Button>
     </Box>
   );
 }
@@ -208,7 +221,7 @@ const CheckoutComponent = (props) => {
             width="100%"
             height="100%"
             image={props.thumbnail}
-            alt="green iguana"
+            alt={props.name}
           />
         </Box>
         <Box

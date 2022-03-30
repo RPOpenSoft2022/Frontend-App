@@ -22,27 +22,27 @@ export const columns = [
   },
   {
     title: "View Delivery",
-    dataIndex: "order_id",
-    key: "order_id",
+    dataIndex: "delivery_id",
+    key: "delivery_id",
     width: 250,
     render: (text) => <Link to={`/app/Deliveries/${text}`}>View</Link>,
   },
   {
     title: "Status",
-    dataIndex: "delivery_status",
-    key: "delivery_status",
+    dataIndex: "status",
+    key: "status",
     width: 250,
     filters: [
       {
-        text: "Picked",
-        value: "Picked",
+        text: "PICKED",
+        value: "PICKED",
       },
       {
-        text: "Not Picked",
-        value: "Not Picked",
+        text: "NOT_PICKED",
+        value: "NOT_PICKED",
       },
     ],
-    onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
+    onFilter: (value, record) => record.status.indexOf(value) === 0,
   },
 ];
 
@@ -50,18 +50,7 @@ export const columns1 = columns.slice(0, 4);
 
 columns1.push({
   title: "Status",
-  dataIndex: "delivery_status",
-  key: "delivery_status",
+  dataIndex: "status",
+  key: "status",
   width: 250,
-  filters: [
-    {
-      text: "Delivered",
-      value: "Delivered",
-    },
-    {
-      text: "Cancelled",
-      value: "Cancelled",
-    },
-  ],
-  onFilter: (value, record) => record.delivery_status.indexOf(value) === 0,
 });

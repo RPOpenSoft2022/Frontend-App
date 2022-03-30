@@ -36,24 +36,24 @@ const Auth = () => {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const userData = res.data;
-    console.log('here');
+    console.log("here");
     console.log(userData);
-    if(userData['user_category'] == 'Staff'){
+    if (userData["user_category"] == "Staff") {
       const body = {
-        user_id: userData['id']
+        user_id: userData["id"],
       };
       const storeURL = process.env.REACT_APP_STORE_BASE_URL;
       const res = await axios.post(storeURL + "store_manager/", body);
       console.log(res.data);
-      await setUser({...userData, storeData: res.data});
+      await setUser({ ...userData, storeData: res.data });
       console.log(user);
-    }else{
-      await setUser({ ...userData});
+    } else {
+      await setUser({ ...userData });
     }
   };
 
   const AuthCheck = async () => {
-    console.log('auth check');
+    console.log("auth check");
     try {
       const res = await axios.post(baseURL + "token/verify/", {
         token: access,
@@ -87,6 +87,7 @@ const Auth = () => {
             <Routes>
               <Route path="/Deliveries" element={<Deliveries />} />
               <Route path="/Deliveries/:id" element={<Delivery />} />
+              <Route exact path="/Profile" element={<Profile />} />
               <Route exact path="/Logout" element={<Logout />} />
             </Routes>
           </>

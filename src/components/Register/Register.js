@@ -106,6 +106,7 @@ export default function Register() {
                   </InputAdornment>
                 ),
               }}
+              type="password"
               placeholder="Password"
               onChange={(e) => {
                 let runPassowrd = e.target.value;

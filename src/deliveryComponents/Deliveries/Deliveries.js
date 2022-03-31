@@ -115,6 +115,8 @@ export default function Deliveries() {
       })
       .then((res) => {
         console.log(res.data);
+        dataSource = [];
+        dataSource1 = [];
         res.data.map((delivery) => {
           let status = delivery.status;
           console.log(status);
@@ -124,13 +126,15 @@ export default function Deliveries() {
             dataSource1 = [...dataSource1, delivery];
           }
           console.log("hey", dataSource);
-          const updatedData = {
-            dataSource: dataSource,
-            dataSource1: dataSource1,
-            loading: false,
-          };
-          setData(updatedData);
         });
+
+        const updatedData = {
+          dataSource: dataSource,
+          dataSource1: dataSource1,
+          loading: false,
+        };
+        setData(updatedData);
+        
       });
   }, []);
 

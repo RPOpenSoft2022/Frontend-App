@@ -25,29 +25,10 @@ function Checkout() {
   const [user, setuser] = useContext(UserContext);
   const [Address, setAddress] = useState(null);
   const baseURL = process.env.REACT_APP_ORDER_BASE_URL;
-  const userBaseURL = process.env.REACT_APP_USER_BASE_URL;
   const [paymentResponse, setpaymentResponse] = useState({});
   const Razorpay = useRazorpay();
-  const [userOrderDetails, setuserOrderDetails] = useState({});
   const navigate = useNavigate();
   const access = localStorage.getItem('access');
-
-  useEffect(()=>{
-    const url = baseURL + "get-user/"
-		console.log(url);
-		const config = {
-		headers:{
-			Authorization: `Bearer ${access}` 
-			}		
-		}
-    axios.get(`${userBaseURL}get-user`, config)
-		.then(res => {
-			console.log(res);
-			setuserOrderDetails(res.data)
-		})
-		.catch((err) => window.alert(err.response.data["message"]))
-  },[]);
-  
 
   const payWithRazor = (data) => {
     let options = {
@@ -178,7 +159,6 @@ function Checkout() {
           multiline
           sx={{width: "500px", alignContent: "center", marginBottom: "10px"}}
           rows={4}
-          maxRows={10}
           value={Address}
           onChange={(e)=>(setAddress(e.target.value))}
           variant="outlined"
